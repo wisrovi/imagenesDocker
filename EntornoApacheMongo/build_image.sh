@@ -1,0 +1,1 @@
+docker build -t wisrovi/spring-boot-tomcat:v1 .
