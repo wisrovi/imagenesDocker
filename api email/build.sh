@@ -1,0 +1,1 @@
+sudo docker build -t "api_send_email:V1.0" .
