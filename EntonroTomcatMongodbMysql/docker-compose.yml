@@ -1,0 +1,33 @@
+version: "3"
+services: 
+    tomcat:
+        image: tomcat:9.0
+        container_name: apache-tomcat
+        ports:
+            - 8080:8080
+        volumes:
+            - D:\apache-tomcat\tomcat-war:/usr/local/tomcat/webapps
+        restart: always
+
+    mongodb:
+        image: mongo
+        container_name: mongodb
+        environment:
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - D:\apache-tomcat\database-mongo:/data/db
+        ports:
+            - 27017:27017
+        restart: always
+
+    mysql:
+        container_name: mysql
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "12345678"
+        volumes:
+            - D:\apache-tomcat\database-mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        restart: always
