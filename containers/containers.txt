@@ -15,3 +15,6 @@ sudo docker run -d --name kasmweb_kali --shm-size=512m -p 6901:6901 -e VNC_PW=pa
 sudo docker run -d --name kasmweb --shm-size=1024m -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm  -p 6901:6901 -e VNC_PW=password kasmweb/desktop-deluxe:develop-rolling
 
 
+# portainer
+# https://www.how2shout.com/linux/how-to-install-portainer-docker-web-gui/
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
