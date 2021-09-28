@@ -1,0 +1,8 @@
+# descargar la imagen
+docker pull aly199/anydesk:latest
+
+# construir imagen
+docker create --name anydesk --mount source=anydesk,target=/nonexistent/.anydesk --volume /tmp/.X11-unix/:/tmp/.X11-unix/:ro --env DISPLAY=$DISPLAY --user nobody aly199/anydesk:latest
+
+# crear contenedor
+xhost +local:docker && docker start anydesk
