@@ -1,12 +1,12 @@
 version: "3"
 services: 
     tomcat:
-        image: tomcat:8.0
-        container_name: apache-tomcat
+        build: ./tomcat-8.5
+        container_name: apache-tomcat-8.5
         ports:
             - 8080:8080
         volumes:
-            - D:\apache-tomcat\tomcat-war:/usr/local/tomcat/webapps
+            - D:\apache-tomcat\tomcat-war\webapps\:/usr/local/tomcat/webapps
         restart: always
 
     mongodb:
