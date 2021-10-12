@@ -15,6 +15,9 @@ sudo docker run -d --name kasmweb_kali --shm-size=512m -p 6901:6901 -e VNC_PW=pa
 # kasmweb
 sudo docker run -d --name kasmweb --shm-size=1024m -v /dev/snd:/dev/snd -v /dev/shm:/dev/shm  -p 6901:6901 -e VNC_PW=password kasmweb/desktop-deluxe:develop-rolling
 
+# slack
+sudo docker run -d --name slack   --shm-size=512m -p 6901:6901 -e VNC_PW=password kasmweb/slack:1.9.0
+
 #User : kasm_user
 #Password: password
 # *************************************************************************************
