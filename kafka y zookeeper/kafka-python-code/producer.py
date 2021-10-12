@@ -2,7 +2,7 @@ import time
 import json 
 import random 
 from datetime import datetime
-from data_generator import generate_message
+from data_generator import generate_message, design_message
 from kafka import KafkaProducer
 
 # Messages will be serialized as JSON 
@@ -17,12 +17,15 @@ producer = KafkaProducer(
 
 if __name__ == '__main__':
     # Infinite loop - runs until you kill the program
+    print("Nombre persona: ")
+    persona = input()
+
     while True:
         # Generate a message
 
         print("Mensaje enviar: ")
         data_send = input()
-        dummy_message = generate_message(data_send)
+        dummy_message = design_message(data_send, persona)
         
         # Send it to our 'messages' topic
         print(f'Producing message @ {datetime.now()} | Message = {str(dummy_message)}')
