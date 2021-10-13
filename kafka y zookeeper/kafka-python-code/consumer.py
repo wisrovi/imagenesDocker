@@ -12,5 +12,5 @@ if __name__ == '__main__':
         try:
             print(json.loads(message.value))
         except:
-            pass
+            print("Error convertir dato")
         
