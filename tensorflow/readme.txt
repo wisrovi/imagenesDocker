@@ -23,9 +23,9 @@ sudo systemctl restart docker
 
 docker run --gpus all --name=NVIDIA nvidia/cuda:9.0-base nvidia-smi
 
-docker pull tensorflow/tensorflow:latest-gpu-py3
-docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker pull tensorflow/tensorflow:latest-gpu
+docker pull tensorflow/tensorflow:latest-gpu-jupyter
 
-docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu-py3    python -c "import tensorflow as tf; print(tf.version); print(tf.test.is_gpu_available()); print(tf.test.is_built_with_cuda())"
+docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu    python -c "import tensorflow as tf; print(tf.version); print(tf.test.is_gpu_available()); print(tf.test.is_built_with_cuda())"
 
-docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Documentos/docker/tensorflow:/tf -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Documentos/docker/tensorflow:/tf -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu-jupyter
