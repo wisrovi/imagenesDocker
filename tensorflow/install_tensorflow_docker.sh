@@ -1,6 +1,8 @@
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
+sudo apt-get install curl
+
 sudo ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
 
