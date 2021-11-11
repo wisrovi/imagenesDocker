@@ -29,7 +29,7 @@ sudo docker run --gpus all --name=NVIDIA nvidia/cuda:9.0-base nvidia-smi
 sudo docker pull tensorflow/tensorflow:latest-gpu
 sudo docker pull tensorflow/tensorflow:latest-gpu-jupyter
 
-sudo docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Documentos/docker/tensorflow:/tf -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu-jupyter
+sudo docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v $(pwd):/tf -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu-jupyter
 
 sudo docker pull tensorflow/tensorflow:latest-gpu
 sudo docker pull tensorflow/tensorflow:latest-gpu-jupyter
