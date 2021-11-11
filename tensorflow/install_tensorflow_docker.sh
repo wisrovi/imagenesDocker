@@ -1,3 +1,6 @@
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
 sudo ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
 
@@ -27,4 +30,4 @@ docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Docu
 docker pull tensorflow/tensorflow:latest-gpu
 docker pull tensorflow/tensorflow:latest-gpu-jupyter
 
-
+sudo reboot
