@@ -47,6 +47,8 @@ apt update
 apt install anydesk -y
 
 
+sudo apt install snap
+sudo snap install notepad-plus-plus
 
 
 
