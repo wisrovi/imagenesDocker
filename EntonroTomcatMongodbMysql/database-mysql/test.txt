@@ -1,1 +1,9 @@
-test create
+# primero debemos crear la base de datos para poder usarla
+
+docker exec -it mysql-db mysql -p
+
+# contraseña, si no se ha cambiado el docker-compose, la contraseña es: 12345678
+
+create database admin;
+
+show databases;
