@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    speedtest:
+        container_name: speedtest
+        image: henrywhitaker3/speedtest-tracker
+        ports:
+            - 8765:80
+        volumes:
+            - /home/rh/Documentos/docker/speedtest:/config
+        environment:
+            - TELEGRAM_BOT_TOKEN=653209309:AAFetycZJhgK70XN-ZYJ2rmnRSbmn0dRmO4
+            - TELEGRAM_CHAT_ID=665928084
+            - OOKLA_EULA_GDPR=true
+            - AUTH=true
+        logging:
+            driver: "json-file"
+            options:
+                max-file: "10"
+                max-size: "200k"
+        restart: unless-stopped
