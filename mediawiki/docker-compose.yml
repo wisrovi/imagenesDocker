@@ -1,0 +1,19 @@
+version: '3'
+services:
+  wiki_ops:
+    image: mediawiki
+    container_name: wiki_ops
+    volumes:
+      - /home/rh/Documentos/docker/mediawiki/config/LocalSettings.php:/var/www/html/LocalSettings.php
+    hostname: wiki_ops
+    ports:
+      - 17145:80
+  wiki_db:
+    image: mariadb
+    container_name: wiki_db
+    hostname: wiki_db
+    environment:
+      MYSQL_DATABASE: wiki_ops
+      MYSQL_USER: wiki_ops
+      MYSQL_PASSWORD: changeme
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
