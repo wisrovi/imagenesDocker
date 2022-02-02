@@ -1,0 +1,9 @@
+version: '3'
+services:
+  mosquitto_broker:
+      image: wisrovi/mosquitto_broker:v1
+      ports:
+        - "1883:1884"
+      container_name: mosquitto_broker
+      restart: always
+      privileged: true
