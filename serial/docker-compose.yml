@@ -1,0 +1,12 @@
+version: '2'
+services:
+  controladoraMaestra:
+    image: akshmakov/serialport-server:latest
+    container_name: controladoraMaestra
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    ports:
+      - 2000:2000
+    environment:
+      BAUDRATE: 115200
+      DEVICE: /dev/ttyUSB0
