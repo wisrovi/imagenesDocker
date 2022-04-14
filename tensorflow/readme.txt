@@ -13,6 +13,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
+# instalar portainer
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -32,7 +33,11 @@ docker pull tensorflow/tensorflow:latest-gpu-jupyter
 
 docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu    python -c "import tensorflow as tf; print(tf.version); print(tf.test.is_gpu_available()); print(tf.test.is_built_with_cuda())"
 
-docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Documentos/docker/tensorflow:/tf -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu-jupyter
+# instalar jupyter
+docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Documentos/docker/tensorflow:/tf -p 8888:8888 -p 6006:6006 --user root -e GRANT_SUDO=yes -e NB_GID=100 -e GEN_CERT=yes   tensorflow/tensorflow:latest-gpu-jupyter
+
+# jupyter para kaggle
+docker run -u $(id -u):$(id -g) --gpus all -d --name TFM -v /media/wisrovi/J/TFM/2022/dataset/archive/musicnet/kaggle:/kaggle -v /media/wisrovi/J/TFM/2022/dataset/archive/musicnet/tf:/tf  -p 8889:8888 -p 6009:6006 --user root -e GRANT_SUDO=yes -e NB_GID=100 -e GEN_CERT=yes  tensorflow/tensorflow:latest-gpu-jupyter
 
 # otras instalaciones
 sudo apt install python3-pip -y
