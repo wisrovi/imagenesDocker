@@ -38,6 +38,10 @@ docker run -u $(id -u):$(id -g) --gpus all -d --name tensorflow -v /home/rh/Docu
 
 # jupyter para kaggle
 docker run -u $(id -u):$(id -g) --gpus all -d --name TFM -v /media/wisrovi/J/TFM/2022/dataset/archive/musicnet/kaggle:/kaggle -v /media/wisrovi/J/TFM/2022/dataset/archive/musicnet/tf:/tf  -p 8889:8888 -p 6009:6006 --user root -e GRANT_SUDO=yes -e NB_GID=100 -e GEN_CERT=yes  tensorflow/tensorflow:latest-gpu-jupyter
+#adentro del contenedor:
+apt-get install libsndfile1
+
+
 
 # otras instalaciones
 sudo apt install python3-pip -y
