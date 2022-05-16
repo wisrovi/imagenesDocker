@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  postgres:
+    image: wisrovi/postgres:v1
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=prueba
+    volumes: 
+      - ./db:/var/lib/postgresql/data
+    deploy:
+      resources:
+          limits:
+            cpus: 0.50
+            memory: 1024M
+          reservations:
+            cpus: 0.25
+            memory: 512M
+    ports:
+      - '5432:5432'
+    restart: always
