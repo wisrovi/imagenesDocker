@@ -1,0 +1,1 @@
+docker build -t wisrovi/postgres:v1 .

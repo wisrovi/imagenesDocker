@@ -1,9 +1,0 @@
-version: "3.7"
-services:
-    api_send_email:
-      container_name: api_send_email
-      image: api_send_email:V1.0
-      ports:
-         - 52525:5000
-      restart: always
-      privileged: true

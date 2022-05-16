@@ -1,0 +1,34 @@
+version: "3"
+services: 
+    tomcat:
+        build: ./tomcat-8.5
+        container_name: apache-tomcat-8.5
+        ports:
+            - 8080:8080
+        volumes:
+            - C:\apache-tomcat\tomcat-war\webapps\:/usr/local/tomcat/webapps
+            - C:\home\smartiplus\configuracion\:/home/smartiplus/configuracion/
+        restart: always
+
+    mongodb:
+        image: mongo
+        container_name: mongodb
+        environment:
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - C:\apache-tomcat\database-mongo:/data/db
+        ports:
+            - 27017:27017
+        restart: always
+
+    mysql:
+        container_name: mysql
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "12345678"
+        volumes:
+            - C:\apache-tomcat\database-mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        restart: always
