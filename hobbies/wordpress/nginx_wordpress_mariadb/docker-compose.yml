@@ -1,38 +1,114 @@
-version: '3'
+version: '3.9'
 services:
-  mysql:
+  db:
     image: mariadb
+    container_name: db
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - database:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: mysql_root_pass
       MYSQL_DATABASE: db_name
       MYSQL_USER: user_name
       MYSQL_PASSWORD: user_pass
     restart: always
-  wordpress:
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - backend
+  
+  app:
     image: wordpress:php7.3-fpm-alpine
+    container_name: app
     volumes:
-      - /data/html:/var/www/html
-    depends_on:
-      - mysql
+      - app:/var/www/html
     environment:
-      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_HOST: db
       MYSQL_ROOT_PASSWORD: mysql_root_pass
       WORDPRESS_DB_NAME: db_name
       WORDPRESS_DB_USER: user_name
       WORDPRESS_DB_PASSWORD: user_pass
+      
       WORDPRESS_TABLE_PREFIX: wp_
-    links:
-      - mysql
-    restart: always
-  nginx:
-    image: nginx:alpine
-    volumes:
-      #- ./nginx.conf:/etc/nginx/conf.d/nginx.conf
-      - ./:/etc/nginx/conf.d
-      - /data/html:/var/www/html
+
+      VIRTUAL_HOST: content.local
+      VIRTUAL_PORT: 8080
     ports:
       - 8080:80
+    restart: always
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
     links:
-      - wordpress
+      - mysql
+    networks:
+      - frontend
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: webserver
+    volumes:
+      - app:/var/www/html
+
+      # configuracion de nginx
+      - ./config/nginx-conf:/etc/nginx/conf.d
+
+      # certificados SSL
+      - ./config/certbot-etc:/etc/letsencrypt
+    ports:
+      - "8080:80"    # http
+      - "8443:443"   # https
+    restart: unless-stopped
+    depends_on:
+      - app
+    links:
+      - app
+    networks:
+      - frontend
+      - backend
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    volumes:
+      - ./config/certbot-etc:/etc/letsencrypt
+      - app:/var/www/html
+      - ./logs/certbot:/var/log/letsencrypt
+    command: [
+      "certonly",
+      
+      # complemento webroot que coloca los archivos en la carpeta webroot para la autenticación.
+      "--webroot", 
+      # especifica la ruta del directorio webroot. 
+      "--webroot-path=/var/www/html",
+
+      # registro los email
+      "--email", "wisrovi.rodriguez@gmail.com",
+
+      # acepta los Términos de servicio de ACME 
+      "--agree-tos", 
+
+      # no desea compartir su correo electrónico con EFF
+      "--no-eff-email",
+
+      #  certificados de prueba del entorno de ensayo de Let's Encrypt para probar su configuración antes de obtener el certificado real
+      #"--staging",
+
+      #  renovación de certificado para un certificado del mismo dominio
+      "--force-renewal", 
+
+      # registro los dominios
+      "-d", "wisrovi.local.com",
+      "-d", "www.wisrovi.local.com"
+    ]      
+    depends_on:
+      - nginx
+
+volumes:
+  app:
+  database:
+
+networks:
+  backend:
+  frontend:
+    driver: bridge
