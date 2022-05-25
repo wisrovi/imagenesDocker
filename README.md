@@ -10,9 +10,9 @@
   .
   .
   .
-  ENV TZ=America/Bogota`
-  ENV DEBIAN_FRONTEND=noninteractive`
-  RUN apt-get install tzdata -y`
+  ENV TZ=America/Bogota
+  ENV DEBIAN_FRONTEND=noninteractive
+  RUN apt-get install tzdata -y
   .
   .
   .
