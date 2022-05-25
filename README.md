@@ -5,7 +5,8 @@
 - en modo resumen:
  En el Dockerfile:
  
- ``` FROM ...
+ ``` 
+  FROM ...
   .
   .
   .
@@ -20,7 +21,7 @@
  
  
  En el docker-compose:
-  '''
+  ```
   .
   .
   .
@@ -30,5 +31,5 @@
   .
   .
   .
-  '''
+  ```
  
