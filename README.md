@@ -6,9 +6,13 @@
  En el Dockerfile:
  
  ` FROM ...`
+ 
   `.`
+  
   `.`
+  
   `.`
+  
   `ENV TZ=America/Bogota`
   `ENV DEBIAN_FRONTEND=noninteractive`
   `RUN apt-get install tzdata -y`
