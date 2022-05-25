@@ -6,6 +6,12 @@ FROM tomcat:8.5.47-jdk8-corretto
 # Add a sample WAR file
 #ADD sample.war /usr/local/tomcat/webapps/
 
+# Sicronizar zona horaria
+RUN apt-get install update
+ENV TZ=America/Bogota
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get install tzdata -y
+
 # Add a new role and user structure
 ADD tomcat-users.xml /usr/local/tomcat/conf/
 

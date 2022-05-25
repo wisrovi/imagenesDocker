@@ -3,19 +3,59 @@ services:
     tomcat:
         container_name: miproyecto-tomcat
         build: ./tomcat-8.5
+        environment:
+            - TZ=America/Bogota
+        volumes:
+            - ./tomcat-war:/usr/local/tomcat/webapps
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
         ports:
             - 8080:8080
-        volumes:
-            - D:\apache-tomcat\tomcat-war:/usr/local/tomcat/webapps
+        restart: always
 
     mongodb:
-        image: mongo
-        container_name: mongodb
+        image: mongo:5.0.6
+        #container_name: mongodb
         environment:
             - PUID=1000
             - PGID=1000
+            # credenciales
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=example
+            # zona horaria en sincronia con el host
+            - TZ=America/Bogota
         volumes:
-            - D:\apache-tomcat\database-mongo:/data/db
+            - ./database-mongo:/data/db
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        deploy:
+            resources:
+                limits:
+                    cpus: 0.50
+                    memory: 512M
+                reservations:
+                    cpus: 0.25
+                    memory: 128M
+        command: --wiredTigerCacheSizeGB 1.5
         ports:
             - 27017:27017
+        restart: always
+
+    mongo-express:
+        image: mongo-express:0.54
+        container_name: mongo-express
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+            ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+        deploy:
+            resources:
+                limits:
+                    cpus: 0.50
+                    memory: 512M
+                reservations:
+                    cpus: 0.15
+                    memory: 64M
+        ports:
+            - 8081:8081
         restart: always
