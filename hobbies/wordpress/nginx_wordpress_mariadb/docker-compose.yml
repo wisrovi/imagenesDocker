@@ -31,15 +31,15 @@ services:
 
       VIRTUAL_HOST: content.local
       VIRTUAL_PORT: 8080
-    ports:
-      - 8080:80
+    #ports:
+    #  - 8080:80
     restart: always
     tty: true
     stdin_open: true
     depends_on:
       - db
     links:
-      - mysql
+      - db
     networks:
       - frontend
       - backend
@@ -95,7 +95,7 @@ services:
       #"--staging",
 
       #  renovación de certificado para un certificado del mismo dominio
-      "--force-renewal", 
+      #"--force-renewal", 
 
       # registro los dominios
       "-d", "wisrovi.local.com",
@@ -110,5 +110,7 @@ volumes:
 
 networks:
   backend:
+    external: false
   frontend:
+    external: false
     driver: bridge
