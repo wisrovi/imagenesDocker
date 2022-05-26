@@ -1,0 +1,10 @@
+version: '3.9'
+services:  
+    certbot:
+      container_name: certbot
+      image: certbot/certbot:latest
+      command: certonly --webroot --webroot-path=/var/www/html --email wisrovi.rodriguez@gmail.com --agree-tos --no-eff-email -d wisrovi.local.com -d www.wisrovi.local.com
+      volumes:
+          - ./certbot/conf:/etc/letsencrypt
+          - ./certbot/logs:/var/log/letsencrypt
+          - ./certbot/data:/var/www/html

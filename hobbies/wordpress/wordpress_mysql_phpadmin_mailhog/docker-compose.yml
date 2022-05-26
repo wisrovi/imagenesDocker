@@ -1,0 +1,56 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    container_name: wp-1  
+    image: wordpress:latest
+    restart: "always"
+    ports:
+      - "80:80"
+    volumes:
+      - ./wordpress:/var/www/html  
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+
+  db:
+    container_name: mysql-1  
+    image: mysql:8.0.19
+    command: --default-authentication-plugin=mysql_native_password  
+    restart: "always"
+    volumes:
+      - ./db:/var/lib/mysql        
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+
+  phpmyadmin: 
+    container_name: phpmyadmin-1 
+    image: phpmyadmin/phpmyadmin     
+    ports:      
+      - "8080:80"  
+    restart: "always"   
+    depends_on:      
+      - db    
+    links:      
+      - db      
+    
+  # prueba de envios y recepcion de correos electronicos
+  mailhog:
+    container_name: mailhog-1 
+    image: mailhog/mailhog:latest
+    restart: "always"
+    ports:
+      - 1025:1025
+      - 8025:8025 
+
+# en wordpress instala este plugin: WP Mail Smtp – SMTP7
+# https://wordpress.org/plugins/wp-mail-smtp-mailer/
+# En configuración:
+# Host: mailhog
+# Port: 1025
