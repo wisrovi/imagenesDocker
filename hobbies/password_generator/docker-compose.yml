@@ -1,0 +1,16 @@
+version: "2"
+services:
+  bitwarden:
+    image: bitwardenrs/server
+    container_name: Bitwarden
+    volumes:
+      - './datos:/data/'
+    ports:
+      - 8002:80
+    labels:
+      - traefik.backend=bitwarden
+      - traefik.frontend.rule=Host:bitwarden.lordpedal.duckdns.org
+      - traefik.docker.network=traefik
+      - traefik.port=80
+      - traefik.enable=true
+    restart: always

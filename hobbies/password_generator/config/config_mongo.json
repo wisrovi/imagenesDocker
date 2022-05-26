@@ -1,0 +1,7 @@
+{
+  "mongo": "localhost",
+  "user": "root",
+  "password": "example",
+  "database": "banco",
+  "coleccion_mongo": "demo"
+}
