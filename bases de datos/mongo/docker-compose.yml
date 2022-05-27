@@ -11,10 +11,10 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 0.50
+            cpus: "0.50"
             memory: 512M
           reservations:
-            cpus: 0.25
+            cpus: "0.25"
             memory: 128M
     command: --wiredTigerCacheSizeGB 1.5
     ports:
@@ -34,10 +34,10 @@ services:
     deploy:
       resources:
           limits:
-            cpus: 0.50
+            cpus: "0.50"
             memory: 512M
           reservations:
-            cpus: 0.15
+            cpus: "0.15"
             memory: 64M
         
         

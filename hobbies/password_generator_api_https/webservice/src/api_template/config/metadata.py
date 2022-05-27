@@ -16,3 +16,14 @@ contact={
         "url": "https://www.linkedin.com/in/wisrovi-rodriguez/",
         "email": "wisrovi.rodriguez@gmail.com",
     }
+
+tags_metadata = [
+    {
+        "name": titulo,
+        "description": description,
+        "externalDocs": {
+            "description": "Referencia github",
+            "url": "https://github.com/wisrovi/",
+        },
+    },
+]

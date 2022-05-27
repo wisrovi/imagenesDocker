@@ -1,5 +1,5 @@
 {
-  "mongo": "localhost",
+  "mongo": "mongo",
   "user": "root",
   "password": "example",
   "database": "banco",

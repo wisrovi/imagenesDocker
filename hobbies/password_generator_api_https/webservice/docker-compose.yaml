@@ -1,0 +1,21 @@
+# MediaWiki with MariaDB
+#
+# Access via "http://localhost:8080"
+#   (or "http://$(docker-machine ip):8080" if using docker-machine)
+version: '3.7'
+services:
+  password_generator:
+      container_name: password_generator
+      image: password_generator:V1.0
+      ports:
+         - 5050:80
+      deploy:
+         resources:
+           limits:
+             cpus: "0.50"
+             memory: 512M
+           reservations:
+             cpus: "0.25"
+             memory: 128M
+      restart: always
+      privileged: true

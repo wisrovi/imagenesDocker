@@ -1,6 +1,6 @@
-from libraries.Mongo_conection import collection, validar_existe_author, validar_existe_password
-from Dto.Dto import *
-from libraries.Password_generador import Generator_password
+from local_aplication.libraries.Mongo_conection import collection, validar_existe_author, validar_existe_password
+from local_aplication.Dto.Dto import *
+from local_aplication.libraries.Password_generador import Generator_password
 
 # ********************************   DATOS   ************************************
 def Buscar_generar_clave(user, origin):

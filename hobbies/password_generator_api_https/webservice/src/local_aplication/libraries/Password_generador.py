@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash
 
 class Generator_password():
-    FILE = 'config/config_password.json'
+    FILE = 'local_aplication/config/general/config_password.json'
 
     import random   
     import json
