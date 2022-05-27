@@ -1,7 +1,0 @@
-{
-  "mongo": "mongo",
-  "user": "root",
-  "password": "example",
-  "database": "banco",
-  "coleccion_mongo": "demo"
-}
