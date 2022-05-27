@@ -1,11 +1,11 @@
 from pymongo import MongoClient, ASCENDING
-from Dto.Dto import *
+from local_aplication.Dto.Dto import *
 
 # ********************************   CONFIG   ************************************
 import json
 
 data = dict()
-with open('config/config_mongo.json') as f:
+with open('local_aplication/config/config_mongo.json') as f:
     data = json.load(f)
     #print(data)
 
