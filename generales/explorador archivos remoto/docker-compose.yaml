@@ -19,3 +19,7 @@ services:
       - LETSENCRYPT_HOST=wisrovi.com
       - LETSENCRYPT_EMAIL=wisrovi.rodriguez@gmail.com
     restart: always
+
+networks:
+  nginx-proxy-manager_npm:
+    external: true
