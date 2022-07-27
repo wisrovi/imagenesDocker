@@ -1,0 +1,31 @@
+# https://fullstackcode.dev/2022/07/09/run-oracle-database-with-docker/
+# https://geraldonit.com/2021/08/15/oracle-xe-docker-images/
+
+version: '3.3'
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21-slim        
+    container_name: oracledatabase    
+    ports:    
+      - 1521:1521
+    volumes:
+      - ./database-oracle/:/u01/app/oracle/oradata
+    environment:
+      ORACLE_PASSWORD: root # solo sirve cuando se usa el usuario SYSTEM
+      ORACLE_DATABASE: demo # usado en la conexion
+      APP_USER: SMP_PLUS # nombre esquema
+      APP_USER_PASSWORD: admin1234
+    deploy:
+      resources:
+          limits:
+            cpus: "0.50"
+            memory: 2048M
+          reservations:
+            cpus: "0.25"
+            memory: 128M
+    restart: always
+    healthcheck:
+      test: [ "CMD", "sh", "/opt/oracle/healthcheck.sh"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
