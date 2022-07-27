@@ -20,6 +20,12 @@ services:
     ports:
       - 27017:27017
     restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   mongo-express:
     image: mongo-express:0.54
@@ -39,5 +45,8 @@ services:
           reservations:
             cpus: "0.15"
             memory: 64M
+    depends_on:
+      mongo:
+        condition: service_healthy
         
         
