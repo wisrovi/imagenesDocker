@@ -1,0 +1,28 @@
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |       .------------- hour (0 - 23)
+# |       |       .---------- day of month (1 - 31)
+# |       |       |       .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |       |       |       |      .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |       |       |       |      |
+# *       *       *       *      * user-name command to be executed
+
+
+# do daily/weekly/monthly maintenance
+# min   hour    day     month   weekday command
+# */15    *       *       *       *       run-parts /etc/periodic/15min
+# 0       *       *       *       *       run-parts /etc/periodic/hourly
+# 0       2       *       *       *       run-parts /etc/periodic/daily
+# 0       3       *       *       6       run-parts /etc/periodic/weekly
+# 0       5       1       *       *       run-parts /etc/periodic/monthly
+
+
+# https://crontab.guru/examples.html
+@reboot     touch /home/healthcheck
+*/30       *       *       *       *      touch /home/healthcheck
+*       *       *       *       *       date
+*       *       *       *       *       echo "${CUSTOM_ENV_VAR}"
+*/6       *       *       *       *       curl http://test:3000/
+*/2       *       *       *       *       curl http://test:80/
+

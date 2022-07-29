@@ -5,19 +5,30 @@ services:
     image: fireflyiii/core:latest
     container_name: fireflyiii
     restart: always
+    labels:
+      "autoheal": "true"
+      Author: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+    networks:
+      - firefly
+    env_file: firefly_iii.env
     volumes:
       - ./firefly_iii_upload:/var/www/html/storage/upload
-    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - 83:8080
-    depends_on:
-      - db
       
   db:
     image: mariadb    
     container_name: database_fireflyiii
     hostname: fireflyiiidb
     restart: always
+    labels:
+      "autoheal": "true"
+      Author: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+    networks:
+      - firefly
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_USER=firefly
@@ -25,5 +36,40 @@ services:
       - MYSQL_DATABASE=firefly
     volumes:
       - ./firefly_iii_db:/var/lib/mysql      
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     #ports:
     #  - 3306:3306
+
+  #data_importer:
+  #  image: fireflyiii/data-importer:latest
+  #  container_name: import_firefly_iii
+  #  hostname: data
+  #  restart: always
+  #  labels:
+  #    "autoheal": "true"
+  #    Author: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+  #  networks:
+  #    - firefly
+  #  environment:
+  #    - VANITY_URL=http://localhost
+  #    - FIREFLY_III_URL=http://app:8080
+  #  depends_on:
+  #    db:
+  #      condition: service_healthy
+  #    app:
+  #      condition: service_started
+  #  ports:
+  #    - '84:8080'
+
+networks:
+  firefly:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 170.170.170.0/24      
+    name: red_firefly_iii
