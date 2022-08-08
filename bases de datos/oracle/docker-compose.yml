@@ -11,6 +11,7 @@ services:
       - 1521:1521
     volumes:
       - ./database-oracle/:/u01/app/oracle/oradata
+      - ./oradata:/opt/oracle/oradata
     environment:
       ORACLE_PASSWORD: root # solo sirve cuando se usa el usuario SYSTEM
       ORACLE_DATABASE: demo # usado en la conexion
