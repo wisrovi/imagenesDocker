@@ -33,3 +33,19 @@ services:
       MYSQL_PASSWORD: 'npm'
     volumes:
       - ./data/mysql:/var/lib/mysql
+  
+  duckdns:
+    image:  linuxserver/duckdns:arm32v7-version-e60b35ff
+    container_name: duckdns
+    environment:
+      - PUID=1000 
+      - PGID=1000 
+      - TZ=Europe/London
+      - SUBDOMAINS=kafkawisrovi, wisrovi
+      - TOKEN=febef3d7-8582-4373-909b-94f62b477906
+      - LOG_FILE=false 
+    volumes:
+      - ./appdata/config:/config l
+    restart: unless-stopped
+    depends_on:
+      - app
