@@ -1,0 +1,58 @@
+{
+    "url": "https://www.duckdns.org/domains",
+    "domains": [
+        {
+            "origin": "github wisrovi",
+            "token": "febef3d7-8582-4373-909b-94f62b477906",
+            "subdomain": [
+                "nginxwisrovi.duckdns.org",
+                "kafkawisrovi.duckdns.org",
+                "wisrovi.duckdns.org"
+            ]
+        },
+        {
+            "origin": "twitter wisrovi",
+            "token": "3ad491e2-468c-497f-ac56-785eb92d1966",
+            "subdomain": [
+                "demowisrovi.duckdns.org",
+                "mongowisrovi.duckdns.org",
+                "mysqlwisrovi.duckdns.org",
+                "oraclewisrovi.duckdns.org",
+                "posgresswisrovi.duckdns.org"
+            ]
+        },
+        {
+            "origin": "gmail wisrovi.rodriguez",
+            "token": "fb5c9fb3-59be-4d76-8775-880d137e2cb2",
+            "subdomain": [
+                "covertletter.duckdns.org",
+                "exploradorarchivos.duckdns.org",
+                "portainerwisrovi.duckdns.org",
+                "presupuesto.duckdns.org",
+                "wisrovirodriguez.duckdns.org"
+            ]
+        },
+        {
+            "origin": "gmail wisrovi.ivadventure",
+            "token": "857faaf1-13f5-4ccd-9dfd-e8928c4e0ff2",
+            "subdomain": [
+                "bitwardenwisrovi.duckdns.org",
+                "chesswisrovi.duckdns.org",
+                "ftpwisrovi.duckdns.org",
+                "tomcatwisrovi.duckdns.org",
+                "wikiwisrovi.duckdns.org"
+            ]
+        },
+        {
+            "origin": "gmail ruthy31567",
+            "token": "f0031a2b-2395-4383-9d12-672a91a6a839",
+            "subdomain": [
+                "jenkinswisrovi.duckdns.org",
+                "passwordgenerator.duckdns.org",
+                "piholewisrovi.duckdns.org",
+                "tensorflowkeras.duckdns.org",
+                "wordpresswisrovi.duckdns.org"
+            ]
+        }
+    ]
+}
