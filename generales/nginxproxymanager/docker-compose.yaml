@@ -41,8 +41,8 @@ services:
       - PUID=1000 
       - PGID=1000 
       - TZ=Europe/London
-      - SUBDOMAINS=kafkawisrovi, wisrovi
-      - TOKEN=febef3d7-8582-4373-909b-94f62b477906
+      - SUBDOMAINS=portainerwisrovi.duckdns.org, covertletter.duckdns.org
+      - TOKEN=fb5c9fb3-59be-4d76-8775-880d137e2cb2
       - LOG_FILE=false 
     volumes:
       - ./appdata/config:/config l
