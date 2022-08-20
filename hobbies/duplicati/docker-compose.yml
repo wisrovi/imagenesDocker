@@ -1,0 +1,19 @@
+# https://discourse.linuxserver.io/t/duplicati-docker-on-raspberry-pi-4/4309
+version: "2.1"
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:v2.0.6.3-2.0.6.3_beta_2021-06-17-ls131
+    container_name: duplicati
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - CLI_ARGS= #optional
+    volumes:
+      - ./config:/config
+      #- </path/to/backups>:/backups
+      - /home/docker:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
