@@ -1,0 +1,16 @@
+# https://smarthomepursuits.com/configure-homer-dashboard-docker-python/
+
+version: '3.3'
+services:
+    homer:
+        image: 'b4bz/homer:latest'
+        container_name: homer
+        ports:
+            - '8080:8080'
+        volumes:
+            - './assets/:/www/assets'
+        restart: always
+        user: 1000:1000 # default
+        environment:
+            - INIT_ASSETS=1 # default
+
