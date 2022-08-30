@@ -1,34 +1,41 @@
 version: '3'
 services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./vhost.d:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+      - ./certs:/etc/nginx/certs:ro
+      - ./config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./config//nginx-custom.conf:/etc/nginx/conf.d/custom.conf:ro
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    volumes:
+      - ./certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - nginx-proxy:rw
+
   server1:
-    container_name: server1
+    container_name: server_www
     image: nginx
+    expose:
+      - 80
     volumes:
       - ./html/index.1.html:/usr/share/nginx/html/index.html
-    #ports:
-    #  - 80:80
-
-  server2:
-    container_name: server2
-    image: nginx
-    volumes:
-      - ./html/index.2.html:/usr/share/nginx/html/index.html
-    #ports:
-    #  - 80:80
-
-  server3:
-    container_name: server3
-    image: nginx
-    volumes:
-      - ./html/index.3.html:/usr/share/nginx/html/index.html
-    #ports:
-    #  - 80:80
-
-  nginx:
-    container_name: nginx_demo
-    image: nginx
-    volumes:
-      - ./config/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 80:80
+    environment:
+      VIRTUAL_HOST: wisrovi.duckdns.org
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_HOST: wisrovi.duckdns.org
+      LETSENCRYPT_EMAIL: wisrovi.rodriguez@gmail.com
+  
     

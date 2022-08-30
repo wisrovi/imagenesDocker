@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:      
+  db:
+    image: mariadb    
+    container_name: database_licencias_uniongr
+    restart: always
+    labels:
+      "autoheal": "true"
+      Author: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+    networks:
+      - licencias_union
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=licenciasdb
+      - MYSQL_PASSWORD=secret_licenciasdb_password
+      - MYSQL_DATABASE=licenciasdb
+    volumes:
+      - ./db:/var/lib/mysql      
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    ports:
+      - 3306:3306
+      
+  web:
+    build: app
+    container_name: licencias_uniongr
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/code
+    ports:
+      - "8000:8000"
+    labels:
+      "autoheal": "true"
+      Author: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+    depends_on:
+      - db
+    networks:
+      - licencias_union
+    restart: always
+
+networks:
+  licencias_union:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 170.170.170.0/24      
+    name: red_licencias_union

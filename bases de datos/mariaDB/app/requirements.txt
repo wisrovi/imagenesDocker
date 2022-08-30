@@ -1,0 +1,5 @@
+Django
+django-jet-reboot
+djangorestframework
+mysqlclient
+six
