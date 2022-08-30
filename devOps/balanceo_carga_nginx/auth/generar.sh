@@ -1,0 +1,1 @@
+htpasswd -Bbn admin 12345678 >> htpasswdp

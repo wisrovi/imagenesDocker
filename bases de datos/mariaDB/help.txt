@@ -1,0 +1,5 @@
+https://cosasdedevs.com/posts/como-crear-una-api-completa-con-django-rest-framework/
+
+https://www.youtube.com/watch?v=wN-88aIx8SM
+
+https://pypi.org/project/django-jet-reboot/
