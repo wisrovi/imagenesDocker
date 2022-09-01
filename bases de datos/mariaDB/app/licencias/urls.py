@@ -18,7 +18,7 @@ from django.urls import path, include
 from serial_mac.api.router import router_serial
 from rest_framework.authtoken.views import obtain_auth_token
 
-from serial_mac.views import login
+from serial_mac.views import login, activation, licence
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
@@ -30,5 +30,8 @@ urlpatterns = [
     path('api/', include(router_serial.urls)),
 
     path('api-token-auth/', obtain_auth_token),
-    path("login/", login)
+
+    path("login/", login),
+    path("activation/", activation),
+    path("licence/", licence)
 ]
