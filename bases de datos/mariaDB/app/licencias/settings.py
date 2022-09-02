@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-!g#&!+%cpv*0=-&a0h(^40czmma&hmdq&^$xsoxbzpmh8$7qt#'
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -30,7 +32,6 @@ ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = [
     'jet',
-    # 'jet.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'serial_mac',
+    'core.serial_mac',
     # 'ckeditor',
 ]
 
@@ -143,3 +144,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

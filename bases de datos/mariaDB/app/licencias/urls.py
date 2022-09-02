@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from serial_mac.api.router import router_serial
+from core.serial_mac.api.router import router_serial
 from rest_framework.authtoken.views import obtain_auth_token
 
-from serial_mac.views import login, activation, licence
+from core.serial_mac.views import login, activation, licence
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path('serial_mac/', include("serial_mac.urls")),
+    path('serial_mac/', include("core.serial_mac.urls")),
     path('api/', include(router_serial.urls)),
 
     path('api-token-auth/', obtain_auth_token),
