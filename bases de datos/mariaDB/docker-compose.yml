@@ -16,13 +16,12 @@ services:
       - MYSQL_PASSWORD=secret_licenciasdb_password
       - MYSQL_DATABASE=licenciasdb
     volumes:
-      - ./db:/var/lib/mysql      
+      - postgress_db:/var/lib/mysql      
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 10s
       timeout: 10s
       retries: 5
-      start_period: 40s
     ports:
       - 3306:3306
       
@@ -43,10 +42,13 @@ services:
       - licencias_union
     restart: always
 
+volumes:
+  postgress_db:
+
 networks:
   licencias_union:
     driver: bridge
     ipam:
       config:
         - subnet: 170.170.170.0/24      
-    name: red_licencias_union
+    # name: red_licencias_union
