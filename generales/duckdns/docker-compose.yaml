@@ -1,16 +1,16 @@
 version: "2.1"
 services:
   duckdns:
-    image:  linuxserver/duckdns:amd64-version-3a3dda8a
+    image:  ghcr.io/linuxserver/duckdns
     #image:  linuxserver/duckdns:arm32v7-version-e60b35ff
-    container_name: duckdns
+    container_name: duckdns_gmail_wisrovi_rodriguez
     environment:
       - PUID=1000 
       - PGID=1000 
       - TZ=Europe/London
-      - SUBDOMAINS=kafkawisrovi, wisrovi
-      - TOKEN=febef3d7-8582-4373-909b-94f62b477906
+      - SUBDOMAINS=presupuesto,portainerwisrovi,exploradorarchivos,wisrovirodriguez
+      - TOKEN=fb5c9fb3-59be-4d76-8775-880d137e2cb2
       - LOG_FILE=false 
     volumes:
       - ./appdata/config:/config l
-    restart: unless-stopped
+    restart: unless-stopped  

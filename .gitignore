@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+generales/nginxproxymanager/data/mysql/abf67cfa157b.pid
+generales/nginxproxymanager/data/mysql/aria_log.00000001
+generales/nginxproxymanager/data/mysql/aria_log_control
+*.pid
