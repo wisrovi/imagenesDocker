@@ -1,0 +1,1 @@
+ docker run --name redis -d -p 6379:6379 arm32v6/redis:5-alpine3.16 --appendonly yes --maxmemory 150mb --tcp-backlog 64  --save 60 1 --loglevel warning
