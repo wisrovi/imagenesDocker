@@ -38,4 +38,4 @@ sudo ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
 sudo reboot
 
-
+# https://la.nvidia.com/Download/driverResults.aspx/193108/la
