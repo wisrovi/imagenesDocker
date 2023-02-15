@@ -2,28 +2,27 @@
 
 FROM postgres:13.2
 
+ENV TERM=xterm
+
 LABEL maintainer="wisrovi.rodriguez@gmail.com"
 
-# Create plpython3u when the db starts. 
+# Create plpython3u when the db starts.
 RUN echo 'CREATE EXTENSION IF NOT EXISTS plpython3u;' > /docker-entrypoint-initdb.d/py3.sql
 
-# Create pg_stat_statements when the db starts. 
+# Create pg_stat_statements when the db starts.
 RUN echo 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements;' > /docker-entrypoint-initdb.d/pg_stat.sql
 
-# Create postgis when the db starts. 
+# Create postgis when the db starts.
 RUN echo 'CREATE EXTENSION IF NOT EXISTS postgis;' > /docker-entrypoint-initdb.d/postgis.sql
 
-RUN apt update 
+RUN apt update
 
 # Instalo paquetes del sistema
 ARG PG_MAJOR=13
 RUN apt-get install -y python3
 RUN apt-get install -y postgresql-plpython3-${PG_MAJOR}
 RUN apt-get install -y postgresql-13-mysql-fdw
-RUN apt-get install -y python3-pip 
-
-RUN apt-get install -y postgis postgresql-${PG_MAJOR}-postgis-3
-RUN apt-get install -y postgresql-${PG_MAJOR}-postgis-3-scripts
+RUN apt-get install -y python3-pip
 
 # Hago una limpieza en el sistema
 RUN  apt-get clean && \
@@ -38,3 +37,11 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 5432
 CMD ["postgres"]
+
+# estos comandos se deben ejecutar en el contenedor luego de crearlo
+# para ingresar se usa: docker-compose exec postgres bash
+# apt-get update
+# apt-get upgrade -y
+# apt-get install -y postgis postgresql-13-postgis-3
+# >> opcion 1
+# apt-get install -y postgresql-13-postgis-3-scripts
