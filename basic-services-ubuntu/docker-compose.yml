@@ -1,0 +1,67 @@
+version: "3.3"
+
+services:
+  autoheal:
+    container_name: autoheal
+    image: willfarrell/autoheal
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+    environment:
+        - AUTOHEAL_INTERVAL=10
+        - CURL_TIMEOUT=30
+        - AUTOHEAL_CONTAINER_LABEL=all
+    restart: always
+
+  snippet-box:
+    container_name: snippet-box
+    image: pawelmalak/snippet-box
+    volumes:
+        - './snippet-box:/app/data'
+    ports:
+        - '5555:5000'
+    restart: always
+
+  homer:
+    container_name: homer
+    image: b4bz/homer
+    volumes:
+        - './homer:/www/assets'
+    ports:
+        - '8080:8080'
+    restart: always
+
+  filebrowser:
+    container_name: filebrowser
+    image: hurlenko/filebrowser
+    volumes:
+      - /home/ia/Documentos/sharing:/data
+      - ./file_remote_explorer/config:/config
+    ports:
+      - 8777:8080
+    environment:
+      - PUID=1000
+      - PGID=1000
+    #  - TZ="Asia/Shanghai"
+      - FB_BASEURL=/
+      - VIRTUAL_HOST=wisrovi.com
+      - VIRTUAL_PORT=8080
+    restart: always
+
+  speedtest:
+    container_name: speedtest
+    image: henrywhitaker3/speedtest-tracker
+    volumes:
+        - ./speedtest:/config
+    ports:
+        - 8765:80
+    environment:
+        - TELEGRAM_BOT_TOKEN=653209309:AAFetycZJhgK70XN-ZYJ2rmnRSbmn0dRmO4
+        - TELEGRAM_CHAT_ID=665928084
+        - OOKLA_EULA_GDPR=true
+        - AUTH=true
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "10"
+            max-size: "200k"
+    restart: always
