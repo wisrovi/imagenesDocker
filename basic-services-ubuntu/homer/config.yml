@@ -1,0 +1,198 @@
+---
+# Homepage configuration
+# See https://fontawesome.com/v5/search for icons options
+
+title: "Dashboard atajos importantes"
+subtitle: "Homer"
+logo: "logo.png"
+# icon: "fas fa-skull-crossbones" # Optional icon
+
+header: true
+footer: '<p>Creado con <span class="has-text-danger">❤️</span> '
+
+# Optional theme customization
+theme: default
+colors:
+  light:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#ffffff"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link: "#3273dc"
+    link-hover: "#363636"
+  dark:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#131313"
+    card-background: "#2b2b2b"
+    text: "#eaeaea"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#f5f5f5"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link: "#3273dc"
+    link-hover: "#ffdd57"
+
+# Optional message
+message:
+  #url: https://b4bz.io
+  style: "is-dark" # See https://bulma.io/documentation/components/message/#colors for styling options.
+  title: "Descripcion"
+  icon: "fa fa-grin"
+  content: "Esto es un banco de atajos a sitios importantes del dia a dia. <br /> A continuacion los atajos <a href='#'>#</a>"
+
+# Optional navbar
+# links: [] # Allows for navbar (dark mode, layout, and search) without any links
+links:
+  #- name: "Contribute"
+  #  icon: "fab fa-github"
+  #  url: "https://github.com/bastienwirtz/homer"
+  #  target: "_blank" # optional html a tag target attribute
+  #- name: "Wiki"
+  #  icon: "fas fa-book"
+  #  url: "https://www.wikipedia.org/"
+  # this will link to a second homer page that will load config from additional-page.yml and keep default config values as in config.yml file
+  # see url field and assets/additional-page.yml.dist used in this example:
+  
+  - name: "Google"
+    icon: "fas fa-file-alt"
+    url: "https://www.google.com/"
+
+  - name: "Buscador Dev"
+    icon: "fas fa-file-alt"
+    url: "https://you.com/" 
+    
+  - name: "Buscador academico"
+    icon: "fas fa-file-alt"
+    url: "https://scholar.google.com/"
+
+# Services
+# First level array represent a group.
+# Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+services:
+  - name: "Sitios interes"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Github wisrovi"
+        logo: "assets/tools/github-wisrovi.jpeg"
+        subtitle: "Abri mi github"
+        tag: "github"
+        keywords: "github wisrovi"
+        url: "https://github.com/wisrovi/"
+        target: "_blank" # optional html a tag target attribute
+    
+      - name: "Linkedin wisrovi"
+        logo: "assets/tools/linkedin.png"
+        subtitle: "Abri mi Linkedin"
+        tag: "Linkedin"
+        keywords: "Linkedin wisrovi"
+        url: "https://www.linkedin.com/in/wisrovi-rodriguez/"
+
+  - name: "Estudiar IA"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Pyimagesearch"
+        logo: "assets/tools/pyimagesearch.png"
+        subtitle: "Abri escuela y codigos"
+        tag: "pyimagesearch"
+        keywords: "pyimagesearch"
+        url: "https://pyimagesearch.mykajabi.com/library"
+        target: "_blank" # optional html a tag target attribute
+
+  - name: "Correos"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Gmail"
+        logo: "assets/tools/Gmail.png"
+        subtitle: "Abri Gmail"
+        tag: "correo, gmail"
+        keywords: "Gmail"
+        url: "https://mail.google.com/mail/u/0/"
+        target: "_blank" # optional html a tag target attribute
+
+      - name: "Correo Union"
+        logo: "assets/tools/webmail.png"
+        subtitle: "Abri webmail"
+        tag: "correo, webmail"
+        keywords: "webmail"
+        url: "https://webmail.mi.com.co/?_task=mail&_mbox=INBOX"
+        target: "_blank" # optional html a tag target attribute
+
+      - name: "Correo whitebearsolutions"
+        logo: "assets/tools/whitebearsolutions.jpeg"
+        subtitle: "Abri whitebearsolutions"
+        tag: "correo, whitebearsolutions"
+        keywords: "whitebearsolutions"
+        url: "https://www.office.com"
+        target: "_blank" # optional html a tag target attribute        
+      
+  - name: "Utilidades"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Tradutor"
+        logo: "assets/tools/traductor-google.png"
+        subtitle: "Abri traductor"
+        tag: "Tradutor"
+        keywords: "Tradutor"
+        url: "https://translate.google.es/"  
+
+  - name: "Docs dev"
+    icon: "fas fa-cloud"
+    items:
+      - name: "overapi"
+        logo: "assets/tools/overapi.png"
+        subtitle: "Abri overapi"
+        tag: "overapi"
+        keywords: "overapi"
+        url: "https://overapi.com/"
+        target: "_blank" # optional html a tag target attribute
+      
+      - name: "devdocs"
+        logo: "assets/tools/code.jpg"
+        subtitle: "Abri devdocs"
+        tag: "devdocs"
+        keywords: "devdocs"
+        url: "https://devdocs.io/"
+        target: "_blank" # optional html a tag target attribute
+
+  - name: "Docker local"
+    icon: "fas fa-cloud"
+    items:
+      - name: "Portainer"
+        logo: "assets/tools/portainer.svg"
+        subtitle: "Abrir portainer"
+        tag: "docker, local"
+        keywords: "self hosted portainer"
+        url: "http://localhost:9999/#!/2/docker/containers"
+        target: "_blank" # optional html a tag target attribute
+
+      - name: "Snippets"
+        logo: "assets/tools/snippets.png"
+        subtitle: "Almacen fragmentos de codigo"
+        tag: "docker, local"
+        url: "http://localhost:5555/snippets"
+
+      - name: "File browser"
+        logo: "assets/tools/file-browser.svg"
+        subtitle: "Navegador archivos web"
+        tag: "docker, local"
+        url: "http://localhost:8777/files/"
+
+      - name: "Duplicati"
+        logo: "assets/tools/duplicati.png"
+        subtitle: "Backup de archivos de disco a nube"
+        tag: "docker, local"
+        url: "http://localhost:8200/ngax/index.html"
+
+      - name: "Speedtest"
+        logo: "assets/tools/speedtest.png"
+        subtitle: "Tracking de velocidad de internet"
+        tag: "docker, local"
+        url: "http://localhost:8765/"
