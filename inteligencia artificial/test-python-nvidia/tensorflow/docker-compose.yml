@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  sidecar_tf:
+    tty: true
+    build: 
+      context: .
+      dockerfile: Dockerfile.tf
+    command: tail -f /dev/null
+    volumes:
+      - ./:/tmp
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  
+  
