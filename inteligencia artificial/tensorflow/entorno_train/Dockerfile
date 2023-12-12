@@ -1,4 +1,5 @@
 FROM tensorflow/tensorflow:latest-gpu-jupyter
+FROM --platform=linux/amd64 python:3.10.12-slim-bullseye
 
 USER root
 
@@ -29,11 +30,13 @@ WORKDIR /tmp
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools pip
+RUN pip install jupyterlab
 RUN pip install --no-cache-dir --upgrade -r /tmp/requirements.txt 
 
 WORKDIR /models
 WORKDIR /datasets
 WORKDIR /library
+WORKDIR /content
 WORKDIR /tf
 
 
@@ -50,3 +53,5 @@ EXPOSE 8888
 RUN echo "figlet Custom Jupyter" >> ~/.zshrc
 RUN echo "figlet Custom Jupyter" >> ~/.bashrc
 
+
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

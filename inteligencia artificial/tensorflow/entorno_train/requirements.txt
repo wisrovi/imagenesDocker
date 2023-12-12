@@ -5,6 +5,7 @@ pandas
 numpy
 matplotlib
 
+pillow==9.5.0
 scikit-learn
 scikit-image
 scipy
