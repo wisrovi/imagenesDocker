@@ -1,0 +1,95 @@
+/* Estilos para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 30%;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+    margin-bottom: 10px;
+}
+
+/* Estilos para los botones */
+button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.save-button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Estilos para el input de archivo */
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+
+.custom-btn-img img {
+    width: 300px;
+    height: 300px;
+}
+
+/* Estilo para los textos de descripción dentro de los cards */
+.card-description {
+    font-size: 90%; /* Tamaño ligeramente más pequeño que el texto del footer */
+    text-align: justify; /* Justificar el texto */
+}
+
+/* Estilo para los textos del footer dentro de los cards */
+.card-footer-text {
+    font-size: 100%; /* Tamaño normal del texto */
+}
+
+.btn-primary {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Eliminar borde */
+    padding: 0; /* Eliminar relleno */
+}
+
+.btn-primary img {
+    display: block; /* Mostrar imagen como bloque */
+}
+
+.btn-primary span {
+    display: none; /* Ocultar el texto "Entrenar" por defecto */
+}
+
+.btn-primary:hover span {
+    display: block; /* Mostrar el texto "Entrenar" al pasar el mouse */
+}
