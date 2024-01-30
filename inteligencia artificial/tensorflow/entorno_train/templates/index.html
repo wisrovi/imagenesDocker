@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FastAPI Web</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Estilos personalizados -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/css/styles.css') }}"
+    />
+
+    <!-- Importar archivo JavaScript -->
+    <script src="{{ url_for('static', path='js/boton_guardar.js') }}"></script>
+
+
+    <style>
+      /* Estilo para forzar dos tarjetas por fila */
+      .card-deck .card {
+        width: 48%; /* Ajustar el tamaño según el espacio disponible */
+        margin-right: 1%; /* Agregar un pequeño margen entre las tarjetas */
+        margin-bottom: 20px; /* Espacio entre las filas */
+        float: left; /* Forzar a que las tarjetas se alineen horizontalmente */
+        min-height: 400px; /* Establecer altura mínima para los cards */
+      }
+      .card-deck .card:nth-child(2n) {
+        margin-right: 0; /* Quitar margen a la segunda tarjeta para evitar desbordamiento */
+      }
+      /* Estilo para centrar el footer */
+      footer.footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f5f5f5;
+        text-align: center;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body data-se-adjunto-archivo="{{ se_adjunto_archivo }}">
+    <div class="container">
+      <h1 class="mt-5">Entrenar modelos de eyesDcar</h1>
+
+      <div class="card-deck mt-4">
+        <!-- Card 1 -->
+        <div class="card text-center">
+          <div class="card-header">
+            <h5 class="card-title my-auto">Entrenar modelo de angulos</h5>
+          </div>
+          <div class="card-body">
+            <div class="card-description">
+              <form
+                action="/uploadfile1/"
+                method="post"
+                enctype="multipart/form-data"
+              >
+              <div class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="fileInput1" class="mr-2">Adjuntar ZIP</label>
+                    <input type="file" class="form-control-file" id="fileInput1" name="file">
+                </div>
+            </div>
+
+                <div class="form-group">
+                  <label>
+                    Reconocimiento de ángulos de posición del coche, simulando
+                    una brújula donde, si el coche mira a la izquierda
+                    perpendicular al borde inferior (la referencia de "mirar" se
+                    refiere a que la parte delantera del coche, sus faros,
+                    serían los ojos que miran), se muestra un incremento en el
+                    sentido de las manecillas del reloj de 15 grados en 15
+                    grados. Este proceso se utiliza para entrenar un modelo de
+                    clasificación de instancias en la imagen donde se busca el
+                    coche más grande, y dentro de este, se busca el ángulo de
+                    orientación.
+                  </label>
+                </div>
+            </div>
+                        <label class="mr-2">De clic en la imagen para iniciar el entrenamiento del modelo</label>
+                        <br>
+                        <button type="submit" alt="Guardar" class="btn btn-primary custom-btn-img guardarBtn">
+                        <img
+                            src="{{ url_for('static', path='/images/brujula.jpg') }}"
+                            alt="Guardar"
+                        />
+                        </button>
+                        <div class="mensaje" style="display:none;">Oprime primero se debe adjuntar el dataset</div>
+              </form>
+            </div>
+            <!-- Texto dinámico desde el backend -->
+            <div class="card-footer">
+              <div class="card-footer-text">{{ datos_card1 }}</div>
+            </div>
+        </div>
+      </div>
+
+      <div class="card-deck mt-4">
+        <!-- Card 2 -->
+        <div class="card text-center">
+          <div class="card-header">
+            <h5 class="card-title my-auto">
+              Entrenar modelo de partes del coche
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="card-description">
+            <form
+              action="/uploadfile2/"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="fileInput2">Adjuntar ZIP</label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="fileInput2"
+                  name="file"
+                />
+              </div>
+              <!-- Descripción quemada -->
+              <div class="form-group">
+                <label>
+                  Reconocimiento de las partes del coche. Estas son: 'Marco',
+                  'Faro', 'Paragolpes delantero', 'Paragolpes trasero', 'Capó',
+                  'Puerta', 'Cristal', 'Luna', 'Techo', 'Maletero',
+                  'Retrovisor', 'Matrícula', 'Ruedas', 'Aleta', 'Faldón',
+                  'Marco+Aleta'. Este proceso se utiliza para entrenar un modelo
+                  de segmentación de partes del coche que identifique cada una
+                  de las partes mencionadas.
+                </label>
+              </div>
+            </div>
+            <label class="mr-2">De clic en la imagen para iniciar el entrenamiento del modelo</label>
+            <br>
+              <button type="submit" alt="Guardar" class="btn btn-primary custom-btn-img guardarBtn">
+                <img
+                  src="{{ url_for('static', path='/images/Partes coche.jpg') }}"
+                  alt="Guardar"
+                />
+              </button>
+              <div class="mensaje" style="display:none;">Oprime primero se debe adjuntar el dataset</div>
+            </form>
+          </div>
+          <!-- Texto dinámico desde el backend -->
+          <div class="card-footer">
+            <div class="card-footer-text">{{ datos_card2 }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-deck mt-4">
+        <!-- Card 3 -->
+        <div class="card text-center">
+          <div class="card-header">
+            <h5 class="card-title my-auto">
+              Entrenar modelo de daños en el coche
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="card-description">
+            <form
+              action="/uploadfile3/"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="fileInput3">Adjuntar ZIP</label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="fileInput3"
+                  name="file"
+                />
+              </div>
+              <!-- Descripción quemada -->
+              <div class="form-group">
+                <label>
+                  Reconocimiento de daños del coche. Estos son: 'Bollo',
+                  'Cristal roto', 'Roce'. Este proceso se utiliza para entrenar
+                  un modelo de segmentación de partes del coche que identifique
+                  cada uno de los daños mencionados. El objetivo es determinar
+                  la ubicación del daño, su forma y su tipo.
+                </label>
+              </div>
+            </div>
+            <label class="mr-2">De clic en la imagen para iniciar el entrenamiento del modelo</label>
+            <br>
+              <button type="submit" alt="Guardar" class="btn btn-primary custom-btn-img guardarBtn">
+                <img
+                  src="{{ url_for('static', path='/images/damage.jpg') }}"
+                  alt="Guardar"
+                />
+              </button>
+              <div class="mensaje" style="display:none;">Oprime primero se debe adjuntar el dataset</div>
+            </form>
+          </div>
+          <!-- Texto dinámico desde el backend -->
+          <div class="card-footer">
+            <div class="card-footer-text">{{ datos_card3 }}</div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <span class="text-muted">Creado por: William Rodriguez, 2024</span>
+        </div>
+      </footer>
+    </div>
+    <!-- Scripts de Bootstrap y jQuery (opcional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
