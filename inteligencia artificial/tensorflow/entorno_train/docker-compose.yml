@@ -49,3 +49,30 @@ services:
     ports:
       - 8888:8888
     restart: always
+
+  eyesdcar_train:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: eyesdcar_train
+    ports:
+      - "3722:80"  # Mapea el puerto 3722 del host al puerto 80 del contenedor
+    volumes:
+      - ./app:/app  # Monta el código de la aplicación en el contenedor
+      - ./jupyter/datasets:/datasets
+    environment:
+      - PYTHONPATH=/app  # Establece la variable de entorno PYTHONPATH
+      - PATH_FILES=/datasets  # Establece la variable de entorno PATH_FILES
+    restart: always
+
+    deploy:
+      resources:
+        reservations:
+          # reserves 1024MMB of the RAM memory of the host
+          memory: 1024M
+    logging:
+      driver: "json-file" # json-file syslog none
+      options:
+        max-size: "200k"
+        max-file: "10"
+ 
