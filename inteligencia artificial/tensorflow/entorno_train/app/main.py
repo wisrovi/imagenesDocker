@@ -71,7 +71,7 @@ async def create_upload_file3(file: UploadFile = File(...)):
 
     contents = await file.read()
 
-    final_file = f"{FOLDER_SAVE_ZIPs}/{sub_folder}/{file.filename}"
+    final_file = f"{FOLDER_SAVE_ZIPs}/{sub_folder}-{file.filename}"
     with open(f"{final_file}", "wb") as f:
         f.write(contents)
     return {"filename": final_file}
