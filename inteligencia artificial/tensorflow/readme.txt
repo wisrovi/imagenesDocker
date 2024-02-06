@@ -25,7 +25,8 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
 
-docker run --gpus all --name=NVIDIA nvidia/cuda:9.0-base nvidia-smi
+docker pull nvidia/cuda:12.3.1-devel-ubuntu22.04
+docker run --gpus all --name=NVIDIA nvidia/cuda:12.3.1-devel-ubuntu22.04 nvidia-smi
 
 docker pull tensorflow/tensorflow:latest-gpu
 docker pull tensorflow/tensorflow:latest-gpu-jupyter
