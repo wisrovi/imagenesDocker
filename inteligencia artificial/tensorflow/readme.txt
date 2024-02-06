@@ -1,5 +1,6 @@
 https://www.datamachinist.com/deep-learning/install-tensorflow-2-0-using-docker-with-gpu-support-on-ubuntu-18-04/
 
+sudo apt-get install ubuntu-drivers-common 
 sudo ubuntu-drivers devices
 sudo ubuntu-drivers autoinstall
 sudo reboot
