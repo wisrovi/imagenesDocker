@@ -33,4 +33,4 @@
   .
   ```
  
-![Visitor Count](https://profile-counter.glitch.me/{YOUR USER}/count.svg)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=page.id&left_color=green&right_color=red)
