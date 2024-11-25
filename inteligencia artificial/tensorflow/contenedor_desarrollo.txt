@@ -1,0 +1,2 @@
+# contenedor desarrollo con tensorflow:
+docker run --gpus all -it --rm --shm-size=16g -v ./:/app -w /app tensorflow/tensorflow:latest-gpu bash
