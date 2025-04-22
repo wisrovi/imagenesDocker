@@ -26,7 +26,22 @@ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
 
 docker pull nvidia/cuda:12.3.1-devel-ubuntu22.04
-docker run --gpus all --name=NVIDIA nvidia/cuda:12.3.1-devel-ubuntu22.04 nvidia-smi
+
+# una prueba basica
+docker run --rm --gpus all --name=NVIDIA nvidia/cuda:12.3.1-devel-ubuntu22.04 nvidia-smi
+
+# un contenedor con estado de salud que muestra cuando se han perdido las GPU
+docker run -d --name NVIDIA \                                                                                                                                                      ──(Tue,Apr22)─┘
+  --gpus all \
+  --health-cmd="nvidia-smi || exit 1" \
+  --health-interval=30s \
+  --health-retries=3 \
+  --health-timeout=5s \
+  nvidia/cuda:12.2.0-base-ubuntu22.04 \
+  bash -c "while true; do nvidia-smi || break; sleep 30; done; tail -f /dev/null"
+
+
+
 
 docker pull tensorflow/tensorflow:latest-gpu
 docker pull tensorflow/tensorflow:latest-gpu-jupyter
