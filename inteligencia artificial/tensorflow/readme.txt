@@ -31,7 +31,7 @@ docker pull nvidia/cuda:12.3.1-devel-ubuntu22.04
 docker run --rm --gpus all --name=NVIDIA nvidia/cuda:12.3.1-devel-ubuntu22.04 nvidia-smi
 
 # un contenedor con estado de salud que muestra cuando se han perdido las GPU
-docker run -d --name NVIDIA \                                                                                                                                                      ──(Tue,Apr22)─┘
+docker run -d --name NVIDIA \ 
   --gpus all \
   --health-cmd="nvidia-smi || exit 1" \
   --health-interval=30s \
