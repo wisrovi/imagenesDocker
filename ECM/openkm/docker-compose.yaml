@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  openkm:
+    image: openkm/openkm-ce:latest
+    container_name: openkm
+    ports:
+      - "18080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx1024m
+      - OPENKM_DB_TYPE=postgresql
+      - OPENKM_DB_HOST=db
+      - OPENKM_DB_PORT=5432
+      - OPENKM_DB_NAME=openkm
+      - OPENKM_DB_USER=openkm_user
+      - OPENKM_DB_PASSWORD=openkm_password
+    depends_on:
+      - db
+    # volumes:
+    #   - ./openkm_data:/opt/tomcat/repository
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/OpenKM"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    # user: okmAdmin
+    # pass: admin
+
+  db:
+    image: postgres:latest
+    container_name: openkm_db
+    environment:
+      POSTGRES_USER: openkm_user
+      POSTGRES_PASSWORD: openkm_password
+      POSTGRES_DB: openkm
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+
+networks:
+  default:
+    driver: bridge
