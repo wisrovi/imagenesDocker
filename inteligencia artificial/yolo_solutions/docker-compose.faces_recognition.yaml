@@ -1,0 +1,29 @@
+version: "3.7"
+
+x-resources: &resources_gpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia # use the GPU of the host
+            device_ids: ["0"] # use the GPU 0
+            capabilities: [gpu] # use the GPU
+
+services:
+  api:
+    <<: *resources_gpu
+    image: wisrovi/api_face_recognition:V1.1.0
+    container_name: backend_face_recognition
+    volumes:
+      - ./logs:/logs
+      - ./database:/app/database
+    # ports:
+    #   - "1722:1722"
+
+  interfaz:
+    image: wisrovi/api_face_recognition_interfaz:V1.0.0
+    container_name: interfaz_face_recognition
+    volumes:
+      - ./database:/app/database
+    ports:
+      - "10438:7860"

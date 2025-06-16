@@ -1,0 +1,96 @@
+version: "3.8"
+
+x-resources: &resources_gpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia # use the GPU of the host
+            device_ids: ["0"] # use the GPU 0
+            capabilities: [gpu] # use the GPU
+
+services:
+  velocidad:
+    # https://docs.ultralytics.com/es/guides/speed-estimation/#how-accurate-is-the-speed-estimation-using-ultralytics-yolo11
+    build:
+      context: ./velocidad
+      dockerfile: Dockerfile
+    <<: *resources_gpu
+    container_name: velocidad
+    ports:
+      - "10432:7860" # Mapea el puerto  7860 del host al  7860 del contenedor
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
+
+  conteo_objetos:
+    # https://docs.ultralytics.com/es/guides/region-counting/#real-world-applications
+    build:
+      context: ./conteo_objetos
+      dockerfile: Dockerfile
+    <<: *resources_gpu
+    container_name: conteo_objetos
+    ports:
+      - "10433:7860" # Mapea el puerto  7860 del host al  7860 del contenedor
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
+
+  analisis_asistido:
+    # https://docs.ultralytics.com/es/guides/analytics/#why-graphs-are-important
+    # https://docs.ultralytics.com/es/guides/object-counting/#can-i-use-yolo11-for-advanced-applications-like-crowd-analysis-and-traffic-management
+    build:
+      context: ./analisis_asistido
+      dockerfile: Dockerfile
+    <<: *resources_gpu
+    container_name: analisis_asistido
+    ports:
+      - "10434:7860" # Mapea el puerto  7860 del host al  7860 del contenedor
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
+
+  notificaciones:
+    # https://docs.ultralytics.com/es/guides/security-alarm-system/
+    # https://myaccount.google.com/apppasswords
+    # name_app: agentes_policia
+    # password: cwca qwho pkyu bnui 
+    build:
+      context: ./notificaciones
+      dockerfile: Dockerfile
+    container_name: notificaciones
+    ports:
+      - "10435:7860"
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
+    
+  desenfoque:
+    # https://docs.ultralytics.com/es/guides/object-blurring/#advantages-of-object-blurring
+    build:
+      context: ./desenfoque
+      dockerfile: Dockerfile
+    container_name: desenfoque
+    ports:
+      - "10436:7860"
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
+
+  ojo:
+    # https://docs.ultralytics.com/es/guides/vision-eye/#note
+    build:
+      context: ./ojo
+      dockerfile: Dockerfile
+    container_name: ojo
+    ports:
+      - "10437:7860"
+    volumes:
+      - ./media:/app/media # Mapea el directorio media del host al contenedor
+    restart: always # Reinicia si el contenedor falla
+    # command: tail -f /dev/null # Mantiene el contenedor en ejecución
