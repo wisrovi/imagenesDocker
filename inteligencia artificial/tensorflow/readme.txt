@@ -3,6 +3,10 @@ https://www.datamachinist.com/deep-learning/install-tensorflow-2-0-using-docker-
 #  MONITOR DE DISCOS Y ALGUNAS ALERTAS
 sudo apt install stacer
 
+# cleaner para linux
+sudo apt install bleachbit
+
+
 
 sudo apt-get install ubuntu-drivers-common 
 sudo ubuntu-drivers devices
