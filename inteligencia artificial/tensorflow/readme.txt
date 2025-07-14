@@ -6,6 +6,8 @@ sudo apt install stacer
 # cleaner para linux
 sudo apt install bleachbit
 
+# copia del SO para backup
+sudo apt install timeshift
 
 
 sudo apt-get install ubuntu-drivers-common 
