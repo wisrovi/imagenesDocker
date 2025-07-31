@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+
+        // Stage: Pull latest updates
+        stage('Download Latest Changes') {
+            steps {
+                echo 'Send to train_service...'
+                sh 'cd /home/projects/user_train_service && /usr/local/bin/python3.10 send_to_train.py /home/projects/user_train_service/config_train.yaml'
+            }
+        }
+
+    }
+}
