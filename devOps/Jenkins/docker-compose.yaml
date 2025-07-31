@@ -1,15 +1,31 @@
-version: '3.3'
+version: '3.8'
 services:
   jenkins:
-    build: .
-    privileged: true
-    user: root
-    ports:
-      - 1717:8080
-      - 50000:50000
     container_name: jenkins
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: wisrovi/jenkins/pipelines:latest
+    ports:
+      - 50443:8080  # Puerto web de Jenkins
+      - 50000:50000  # Puerto para agentes Jenkins (si los necesitas)
     volumes:
+      # para compartir la carpeta donde git podra gestionar los proyectos (eg. clonar un repo y despegarlo)
+      - ./projects:/home/projects
+
+      # para hacer perpetua la configuracion de jenkins
       - ./jenkins_configuration:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
-      - /home:/home
+
+      # para docker
+      - /var/run/docker.sock:/var/run/docker.sock   # Permite a Jenkins interactuar con Docker en el host
+
+      # Para git
+      - ./docker_ssh:/root/.ssh   # para compartir mis llaves de SSH desde un folder personalizado y permite a Jenkins interactuar con git en el host
+      # - ~/.ssh/:/root/.ssh  # Monta el directorio SSH para acceso a repositorios privados desde git y permite a Jenkins interactuar con git en el host
+    user: root
+    privileged: true
+    restart: always # Reinicia Jenkins automáticamente a menos que lo detengas manualmente
+    environment:
+      - TZ=Europe/Madrid # Ajusta la zona horaria a tu ubicación
+
+# https://blog.295devops.com/cicd-the-series-aprende-a-crear-tu-primer-pipeline-de-jenkins-con-roxs
