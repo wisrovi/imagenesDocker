@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  dind:
+    image: docker:dind
+    privileged: true
+    container_name: dind
+    ports:
+      - "9003:9000"   # para portainer
+      - "51678:5678"
+      - "50422:50422"   # para ssh
+      - "51080:80"
+      - "51443:443"
+      - "51025:25"
+      - "51465:465"
+      - "51587:587"
+    environment:
+      # Deshabilita TLS para facilitar la conexión desde otros contenedores.
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - ./files:/app
+      - ./dind-data:/var/lib/docker # Mantiene los datos de Docker persistentes
+    working_dir: /app
+    userns_mode: "host"
