@@ -1,0 +1,15 @@
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:development
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid # Time zone
+      - ALLOW_INTERNAL_REQUESTS=false #optional
+    volumes:
+      - ./config:/config
+    ports:
+      - 7080:80
+      - 7443:443
+    restart: unless-stopped
