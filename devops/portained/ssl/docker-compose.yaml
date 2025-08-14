@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  portainer:
+    container_name: portainer
+    restart: always
+    image: portainer/portainer-ce
+    ports:
+      # - '8000:8000'
+      # - '9000:9000'
+      - '19443:9443'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:Z'
+      - 'portainer:/data'
+      - './certs:/certs'
+    command: --sslcert /certs/fullchain.pem --sslkey /certs/privkey.pem
+    #            -H tcp://host.docker.internal:2375
+
+volumes:
+  portainer:
+
+# docker network create --subnet=32.10.4.0/24 --gateway=32.10.4.1 --driver=bridge portainer
+# sudo chmod 666 /var/run/docker.sock
+# docker-compose down && docker system prune -af && docker volume prune -f 
+# docker-compose up -d
+networks:
+  default:
+    name: portainer
+    external: true
