@@ -1,7 +1,7 @@
 # named volume 'uptime-kuma' is marked as "external" (used by service 'uptime-kuma'), so either remove "external" from volume definition or it needs to be created using: docker volume create uptime-kuma
 name: uptime_kuma
 services:
-    uptime_kuma:
+    uptimekuma:
         restart: always
         # ports:
         #     - 7301:3001
@@ -10,7 +10,7 @@ services:
         container_name: uptime-kuma
         image: louislam/uptime-kuma:1
 
-    uptime_kuma-ssl:
+    uptimekuma-ssl:
         image: nginx:latest
         restart: always
         ports:
@@ -22,7 +22,7 @@ services:
             # - ./nginx/html:/usr/share/nginx/html
             - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf  # Configuración personalizada de Nginx
         depends_on:
-            - uptime_kuma
+            - uptimekuma
 
     
 volumes:
