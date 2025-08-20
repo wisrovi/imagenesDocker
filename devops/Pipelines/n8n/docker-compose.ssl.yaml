@@ -1,0 +1,20 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    ports:
+      # - "5678:5678"
+      - "45443:443"
+    environment:
+      - N8N_SECURE_COOKIE=false
+      - N8N_HOST=192.168.10.107
+      - N8N_PORT=443
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://192.168.10.107:45443/
+      - N8N_SSL_CERT=/certs/n8n/fullchain.pem
+      - N8N_SSL_KEY=/certs/n8n/privkey.pem
+    volumes:
+      - ./data/n8n:/home/node/.n8n
+      - ./certs:/certs/n8n:ro
+    restart: unless-stopped
+
+

@@ -1,0 +1,15 @@
+services:
+  multiotp:
+    image: multiotp/multiotp-open-source
+    container_name: multiotp
+    ports:
+      - "8080:80"
+      - "24443:443"
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    volumes:
+      - ./data:/etc/multiotp
+      - ./radius-config:/etc/freeradius
+      - ./multiotp-log:/var/log/multiotp
+      - ./radius-log:/var/log/freeradius
+    restart: unless-stopped
