@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql:lts
+    environment:
+      - MYSQL_USER=mautic_db_user
+      - MYSQL_PASSWORD=hMqkYeSQ3MOJEOB6
+      - MYSQL_DATABASE=mautic_db
+      - MYSQL_ROOT_PASSWORD=hMqkYeSQ3MOJEOB6
+    volumes:
+      - ./data/mautic/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: mysqladmin --user=mautic_db_user --password=hMqkYeSQ3MOJEOB6 ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
