@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  ansible_controller:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible_controller
+    volumes:
+      - ./ansible_project:/home/ansible/project
+      - ~/.ssh/id_rsa:/home/ansible/.ssh/id_rsa:ro
+    user: "ansible"
+    command: /bin/bash
+    tty: true
