@@ -1,19 +1,40 @@
-# https://discourse.linuxserver.io/t/duplicati-docker-on-raspberry-pi-4/4309
-version: "2.1"
+# https://docs.linuxserver.io/images/docker-duplicati/
+
 services:
   duplicati:
-    image: lscr.io/linuxserver/duplicati:v2.0.6.3-2.0.6.3_beta_2021-06-17-ls131
-    container_name: duplicati
-    privileged: true
+    image: lscr.io/linuxserver/duplicati:latest
+    # privileged: true
+    user: "0:0"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Madrid  # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+      
       - CLI_ARGS= #optional
+      - SETTINGS_ENCRYPTION_KEY=6dLQN68xMLLYH23zrbPO
+      # webui
+      - DUPLICATI__WEBSERVICE_PASSWORD=V2D5JCzQyvu6pF8Zh6Z6 # para la web
     volumes:
-      - ./config:/config
-      #- </path/to/backups>:/backups
-      - /home/docker:/source
+      - ./data/config:/config # toda la config, incluida la DB
+      - ./data/backups:/backups # volumen donde se guardaran los backups generados
+      - ./data/source:/source # volumen donde estan los archivos originales donde que se quiere crear los backups
+      # para poder crear backups de los volumenes de docker
+      # primero ejecutar: sudo chmod -R 755 /var/lib/docker/100000.100000/volumes/
+      - /var/lib/docker/100000.100000/volumes:/docker_volumes
+    # ports:
+    #   - 8200:8200
+    restart: always
+
+  duplicati-ssl:
+    image: nginx:latest
+    restart: always
     ports:
-      - 8200:8200
-    restart: unless-stopped
+      # - "80:80"
+      - "8200:443"
+    volumes:
+      - ./certs:/etc/nginx/certs  # Directorio donde están los certificados SSL
+      # - ./nginx/vhost.d:/etc/nginx/vhost.d
+      # - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf  # Configuración personalizada de Nginx
+    depends_on:
+      - duplicati
