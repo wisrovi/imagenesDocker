@@ -2,7 +2,7 @@ version: '3.8'
 services:
   jenkins:
     container_name: jenkins
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     image: wisrovi/jenkins/pipelines:latest
@@ -11,7 +11,7 @@ services:
       # - 50000:50000  # Puerto para agentes Jenkins (si los necesitas)
     volumes:
       # para compartir la carpeta donde git podra gestionar los proyectos (eg. clonar un repo y despegarlo)
-      - /home/ecapture/projects:/home/projects
+      - /home/wisrovi/projects:/home/projects
 
       # para hacer perpetua la configuracion de jenkins
       - ./jenkins_home:/var/jenkins_home

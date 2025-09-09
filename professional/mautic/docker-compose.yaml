@@ -30,6 +30,8 @@ services:
 
   mautic_web:
     image: mautic/mautic:latest
+    links:
+      - db:mysql
     ports:
       - 1111:80
     # volumes: *mautic-volumes
