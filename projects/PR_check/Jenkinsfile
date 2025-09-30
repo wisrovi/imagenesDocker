@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_OWNER = 'cimacorporate'
+        REPO_NAME = '001-AREPO'
+    }
+
+    stages {
+        stage('Run Analysis') {
+            steps {
+                echo "Running analysis for ${env.REPO_OWNER}/${env.REPO_NAME}..."
+                sh "cd /home/projects/pr_reviewer && sh run_analysis.sh ${env.REPO_OWNER} ${env.REPO_NAME}"
+            }
+        }
+        stage('get results') {
+            steps {
+                echo "Running analysis for ${env.REPO_OWNER}/${env.REPO_NAME}..."
+                sh "cat /home/projects/pr_reviewer/report/${env.REPO_OWNER}/${env.REPO_NAME}/report.json"
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Analysis pipeline finished.'
+            archiveArtifacts artifacts: 'report/**.*', allowEmptyArchive: true
+        }
+    }
+}

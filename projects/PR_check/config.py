@@ -1,1 +1,0 @@
-MINIMAL_SCORE = 8.5

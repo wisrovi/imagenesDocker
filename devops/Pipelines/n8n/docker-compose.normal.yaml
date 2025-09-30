@@ -5,10 +5,10 @@ services:
       - "51678:5678"    # *
     environment:
       - N8N_SECURE_COOKIE=false
-      - N8N_HOST=192.168.1.107
+      - N8N_HOST=192.168.10.107
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
-      - WEBHOOK_URL=http://192.168.1.107:51678/
+      - WEBHOOK_URL=http://192.168.10.107:51678/
     volumes:
       - ./n8n_data:/home/node/.n8n 
     restart: unless-stopped

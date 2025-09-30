@@ -1,1 +1,0 @@
-docker build -t wisrovi/pr_analizer .

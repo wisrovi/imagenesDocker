@@ -1,21 +1,20 @@
-FROM python:3.10-slim
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-RUN apt update && apt install git openssh-client nano -y
-# RUN chown -R root:root /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/config && chmod 600 /root/.ssh/id_rsa && chmod 644 /root/.ssh/id_rsa.pub  && clear
-RUN pip install pylint pandas requests python-dotenv
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-WORKDIR /app
+# Install git and ssh client
+RUN apt-get update && apt-get install -y git openssh-client
 
+# Copy the entire project context to the working directory
+COPY . .
 
-WORKDIR /report
-WORKDIR /scripts
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY PR_get.py .
-COPY python_pylint.py .
-COPY config.py .
-COPY get_branches_opened.py .
-COPY ssh_permision.sh .
-COPY analize_complete.py .
-COPY secrets.env .
+# Install the application
+RUN pip install .
 
-
+# This command is a placeholder. The actual command will be provided at runtime.
+CMD ["bash"]
