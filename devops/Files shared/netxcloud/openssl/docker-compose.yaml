@@ -1,0 +1,19 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  openssl:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: cimacorporate/vault_openssl:latest
+    volumes:
+      - ../certs:/data
+    environment:
+      - DOMAIN_NAME=www.sslcert.wisrovi.com
+    command: >
+      openssl req -x509 -nodes -days 825 -newkey rsa:4096 
+      -keyout /data/privkey.pem 
+      -out /data/fullchain.pem 
+      -config /conf/openssl_wisrovi.cnf 
+      -extensions v3_req

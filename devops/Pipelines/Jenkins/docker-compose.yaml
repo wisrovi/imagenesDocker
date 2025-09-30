@@ -30,6 +30,7 @@ services:
 
 # https://blog.295devops.com/cicd-the-series-aprende-a-crear-tu-primer-pipeline-de-jenkins-con-roxs
 # pluggins recomendados:
+# - Role-based Authorization Strategy: para autenticacion por roles
 # - Docker Pipeline Plugin: Docker en tu flujo de trabajo
 # - Blue Ocean Plugin: una interfaz más moderna
 # - GitHub Plugin: para disparar pipelines cuando hayan merge en ramas

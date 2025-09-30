@@ -1,83 +1,63 @@
-# https://labarta.es/como-instalar-mautic-usando-docker-compose/
-# https://github.com/jmlcas/mautic/
-
-x-mautic-volumes:
-  &mautic-volumes
-  - ./data/mautic/config:/var/www/html/config:z
-  - ./data/mautic/logs:/var/www/html/var/logs:z
-  - ./data/mautic/media/files:/var/www/html/docroot/media/files:z
-  - ./data/mautic/media/images:/var/www/html/docroot/media/images:z
-#  - ./cron:/opt/mautic/cron:z # Uncomment this line to customize your cron configuration
+version: '3.5'
 
 services:
-  db:
-    image: mysql:lts
-    environment:
-      - MYSQL_USER=mautic_db_user
-      - MYSQL_PASSWORD=hMqkYeSQ3MOJEOB6
-      - MYSQL_DATABASE=mautic_db
-      - MYSQL_ROOT_PASSWORD=hMqkYeSQ3MOJEOB6
+  openssl:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: cimacorporate/vault_openssl:latest
     volumes:
-      - ./data/mautic/mysql:/var/lib/mysql
-    ports:
-      - 3306:3306
-    healthcheck:
-      test: mysqladmin --user=mautic_db_user --password=hMqkYeSQ3MOJEOB6 ping
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      - ./certs:/data
+    environment:
+      - DOMAIN_NAME=www.vault.ecapturedtech.com
+    command: >
+      openssl req -x509 -nodes -days 825 -newkey rsa:4096 
+      -keyout /data/privkey.pem 
+      -out /data/fullchain.pem 
+      -config /conf/openssl_wisrovi.cnf 
+      -extensions v3_req
+      
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: your_strong_root_password
+      MYSQL_DATABASE: mautic
+      MYSQL_USER: mautic_user
+      MYSQL_PASSWORD: mautic_password
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    restart: always
 
-  mautic_web:
-    image: mautic/mautic:latest
-    links:
-      - db:mysql
-    ports:
-      - 1111:80
-    # volumes: *mautic-volumes
+  mautic:
+    image: mautic/mautic:v4-apache
+    # ports:
+    #   - "8129:80"
+    depends_on:
+      - db
     environment:
       - MAUTIC_DB_HOST=db
-      - MAUTIC_DB_PORT=3306
-      - MAUTIC_DB_USER=mautic_db_user
-      - MAUTIC_DB_PASSWORD=hMqkYeSQ3MOJEOB6
-      - MAUTIC_DB_NAME=mautic_db   # 👈 aquí es MAUTIC_DB_NAME, no MAUTIC_DB_DATABASE
-      - DOCKER_MAUTIC_LOAD_TEST_DATA=true
-      - DOCKER_MAUTIC_RUN_MIGRATIONS=true
-    healthcheck:
-      test: curl http://localhost
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 100
+      - MAUTIC_DB_NAME=mautic
+      - MAUTIC_DB_USER=mautic_user
+      - MAUTIC_DB_PASSWORD=mautic_password
+    volumes:
+      - ./data/mautic:/var/www/html
+    restart: always  
+
+  mautic-ssl:
+    image: nginx:latest
+    restart: always
+    ports:
+      # - "80:80"
+      - "8130:443"
+    volumes:
+      - ./certs:/etc/nginx/certs  # Directorio donde están los certificados SSL
+      # - ./nginx/vhost.d:/etc/nginx/vhost.d
+      # - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf  # Configuración personalizada de Nginx
     depends_on:
-      db:
-        condition: service_healthy
+      - mautic
+      - openssl
 
-  # mautic_cron:
-  #   image: mautic/mautic:latest
-  #   links:
-  #     - db:mysql
-  #   volumes: *mautic-volumes
-  #   environment:
-  #     - DOCKER_MAUTIC_ROLE=mautic_cron
-  #     - MAUTIC_MESSENGER_DSN_EMAIL="doctrine://default"
-  #     - MAUTIC_MESSENGER_DSN_HIT="doctrine://default"
-  #   depends_on:
-  #     mautic_web:
-  #       condition: service_healthy
 
-  # mautic_worker:
-  #   image: mautic/mautic:latest
-  #   links:
-  #     - db:mysql
-  #   volumes: *mautic-volumes
-  #   environment:
-  #     - DOCKER_MAUTIC_ROLE=mautic_worker
-  #   depends_on:
-  #     mautic_web:
-  #       condition: service_healthy
-
-networks:
-  default:
-    name: nginx
-    external: true
+# https://ipa.ecapturedtech.com:8130/
