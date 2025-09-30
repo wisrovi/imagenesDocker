@@ -1,2 +1,6 @@
-secrets.env2
+secrets.env:
+
+# GITHUB_PAT=
+# MY_GITHUB_USERNAME=
+#
 
