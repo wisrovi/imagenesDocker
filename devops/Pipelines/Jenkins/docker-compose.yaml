@@ -1,37 +1,53 @@
+
+# Docker Compose file for setting up a Jenkins environment.
 version: '3.8'
 services:
   jenkins:
+    # Sets the container name for easy reference.
     container_name: jenkins
+    # Specifies the build context and Dockerfile for creating the Jenkins image.
     build:
       context: .
       dockerfile: Dockerfile
+    # Names the image that will be built.
     image: wisrovi/jenkins/pipelines:latest
+    # Maps the host port 50443 to the container port 8080 for accessing the Jenkins web UI.
     ports:
-      - 50443:8080  # Puerto web de Jenkins
-      # - 50000:50000  # Puerto para agentes Jenkins (si los necesitas)
+      - 50443:8080  # Jenkins web port
+      # - 50000:50000  # Port for Jenkins agents (if you need them)
+    # Defines volumes for data persistence and host interaction.
     volumes:
-      # para compartir la carpeta donde git podra gestionar los proyectos (eg. clonar un repo y despegarlo)
+      # Shares a host directory with the container for managing Git projects.
       - /home/wisrovi/projects:/home/projects
 
-      # para hacer perpetua la configuracion de jenkins
+      # Persists Jenkins configuration and data.
       - ./jenkins_home:/var/jenkins_home
 
-      # para docker
-      - /var/run/docker.sock:/var/run/docker.sock   # Permite a Jenkins interactuar con Docker en el host
+      # Allows Jenkins to interact with the Docker daemon on the host.
+      - /var/run/docker.sock:/var/run/docker.sock
 
-      # Para git
-      - ~/.ssh:/root/.ssh   # para compartir mis llaves de SSH desde un folder personalizado y permite a Jenkins interactuar con git en el host
-      # - ~/.ssh/:/root/.ssh  # Monta el directorio SSH para acceso a repositorios privados desde git y permite a Jenkins interactuar con git en el host
+      # Shares SSH keys with the container for Git authentication.
+      - ~/.ssh:/root/.ssh
+    # Runs the container as the root user.
     user: root
+    # Grants the container extended privileges, necessary for Docker-in-Docker.
     privileged: true
-    restart: always # Reinicia Jenkins automáticamente a menos que lo detengas manualmente
+    # Ensures the container restarts automatically unless manually stopped.
+    restart: always
+    # Sets the time zone for the container.
     environment:
-      - TZ=Europe/Madrid # Ajusta la zona horaria a tu ubicación
+      - TZ=Europe/Madrid
 
-# https://blog.295devops.com/cicd-the-series-aprende-a-crear-tu-primer-pipeline-de-jenkins-con-roxs
-# pluggins recomendados:
-# - Role-based Authorization Strategy: para autenticacion por roles
-# - Docker Pipeline Plugin: Docker en tu flujo de trabajo
-# - Blue Ocean Plugin: una interfaz más moderna
-# - GitHub Plugin: para disparar pipelines cuando hayan merge en ramas
-# - SonarQube Scanner Plugin: para escaner de codigo automatizado
+# Useful commands for managing the Jenkins container:
+#
+# Get the initial admin password:
+#   docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+#
+# Get the container's IP address:
+#   docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' jenkins
+#
+# Access the container's shell:
+#   docker exec -it jenkins /bin/bash
+#
+# Access the container's shell as root:
+#   docker exec -it -u root jenkins /bin/bash
