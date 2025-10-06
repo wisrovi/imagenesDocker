@@ -1,14 +1,16 @@
-version: '3.3'
+version: '3.8'
 services:
   postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: wisrovi/postgres:v1
-    container_name: postgres
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=prueba
+      - POSTGRES_USER=perseus
+      - POSTGRES_PASSWORD=7bPnWmNtzNF36c8J8yWN
+      - POSTGRES_DB=perseus
     volumes: 
-      - ./db:/var/lib/postgresql/data
+      - perseus-db:/var/lib/postgresql/data
     deploy:
       resources:
           limits:
@@ -20,3 +22,13 @@ services:
     ports:
       - '5432:5432'
     restart: always
+    networks:
+      - perseus-net
+
+networks:
+  perseus-net:
+    driver: bridge
+
+volumes:
+  perseus-db:
+    driver: local
