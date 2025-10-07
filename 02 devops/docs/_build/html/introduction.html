@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction &#8212; DevOps Docker Configurations 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Load Balancing" href="load_balancing.html" />
+    <link rel="prev" title="DevOps Docker Configurations Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
+<p>This repository is a comprehensive collection of Docker-based configurations and setups for various DevOps tools and services. It provides ready-to-deploy environments for load balancing, code quality assurance, continuous integration/continuous deployment (CI/CD) pipelines, message queues, file sharing, monitoring, and more. Each subdirectory contains Docker Compose files, configuration files, and documentation to help you quickly spin up and manage DevOps infrastructure components.</p>
+<p>The repository is designed to serve as a reference and starting point for building scalable, containerized DevOps environments. It covers essential aspects of modern software development workflows, from code quality checks to deployment pipelines and monitoring.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Load Balancing</strong>: Nginx-based load balancer configurations with SSL support</p></li>
+<li><p><strong>Code Quality Assurance</strong>: SonarQube, auto-healing services, uptime monitoring, and documentation tools</p></li>
+<li><p><strong>CI/CD Pipelines</strong>: Jenkins and n8n workflow automation setups</p></li>
+<li><p><strong>Message Queues</strong>: Celery, Kafka, Kurento, and MQTT implementations</p></li>
+<li><p><strong>File Sharing Services</strong>: FTP, Nextcloud, Samba, and browser-based file access</p></li>
+<li><p><strong>Monitoring &amp; Dashboards</strong>: Heimdal dashboard and central logging</p></li>
+<li><p><strong>Docker-in-Docker</strong>: Configurations for running Docker containers within containers</p></li>
+<li><p><strong>SSL Certificates</strong>: Let’s Encrypt and OpenSSL certificate management</p></li>
+<li><p><strong>Container Management</strong>: Portainer for Docker container management</p></li>
+</ul>
+</section>
+<section id="project-structure">
+<h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">¶</a></h2>
+<p>The repository is organized as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── balanceo_carga_nginx/          # Nginx load balancer with SSL
+│   ├── certs/                     # SSL certificates
+│   ├── config/                    # Nginx configuration files
+│   ├── html/                      # Sample HTML pages
+│   └── docker-compose.yaml        # Load balancer setup
+├── central_logs/                  # Centralized logging service
+├── Code QA/                       # Code quality and monitoring tools
+│   ├── Check _services_status/    # Service health checks
+│   │   ├── autohealth/            # Auto-healing services
+│   │   ├── portained/             # Portainer container management
+│   │   ├── uptime_kuma/           # Uptime monitoring
+│   │   └── URL shortcuts/         # Dashboard shortcuts (Heimdal, Homer)
+│   ├── Documentation/             # Documentation tools (MediaWiki, Snippet Box)
+│   └── SonarQube/                 # Code quality analysis
+├── Docker_over_docker/            # Docker-in-Docker configurations
+├── Files shared/                  # File sharing services
+│   ├── ftp/                       # FTP server
+│   ├── netxcloud/                 # Nextcloud file sharing
+│   ├── samba/                     # Samba file sharing
+│   └── tcp in browser/            # File browser in browser
+├── heimdall/                      # Heimdal dashboard
+├── Pipelines/                     # CI/CD pipeline tools
+│   ├── Jenkins/                   # Jenkins CI/CD server
+│   └── n8n/                       # n8n workflow automation
+├── Queues for services/           # Message queue systems
+│   ├── celery/                    # Celery task queue
+│   ├── kafka y zookeeper/         # Kafka message broker
+│   ├── kurento/                   # Kurento media server
+│   └── mqtt/                      # MQTT messaging
+└── SSL_certificates/              # SSL certificate management
+    ├── letsencript/               # Let&#39;s Encrypt certificates
+    └── openssl/                   # OpenSSL certificates
+</pre></div>
+</div>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>Before using any of the configurations in this repository, ensure you have the following installed on your system:</p>
+<ul class="simple">
+<li><p><strong>Docker</strong>: Version 20.10 or later</p></li>
+<li><p><strong>Docker Compose</strong>: Version 1.29 or later</p></li>
+<li><p><strong>Git</strong>: For cloning repositories and version control</p></li>
+<li><p><strong>Bash/Shell</strong>: For running scripts and commands</p></li>
+</ul>
+</section>
+<section id="installation-and-usage">
+<h2>Installation and Usage<a class="headerlink" href="#installation-and-usage" title="Link to this heading">¶</a></h2>
+<p>Each subdirectory contains its own Docker Compose setup and documentation. Here’s a general guide for getting started:</p>
+<section id="general-setup-steps">
+<h3>General Setup Steps<a class="headerlink" href="#general-setup-steps" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p><strong>Clone the Repository</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;repository-directory&gt;
+</pre></div>
+</div>
+</li>
+<li><p><strong>Navigate to Desired Service</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;service-directory&gt;
+</pre></div>
+</div>
+</li>
+<li><p><strong>Review Configuration</strong>:</p>
+<ul class="simple">
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file for service definitions</p></li>
+<li><p>Review any configuration files in the <code class="docutils literal notranslate"><span class="pre">config/</span></code> directory</p></li>
+<li><p>Read the README or documentation files for specific instructions</p></li>
+</ul>
+</li>
+<li><p><strong>Start the Service</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</li>
+<li><p><strong>Access the Service</strong>:</p>
+<ul class="simple">
+<li><p>Refer to the service’s documentation for access URLs and ports</p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> for port mappings</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
+<section id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h3>
+<p>Many services use environment variables for configuration. Check each service’s <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file for required variables and modify them as needed.</p>
+</section>
+<section id="volumes">
+<h3>Volumes<a class="headerlink" href="#volumes" title="Link to this heading">¶</a></h3>
+<p>Persistent data is stored using Docker volumes. Review volume mounts in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> files to understand data persistence.</p>
+</section>
+<section id="networking">
+<h3>Networking<a class="headerlink" href="#networking" title="Link to this heading">¶</a></h3>
+<p>Services are configured to work together through Docker networks. Some services may require custom network configurations for inter-service communication.</p>
+</section>
+</section>
+<section id="security-considerations">
+<h2>Security Considerations<a class="headerlink" href="#security-considerations" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>SSL/TLS</strong>: Use the SSL certificate configurations for secure communications</p></li>
+<li><p><strong>Access Control</strong>: Configure authentication and authorization for services</p></li>
+<li><p><strong>Network Security</strong>: Implement proper firewall rules and network segmentation</p></li>
+<li><p><strong>Secret Management</strong>: Avoid hardcoding sensitive information; use environment variables or Docker secrets</p></li>
+<li><p><strong>Updates</strong>: Regularly update Docker images and dependencies for security patches</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DevOps Docker Configurations</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-structure">Project Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-usage">Installation and Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-considerations">Security Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_quality.html">Code Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="message_queues.html">Message Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_sharing.html">File Sharing Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring and Dashboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificates.html">SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_docker.html">Docker-in-Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">DevOps Docker Configurations Documentation</a></li>
+      <li>Next: <a href="load_balancing.html" title="next chapter">Load Balancing</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

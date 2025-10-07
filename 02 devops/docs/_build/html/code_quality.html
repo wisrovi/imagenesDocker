@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Code Quality Assurance &#8212; DevOps Docker Configurations 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CI/CD Pipelines" href="pipelines.html" />
+    <link rel="prev" title="Load Balancing" href="load_balancing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="code-quality-assurance">
+<h1>Code Quality Assurance<a class="headerlink" href="#code-quality-assurance" title="Link to this heading">¶</a></h1>
+<p>This section documents the code quality and monitoring tools available in the <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/</span></code> directory.</p>
+<section id="sonarqube">
+<h2>SonarQube<a class="headerlink" href="#sonarqube" title="Link to this heading">¶</a></h2>
+<p>SonarQube is a code quality analysis tool that performs automatic reviews to detect bugs, code smells, and security vulnerabilities.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/SonarQube/</span></code></p>
+<section id="deployment">
+<h3>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/SonarQube/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Access: <code class="docutils literal notranslate"><span class="pre">http://localhost:9000</span></code> (default credentials: admin/admin)</p>
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Nginx proxy configuration in <code class="docutils literal notranslate"><span class="pre">nginx/conf/nginx.conf</span></code></p></li>
+<li><p>Persistent data storage via Docker volumes</p></li>
+</ul>
+</section>
+</section>
+<section id="auto-healing-services">
+<h2>Auto-Healing Services<a class="headerlink" href="#auto-healing-services" title="Link to this heading">¶</a></h2>
+<p>Auto-healing services monitor container health and automatically restart failed containers.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Check</span> <span class="pre">_services_status/autohealth/</span></code></p>
+<section id="components">
+<h3>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>autoheal</strong>: Main auto-healing service</p></li>
+<li><p><strong>autoheal_crontab</strong>: Cron-based health checks</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Deployment<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/autohealth/autoheal/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+</section>
+<section id="portainer">
+<h2>Portainer<a class="headerlink" href="#portainer" title="Link to this heading">¶</a></h2>
+<p>Portainer provides a web UI for managing Docker containers.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Check</span> <span class="pre">_services_status/portained/</span></code></p>
+<section id="normal-installation">
+<h3>Normal Installation<a class="headerlink" href="#normal-installation" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/portained/normal/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="ssl-installation">
+<h3>SSL Installation<a class="headerlink" href="#ssl-installation" title="Link to this heading">¶</a></h3>
+<p>For SSL-enabled Portainer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/portained/ssl/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Access: <code class="docutils literal notranslate"><span class="pre">http://localhost:9000</span></code> or <code class="docutils literal notranslate"><span class="pre">https://localhost:9443</span></code></p>
+</section>
+</section>
+<section id="uptime-kuma">
+<h2>Uptime Kuma<a class="headerlink" href="#uptime-kuma" title="Link to this heading">¶</a></h2>
+<p>Uptime Kuma is a self-hosted uptime monitoring tool.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Check</span> <span class="pre">_services_status/uptime_kuma/</span></code></p>
+<section id="id2">
+<h3>Deployment<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/uptime_kuma/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Access: <code class="docutils literal notranslate"><span class="pre">http://localhost:3001</span></code></p>
+</section>
+</section>
+<section id="dashboard-shortcuts">
+<h2>Dashboard Shortcuts<a class="headerlink" href="#dashboard-shortcuts" title="Link to this heading">¶</a></h2>
+<p>Heimdal and Homer provide dashboard interfaces with shortcuts to various services.</p>
+<section id="heimdal">
+<h3>Heimdal<a class="headerlink" href="#heimdal" title="Link to this heading">¶</a></h3>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Check</span> <span class="pre">_services_status/URL</span> <span class="pre">shortcuts/heimdall/</span></code></p>
+</section>
+<section id="id3">
+<h3>Deployment<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/URL<span class="se">\ </span>shortcuts/heimdall/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="homer">
+<h3>Homer<a class="headerlink" href="#homer" title="Link to this heading">¶</a></h3>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Check</span> <span class="pre">_services_status/URL</span> <span class="pre">shortcuts/homer/</span></code></p>
+</section>
+<section id="id4">
+<h3>Deployment<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Check<span class="se">\ </span>_services_status/URL<span class="se">\ </span>shortcuts/homer/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation-tools">
+<h2>Documentation Tools<a class="headerlink" href="#documentation-tools" title="Link to this heading">¶</a></h2>
+<section id="mediawiki">
+<h3>MediaWiki<a class="headerlink" href="#mediawiki" title="Link to this heading">¶</a></h3>
+<p>A wiki engine for collaborative documentation.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Documentation/mediawiki/</span></code></p>
+</section>
+<section id="id5">
+<h3>Deployment<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Documentation/mediawiki/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="snippet-box">
+<h3>Snippet Box<a class="headerlink" href="#snippet-box" title="Link to this heading">¶</a></h3>
+<p>A simple code snippet manager.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">QA/Documentation/snippet-box/</span></code></p>
+</section>
+<section id="id6">
+<h3>Deployment<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Code<span class="se">\ </span>QA/Documentation/snippet-box/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DevOps Docker Configurations</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Quality Assurance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sonarqube">SonarQube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auto-healing-services">Auto-Healing Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#portainer">Portainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uptime-kuma">Uptime Kuma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dashboard-shortcuts">Dashboard Shortcuts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-tools">Documentation Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="message_queues.html">Message Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_sharing.html">File Sharing Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring and Dashboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificates.html">SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_docker.html">Docker-in-Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="load_balancing.html" title="previous chapter">Load Balancing</a></li>
+      <li>Next: <a href="pipelines.html" title="next chapter">CI/CD Pipelines</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/code_quality.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

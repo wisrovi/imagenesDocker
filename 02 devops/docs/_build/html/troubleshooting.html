@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Troubleshooting &#8212; DevOps Docker Configurations 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Docker-in-Docker" href="docker_docker.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h1>
+<p>This section provides solutions to common issues.</p>
+<section id="general-issues">
+<h2>General Issues<a class="headerlink" href="#general-issues" title="Link to this heading">¶</a></h2>
+<section id="port-conflicts">
+<h3>Port Conflicts<a class="headerlink" href="#port-conflicts" title="Link to this heading">¶</a></h3>
+<p><strong>Problem</strong>: A service fails to start due to port already in use.</p>
+<p><strong>Solution</strong>:</p>
+<ol class="arabic">
+<li><p>Check which process is using the port:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsof<span class="w"> </span>-i<span class="w"> </span>:port_number
+</pre></div>
+</div>
+</li>
+<li><p>Stop the conflicting process or change the port mapping in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code></p></li>
+</ol>
+</section>
+<section id="permission-issues">
+<h3>Permission Issues<a class="headerlink" href="#permission-issues" title="Link to this heading">¶</a></h3>
+<p><strong>Problem</strong>: Permission denied errors when accessing volumes.</p>
+<p><strong>Solution</strong>:</p>
+<ol class="arabic">
+<li><p>Check file permissions on the host:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/path/to/volume
+</pre></div>
+</div>
+</li>
+<li><p>Adjust permissions if necessary:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>-R<span class="w"> </span>user:group<span class="w"> </span>/path/to/volume
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="service-specific-issues">
+<h2>Service-Specific Issues<a class="headerlink" href="#service-specific-issues" title="Link to this heading">¶</a></h2>
+<section id="jenkins">
+<h3>Jenkins<a class="headerlink" href="#jenkins" title="Link to this heading">¶</a></h3>
+<p><strong>SSH Key Issues</strong>:</p>
+<ul class="simple">
+<li><p>Ensure SSH keys are in <code class="docutils literal notranslate"><span class="pre">~/.ssh</span></code> with correct permissions (600)</p></li>
+<li><p>Test SSH connection: <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-T</span> <span class="pre">git&#64;github.com</span></code></p></li>
+</ul>
+<p><strong>Docker Socket Access</strong>:</p>
+<ul class="simple">
+<li><p>Ensure the user can access <code class="docutils literal notranslate"><span class="pre">/var/run/docker.sock</span></code></p></li>
+<li><p>Check permissions: <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span> <span class="pre">/var/run/docker.sock</span></code></p></li>
+</ul>
+</section>
+<section id="kafka">
+<h3>Kafka<a class="headerlink" href="#kafka" title="Link to this heading">¶</a></h3>
+<p><strong>Connection Refused</strong>:</p>
+<ul class="simple">
+<li><p>Wait for Zookeeper and Kafka to fully start (may take a few minutes)</p></li>
+<li><p>Check logs: <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">logs</span> <span class="pre">kafka</span></code></p></li>
+</ul>
+<p><strong>Topic Creation Issues</strong>:</p>
+<ul class="simple">
+<li><p>Use the provided Python scripts for testing</p></li>
+<li><p>Ensure broker is accessible on <code class="docutils literal notranslate"><span class="pre">localhost:9092</span></code></p></li>
+</ul>
+</section>
+<section id="ssl-certificates">
+<h3>SSL Certificates<a class="headerlink" href="#ssl-certificates" title="Link to this heading">¶</a></h3>
+<p><strong>Certificate Validation Errors</strong>:</p>
+<ul class="simple">
+<li><p>For Let’s Encrypt: Ensure DNS propagation</p></li>
+<li><p>For self-signed: Add certificates to trust store or use <code class="docutils literal notranslate"><span class="pre">--insecure</span></code> flag</p></li>
+</ul>
+</section>
+</section>
+<section id="logs">
+<h2>Logs<a class="headerlink" href="#logs" title="Link to this heading">¶</a></h2>
+<p>View service logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>service_name
+</pre></div>
+</div>
+<p>Stop and clean up:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DevOps Docker Configurations</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_quality.html">Code Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="message_queues.html">Message Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_sharing.html">File Sharing Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring and Dashboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificates.html">SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_docker.html">Docker-in-Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-issues">General Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-specific-issues">Service-Specific Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logs">Logs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="docker_docker.html" title="previous chapter">Docker-in-Docker</a></li>
+      <li>Next: <a href="contributing.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/troubleshooting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
