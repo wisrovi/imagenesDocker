@@ -12,6 +12,8 @@ RUN apk upgrade
 RUN apk add --update docker openrc
 RUN apk add git
 RUN apk add docker-compose
+RUN apk add make
+RUN apk add nano
 
 # Install build dependencies for Python
 RUN apk add build-base openssl-dev bzip2-dev libffi-dev readline-dev zlib-dev sqlite-dev ncurses-dev gcc make musl-dev
