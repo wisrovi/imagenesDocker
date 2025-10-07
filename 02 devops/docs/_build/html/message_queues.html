@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Message Queues &#8212; DevOps Docker Configurations 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File Sharing Services" href="file_sharing.html" />
+    <link rel="prev" title="CI/CD Pipelines" href="pipelines.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="message-queues">
+<h1>Message Queues<a class="headerlink" href="#message-queues" title="Link to this heading">¶</a></h1>
+<p>This section documents the message queue systems in the <code class="docutils literal notranslate"><span class="pre">Queues</span> <span class="pre">for</span> <span class="pre">services/</span></code> directory.</p>
+<section id="celery">
+<h2>Celery<a class="headerlink" href="#celery" title="Link to this heading">¶</a></h2>
+<p>Celery is a distributed task queue for Python applications.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Queues</span> <span class="pre">for</span> <span class="pre">services/celery/</span></code></p>
+<section id="components">
+<h3>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">celery_core.py</span></code>: Core Celery configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Machine.py</span></code>: Machine learning model wrapper</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">State.py</span></code>: State management</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tasks.py</span></code>: Task definitions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">example_machine.py</span></code>: Usage example</p></li>
+</ul>
+</section>
+<section id="deployment">
+<h3>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Queues<span class="se">\ </span><span class="k">for</span><span class="se">\ </span>services/celery/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h3>
+<p>Example task execution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tasks</span><span class="w"> </span><span class="kn">import</span> <span class="n">add</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">add</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="kafka-and-zookeeper">
+<h2>Kafka and Zookeeper<a class="headerlink" href="#kafka-and-zookeeper" title="Link to this heading">¶</a></h2>
+<p>Apache Kafka is a distributed event streaming platform.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Queues</span> <span class="pre">for</span> <span class="pre">services/kafka</span> <span class="pre">y</span> <span class="pre">zookeeper/</span></code></p>
+<section id="id1">
+<h3>Components<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Kafka Broker</strong>: Message broker</p></li>
+<li><p><strong>Zookeeper</strong>: Coordination service</p></li>
+<li><p><strong>Python Examples</strong>: Producer and consumer scripts</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Deployment<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;Queues for services/kafka y zookeeper/&quot;</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="python-examples">
+<h3>Python Examples<a class="headerlink" href="#python-examples" title="Link to this heading">¶</a></h3>
+<p>Producer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kafka</span><span class="w"> </span><span class="kn">import</span> <span class="n">KafkaProducer</span>
+<span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span><span class="n">bootstrap_servers</span><span class="o">=</span><span class="s1">&#39;localhost:9092&#39;</span><span class="p">)</span>
+<span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;test-topic&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;Hello, Kafka!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Consumer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kafka</span><span class="w"> </span><span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span><span class="s1">&#39;test-topic&#39;</span><span class="p">,</span> <span class="n">bootstrap_servers</span><span class="o">=</span><span class="s1">&#39;localhost:9092&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="kurento">
+<h2>Kurento<a class="headerlink" href="#kurento" title="Link to this heading">¶</a></h2>
+<p>Kurento is a WebRTC media server.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Queues</span> <span class="pre">for</span> <span class="pre">services/kurento/</span></code></p>
+<section id="id3">
+<h3>Deployment<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Queues<span class="se">\ </span><span class="k">for</span><span class="se">\ </span>services/kurento/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Custom Kurento configuration in <code class="docutils literal notranslate"><span class="pre">etc/kurento/kurento.conf.json</span></code></p></li>
+<li><p>SDP pattern file for media processing</p></li>
+</ul>
+</section>
+</section>
+<section id="mqtt">
+<h2>MQTT<a class="headerlink" href="#mqtt" title="Link to this heading">¶</a></h2>
+<p>MQTT is a lightweight messaging protocol for IoT and mobile applications.</p>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">Queues</span> <span class="pre">for</span> <span class="pre">services/mqtt/</span></code></p>
+<section id="id4">
+<h3>Components<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Mosquitto Broker</strong>: MQTT broker</p></li>
+<li><p><strong>Python Examples</strong>: Publisher and receiver scripts</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Deployment<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Queues<span class="se">\ </span><span class="k">for</span><span class="se">\ </span>services/mqtt/
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>Python Examples<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>Publisher:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">paho.mqtt.client</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mqtt</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">mqtt</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">1883</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">&quot;test/topic&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello, MQTT!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Receiver:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">paho.mqtt.client</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mqtt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_message</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">userdata</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">mqtt</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">on_message</span> <span class="o">=</span> <span class="n">on_message</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">1883</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s2">&quot;test/topic&quot;</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">loop_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DevOps Docker Configurations</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_quality.html">Code Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Message Queues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#celery">Celery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kafka-and-zookeeper">Kafka and Zookeeper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kurento">Kurento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mqtt">MQTT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file_sharing.html">File Sharing Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring and Dashboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificates.html">SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_docker.html">Docker-in-Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="pipelines.html" title="previous chapter">CI/CD Pipelines</a></li>
+      <li>Next: <a href="file_sharing.html" title="next chapter">File Sharing Services</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/message_queues.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
