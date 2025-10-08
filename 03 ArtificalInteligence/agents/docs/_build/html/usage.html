@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Usage &#8212; AI Tools Installation Scripts 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Templates" href="templates.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<p>This section explains how to use the installed AI tools and the templates provided in this repository.</p>
+<section id="using-installed-tools">
+<h2>Using Installed Tools<a class="headerlink" href="#using-installed-tools" title="Link to this heading">¶</a></h2>
+<section id="google-gemini-cli">
+<h3>Google Gemini CLI<a class="headerlink" href="#google-gemini-cli" title="Link to this heading">¶</a></h3>
+<p>After installation, you can use the Google Gemini CLI for various AI tasks. Refer to the official Google Gemini documentation for detailed usage instructions.</p>
+<p>Basic usage example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gemini<span class="w"> </span><span class="s2">&quot;Generate a summary of this text: [your text here]&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="opencode">
+<h3>OpenCode<a class="headerlink" href="#opencode" title="Link to this heading">¶</a></h3>
+<p>OpenCode provides AI-powered code assistance. Check the OpenCode documentation at <a class="reference external" href="https://opencode.ai">https://opencode.ai</a> for detailed usage guides and examples.</p>
+</section>
+</section>
+<section id="using-templates">
+<h2>Using Templates<a class="headerlink" href="#using-templates" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">templates.yaml</span></code> file contains predefined templates for common development tasks.</p>
+<section id="template-structure">
+<h3>Template Structure<a class="headerlink" href="#template-structure" title="Link to this heading">¶</a></h3>
+<p>Each template in <code class="docutils literal notranslate"><span class="pre">templates.yaml</span></code> has the following structure:</p>
+<ul class="simple">
+<li><p><strong>name</strong>: A unique identifier for the template</p></li>
+<li><p><strong>description</strong>: A detailed description of what the template accomplishes</p></li>
+</ul>
+</section>
+<section id="available-templates">
+<h3>Available Templates<a class="headerlink" href="#available-templates" title="Link to this heading">¶</a></h3>
+<section id="crear-readme">
+<h4>CREAR_README<a class="headerlink" href="#crear-readme" title="Link to this heading">¶</a></h4>
+<p>This template is designed for creating professional README documentation in English. It involves:</p>
+<ol class="arabic simple">
+<li><p>Analyzing the project structure</p></li>
+<li><p>Understanding the codebase</p></li>
+<li><p>Generating comprehensive documentation</p></li>
+<li><p>Updating the README file</p></li>
+</ol>
+<p>To apply this template:</p>
+<ol class="arabic simple">
+<li><p>Review the template description in <code class="docutils literal notranslate"><span class="pre">templates.yaml</span></code></p></li>
+<li><p>Adapt the template to your specific project needs</p></li>
+<li><p>Execute the described steps</p></li>
+</ol>
+</section>
+</section>
+<section id="example-usage-in-automation">
+<h3>Example Usage in Automation<a class="headerlink" href="#example-usage-in-automation" title="Link to this heading">¶</a></h3>
+<p>Templates can be used as starting points for various development tasks. For example, you could create a script that reads the templates and applies them automatically.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;templates.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">templates</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">templates</span><span class="p">[</span><span class="s1">&#39;templates&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Template: </span><span class="si">{</span><span class="n">template</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Description: </span><span class="si">{</span><span class="n">template</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Apply template logic here</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Always test templates in a development environment first</p></li>
+<li><p>Customize templates to fit your specific project requirements</p></li>
+<li><p>Keep templates updated as your project evolves</p></li>
+<li><p>Document any modifications made to templates</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">AI Tools Installation Scripts</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-installed-tools">Using Installed Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-templates">Using Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="templates.html" title="next chapter">Templates</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

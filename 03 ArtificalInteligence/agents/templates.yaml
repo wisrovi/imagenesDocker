@@ -1,0 +1,9 @@
+templates:
+  - name: CREAR_README
+    description: "mira todo lo que hay en este folder, de que se trata, entiende todo,luego modifica el archivo readme.md que esta en el proyecto y crea una documentacion profesional, en ingles, explciativo, detallado, completa y actualiza el archivo"
+
+  - name: CREAR_DOCS_SPHINX
+    description: "mira todo lo que hay en este folder, entiendelo todo, luego crea una carpeta docs (si ya esta creada no crees una nueva sino usa esa), luego crea toda la documentacion del proyecto en esa carpeta usando sphinx, no olvides poner el apartado del autor, para los datos del autor puedes usar la url: https://es.linkedin.com/in/wisrovi-rodriguez, finalmente actualiza ( o crea sino existe) el makefile con los comandos para construir y levantar esata documentacion"
+  
+  - name: CREAR_MAKEFILE
+    description: "crea (o actualiza si ya existe) el makefile con los comandos necesarios para ejecutar los puntos importantes del proyecto"
