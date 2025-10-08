@@ -23,6 +23,8 @@ agents/
 │   ├── usage.rst          # Usage guide
 │   └── Makefile           # Documentation build commands
 ├── install/
+│   ├── base.sh            # Installation script for Node.js via nvm
+│   ├── copilot.sh         # Installation script for GitHub Copilot CLI
 │   ├── gemini.sh          # Installation script for Google Gemini CLI
 │   └── opencode.sh        # Installation script for OpenCode
 ├── Makefile               # Project build and installation commands
@@ -34,9 +36,13 @@ agents/
 
 - **docs/**: Contains the Sphinx-generated documentation for the project, including installation guides, usage instructions, and author information.
 
-- **install/gemini.sh**: A shell script that installs the Google Gemini CLI tool globally using npm. Google Gemini is an AI model developed by Google for various natural language processing tasks.
+- **install/base.sh**: A shell script that installs Node Version Manager (nvm) and sets up Node.js version 22 for development environments. Includes inline comments explaining each command.
 
-- **install/opencode.sh**: A shell script that downloads and installs OpenCode, an AI-powered code assistance tool, using the official installation script from opencode.ai.
+- **install/copilot.sh**: A shell script that installs GitHub Copilot CLI globally using npm for AI-powered code assistance in the terminal. Requires Node.js and npm.
+
+- **install/gemini.sh**: A shell script that installs Google Gemini CLI globally using npm for interacting with Google's Gemini AI models. Requires Node.js and npm.
+
+- **install/opencode.sh**: A shell script that installs the opencode CLI tool from the official installer for AI-assisted coding. Downloads and executes the installer script.
 
 - **Makefile**: The main Makefile for the project, providing commands to install tools, build documentation, and manage the project.
 
@@ -58,8 +64,8 @@ This command will install all AI tools and build the documentation.
 
 - Unix-like operating system (Linux, macOS)
 - Bash shell
-- npm (for gemini.sh)
-- curl (for opencode.sh)
+- curl (for base.sh, opencode.sh)
+- **Note**: Installing nvm and npm packages globally may require sudo privileges on some systems. Ensure you have administrative access or run the scripts with appropriate permissions.
 
 ### Using Makefile Commands
 
@@ -67,11 +73,33 @@ The project includes a Makefile for easy management:
 
 - `make install`: Install all AI tools
 - `make install-gemini`: Install only Google Gemini CLI
+- `make install-base`: Install Node.js via nvm
+- `make install-copilot`: Install GitHub Copilot CLI
 - `make install-opencode`: Install only OpenCode
 - `make docs`: Build the documentation
 - `make serve-docs`: Build and serve documentation locally
 
 ### Installing Individual Tools
+
+#### Base Installation (Node.js)
+
+To install Node.js via nvm:
+
+```bash
+./install/base.sh
+```
+
+This script downloads and installs Node Version Manager (nvm), sources the shell configuration, verifies the installation, installs Node.js version 22, and sets it as the active version. **Note**: May require sudo for global npm installations in subsequent scripts.
+
+#### GitHub Copilot CLI
+
+To install the GitHub Copilot CLI:
+
+```bash
+./install/copilot.sh
+```
+
+This script installs GitHub Copilot CLI globally using npm. **Note**: Requires Node.js and npm (install base.sh first). May require sudo for global npm installation.
 
 #### Google Gemini CLI
 
@@ -81,10 +109,7 @@ To install the Google Gemini CLI:
 ./install/gemini.sh
 ```
 
-This script runs:
-```bash
-npm install -g @google/gemini-cli
-```
+This script installs Google Gemini CLI globally using npm for interacting with Gemini AI models. **Note**: Requires Node.js and npm (install base.sh first). May require sudo for global npm installation.
 
 #### OpenCode
 
@@ -93,6 +118,8 @@ To install OpenCode:
 ```bash
 ./install/opencode.sh
 ```
+
+This script downloads and executes the official opencode installation script from opencode.ai. **Note**: Requires curl and an internet connection. May require sudo depending on the installer.
 
 This script runs:
 ```bash
@@ -114,6 +141,7 @@ done
 
 After installation, you can use the installed tools according to their respective documentation:
 
+- **GitHub Copilot CLI**: Refer to the official GitHub Copilot documentation for usage instructions.
 - **Google Gemini CLI**: Refer to the official Google Gemini documentation for usage instructions.
 - **OpenCode**: Check the OpenCode documentation at https://opencode.ai for detailed usage guides.
 
@@ -176,5 +204,6 @@ If you encounter issues with installation or usage:
 
 ## Version History
 
+- v1.2.0: Added base.sh for Node.js/nvm installation, copilot.sh for GitHub Copilot CLI, enhanced docstrings and inline comments in all scripts, updated README and Makefile accordingly.
 - v1.1.0: Added Sphinx documentation, Makefile for project management, and expanded README.
 - v1.0.0: Initial release with Gemini CLI and OpenCode installation scripts, plus basic templates.

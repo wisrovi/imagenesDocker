@@ -42,12 +42,34 @@
 <ul class="simple">
 <li><p>Unix-like operating system (Linux, macOS, or WSL on Windows)</p></li>
 <li><p>Bash shell</p></li>
-<li><p>npm (for Google Gemini CLI installation)</p></li>
-<li><p>curl (for OpenCode installation)</p></li>
+<li><p>curl (for base.sh, opencode.sh)</p></li>
+<li><p><strong>Note</strong>: Installing nvm and npm packages globally may require sudo privileges on some systems. Ensure you have administrative access or run the scripts with appropriate permissions.</p></li>
 </ul>
 </section>
 <section id="installing-individual-tools">
 <h2>Installing Individual Tools<a class="headerlink" href="#installing-individual-tools" title="Link to this heading">¶</a></h2>
+<section id="base-installation-node-js">
+<h3>Base Installation (Node.js)<a class="headerlink" href="#base-installation-node-js" title="Link to this heading">¶</a></h3>
+<p>The base installation script sets up Node Version Manager (nvm) and Node.js version 22 for development environments.</p>
+<p>To install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./install/base.sh
+</pre></div>
+</div>
+<p>This script downloads and installs nvm, sources the shell configuration, verifies installation, installs Node.js 22, and sets it as active.</p>
+</section>
+<section id="github-copilot-cli">
+<h3>GitHub Copilot CLI<a class="headerlink" href="#github-copilot-cli" title="Link to this heading">¶</a></h3>
+<p>GitHub Copilot CLI provides AI-powered code assistance in the terminal.</p>
+<p>To install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./install/copilot.sh
+</pre></div>
+</div>
+<p>This script executes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@github/copilot
+</pre></div>
+</div>
+<p><strong>Note</strong>: Requires Node.js and npm (install base.sh first).</p>
+</section>
 <section id="google-gemini-cli">
 <h3>Google Gemini CLI<a class="headerlink" href="#google-gemini-cli" title="Link to this heading">¶</a></h3>
 <p>The Google Gemini CLI is an AI model developed by Google for various natural language processing tasks.</p>
@@ -59,6 +81,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@google/gemini-cli
 </pre></div>
 </div>
+<p><strong>Note</strong>: Requires Node.js and npm (install base.sh first).</p>
 </section>
 <section id="opencode">
 <h3>OpenCode<a class="headerlink" href="#opencode" title="Link to this heading">¶</a></h3>
@@ -71,6 +94,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://opencode.ai/install<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </pre></div>
 </div>
+<p><strong>Note</strong>: Requires curl and an internet connection.</p>
 </section>
 </section>
 <section id="bulk-installation">
@@ -87,6 +111,8 @@
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">¶</a></h2>
 <p>After installation, verify the tools are working:</p>
 <ul class="simple">
+<li><p>For Node.js/nvm: Run <code class="docutils literal notranslate"><span class="pre">node</span> <span class="pre">--version</span></code> and <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">--version</span></code></p></li>
+<li><p>For GitHub Copilot CLI: Run <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">copilot</span> <span class="pre">--help</span></code></p></li>
 <li><p>For Google Gemini CLI: Run <code class="docutils literal notranslate"><span class="pre">gemini</span> <span class="pre">--help</span></code></p></li>
 <li><p>For OpenCode: Check the OpenCode documentation for verification steps</p></li>
 </ul>
@@ -95,9 +121,11 @@
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h2>
 <p>Common issues:</p>
 <ul class="simple">
-<li><p><strong>Permission denied</strong>: Run with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> if installing globally</p></li>
-<li><p><strong>npm not found</strong>: Install Node.js and npm first</p></li>
+<li><p><strong>Permission denied</strong>: Run with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> if installing globally (especially for npm packages)</p></li>
+<li><p><strong>npm not found</strong>: Install Node.js and npm first (run base.sh)</p></li>
 <li><p><strong>curl not found</strong>: Install curl using your package manager</p></li>
+<li><p><strong>nvm not sourced</strong>: Restart your terminal or source ~/.bashrc after installing nvm</p></li>
+<li><p><strong>GitHub authentication required</strong>: For Copilot CLI, authenticate with GitHub</p></li>
 </ul>
 <p>For more help, refer to the official documentation of each tool.</p>
 </section>

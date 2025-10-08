@@ -1,18 +1,28 @@
 # Makefile for AI Tools Installation Scripts project
 #
 
-.PHONY: help install install-gemini install-opencode docs serve-docs clean all
+.PHONY: help install install-base install-copilot install-gemini install-opencode docs serve-docs clean all
 
 # Default target
 all: install docs
 
 # Install all tools
-install: install-gemini install-opencode
+install: install-base install-copilot install-gemini install-opencode
 
 # Install Google Gemini CLI
 install-gemini:
 	@echo "Installing Google Gemini CLI..."
 	@./install/gemini.sh
+
+# Install Node.js via nvm
+install-base:
+	@echo "Installing Node.js via nvm..."
+	@./install/base.sh
+
+# Install GitHub Copilot CLI
+install-copilot:
+	@echo "Installing GitHub Copilot CLI..."
+	@./install/copilot.sh
 
 # Install OpenCode
 install-opencode:
@@ -39,6 +49,8 @@ help:
 	@echo "Available targets:"
 	@echo "  all          - Install tools and build docs (default)"
 	@echo "  install      - Install all AI tools"
+	@echo "  install-base     - Install Node.js via nvm"
+	@echo "  install-copilot  - Install GitHub Copilot CLI"
 	@echo "  install-gemini   - Install Google Gemini CLI"
 	@echo "  install-opencode - Install OpenCode"
 	@echo "  docs         - Build Sphinx documentation"
