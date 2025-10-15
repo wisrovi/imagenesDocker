@@ -1,0 +1,105 @@
+# This file defines PersistentVolumes (PVs) and PersistentVolumeClaims (PVCs).
+# It uses `hostPath` for persistence, which is suitable for a single-node
+# Kubernetes cluster (like Minikube or Docker Desktop). 
+# WARNING: This is NOT a production-ready configuration. For a multi-node cluster,
+# you would need a network-based storage solution (e.g., NFS, Ceph, or a cloud provider's storage).
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: etcd-pv
+  namespace: milvus
+  labels:
+    type: local
+    app: etcd
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/etcd"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: etcd-pvc
+  namespace: milvus
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv
+  namespace: milvus
+  labels:
+    type: local
+    app: minio
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/minio"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: milvus
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: milvus-pv
+  namespace: milvus
+  labels:
+    type: local
+    app: milvus-standalone
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/milvus"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: milvus-pvc
+  namespace: milvus
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
