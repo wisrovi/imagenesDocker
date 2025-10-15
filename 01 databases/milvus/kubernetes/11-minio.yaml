@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: milvus
+  labels:
+    app: minio
+spec:
+  ports:
+    - port: 9000
+      name: api
+  clusterIP: None
+  selector:
+    app: minio
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-console
+  namespace: milvus
+spec:
+  type: NodePort
+  ports:
+    - port: 9001
+      targetPort: 9001
+      nodePort: 30002
+      name: console
+  selector:
+    app: minio
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  namespace: milvus
+spec:
+  serviceName: "minio"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+        command:
+        - minio
+        - server
+        - /minio_data
+        - --console-address
+        - ":9001"
+        envFrom:
+        - secretRef:
+            name: minio-secret
+        ports:
+        - containerPort: 9000
+          name: api
+        - containerPort: 9001
+          name: console
+        volumeMounts:
+        - name: minio-data
+          mountPath: /minio_data
+  volumeClaimTemplates:
+  - metadata:
+      name: minio-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: manual
+      resources:
+        requests:
+          storage: 20Gi
