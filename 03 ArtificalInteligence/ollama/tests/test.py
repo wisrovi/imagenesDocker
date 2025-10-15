@@ -2,7 +2,7 @@ import requests
 
 
 model_name = "llama3.1:8b"
-ollama_host = "http://192.168.1.84:11434"
+ollama_host = "http://localhost:11434"
 num_ctx = 130000
 temperature = 0.2
 
