@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: milvus-standalone
+  namespace: milvus
+  labels:
+    app: milvus-standalone
+spec:
+  type: NodePort
+  ports:
+    - name: sdk
+      port: 19530
+      targetPort: 19530
+      nodePort: 30001
+    - name: metrics
+      port: 9091
+      targetPort: 9091
+  selector:
+    app: milvus-standalone
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: milvus-standalone
+  namespace: milvus
+spec:
+  serviceName: "milvus-standalone"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: milvus-standalone
+  template:
+    metadata:
+      labels:
+        app: milvus-standalone
+    spec:
+      containers:
+      - name: milvus-standalone
+        image: milvusdb/milvus:v2.6.1
+        command: [ "milvus", "run", "standalone" ]
+        securityContext:
+          seccompProfile:
+            type: Unconfined
+        env:
+        - name: ETCD_ENDPOINTS
+          value: "etcd.milvus.svc.cluster.local:2379"
+        - name: MINIO_ADDRESS
+          value: "minio.milvus.svc.cluster.local:9000"
+        - name: MQ_TYPE
+          value: "woodpecker"
+        ports:
+        - containerPort: 19530
+          name: sdk
+        - containerPort: 9091
+          name: metrics
+        volumeMounts:
+        - name: milvus-data
+          mountPath: /var/lib/milvus
+  volumeClaimTemplates:
+  - metadata:
+      name: milvus-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: manual
+      resources:
+        requests:
+          storage: 10Gi
