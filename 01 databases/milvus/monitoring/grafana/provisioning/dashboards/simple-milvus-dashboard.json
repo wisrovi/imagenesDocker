@@ -1,0 +1,80 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Total Requests (rate 1m)",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(milvus_proxy_req_count[1m])) by (function_name)",
+          "legendFormat": "{{function_name}}"
+        }
+      ]
+    },
+    {
+      "title": "Search Vectors Rate (1m)",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(milvus_proxy_search_vectors_count[1m]))",
+          "legendFormat": "vectors searched/sec"
+        }
+      ]
+    },
+    {
+      "title": "Mutation Requests (rate 1m)",
+      "type": "graph",
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(milvus_proxy_mutation_latency_count[1m]))",
+          "legendFormat": "mutation requests"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Simple Milvus Dashboard",
+  "uid": "simple-milvus-abc",
+  "version": 1
+}
