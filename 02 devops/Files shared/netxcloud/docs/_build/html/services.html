@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services &mdash; Nextcloud Docker Deployment 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Nextcloud Docker Deployment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#database-postgresql">Database (PostgreSQL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cache-redis">Cache (Redis)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nextcloud-app">Nextcloud App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#onlyoffice">OnlyOffice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nginx-proxy">Nginx Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-server">Documentation Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-dependencies">Service Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-services">Monitoring Services</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextcloud Docker Deployment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Services</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/services.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="services">
+<h1>Services<a class="headerlink" href="#services" title="Link to this heading"></a></h1>
+<p>This section details each service in the Docker stack.</p>
+<section id="database-postgresql">
+<h2>Database (PostgreSQL)<a class="headerlink" href="#database-postgresql" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Image</strong>: <cite>postgres:15-alpine</cite></p></li>
+<li><p><strong>Purpose</strong>: Stores user data, file metadata, and configurations.</p></li>
+<li><p><strong>Port</strong>: Internal only (5432).</p></li>
+<li><p><strong>Volume</strong>: <cite>db_data</cite></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>PostgreSQL is chosen for its robustness and performance. For more info, visit <a class="reference external" href="https://www.postgresql.org">PostgreSQL Official Site</a>.</p>
+</div>
+</section>
+<section id="cache-redis">
+<h2>Cache (Redis)<a class="headerlink" href="#cache-redis" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Image</strong>: <cite>redis:alpine</cite></p></li>
+<li><p><strong>Purpose</strong>: Provides high-performance caching for sessions and data.</p></li>
+<li><p><strong>Port</strong>: Internal only (6379).</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Redis improves response times significantly. Learn more at <a class="reference external" href="https://redis.io">Redis Official Site</a>.</p>
+</div>
+</section>
+<section id="nextcloud-app">
+<h2>Nextcloud App<a class="headerlink" href="#nextcloud-app" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Image</strong>: <cite>nextcloud:latest</cite></p></li>
+<li><p><strong>Purpose</strong>: Core application for file sharing and collaboration.</p></li>
+<li><p><strong>Port</strong>: Internal (80).</p></li>
+<li><p><strong>Environment</strong>: Configured via <cite>.env</cite>.</p></li>
+</ul>
+<p>Features include:</p>
+<ul class="simple">
+<li><p>File synchronization</p></li>
+<li><p>User management</p></li>
+<li><p>App ecosystem</p></li>
+</ul>
+<p>For full features, see <a class="reference external" href="https://nextcloud.com/features">Nextcloud Features</a>.</p>
+</section>
+<section id="onlyoffice">
+<h2>OnlyOffice<a class="headerlink" href="#onlyoffice" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Image</strong>: <cite>onlyoffice/documentserver:latest</cite></p></li>
+<li><p><strong>Purpose</strong>: Enables online document editing.</p></li>
+<li><p><strong>Port</strong>: Internal (80).</p></li>
+<li><p><strong>Volume</strong>: <cite>onlyoffice_data</cite></p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Requires JWT secret for security. Documentation at <a class="reference external" href="https://api.onlyoffice.com">OnlyOffice Docs</a>.</p>
+</div>
+</section>
+<section id="nginx-proxy">
+<h2>Nginx Proxy<a class="headerlink" href="#nginx-proxy" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Image</strong>: <cite>nginx:alpine</cite></p></li>
+<li><p><strong>Purpose</strong>: Reverse proxy with SSL termination.</p></li>
+<li><p><strong>Ports</strong>: 80 (HTTP), 443 (HTTPS).</p></li>
+<li><p><strong>Volumes</strong>: <cite>nginx/conf.d</cite>, <cite>certs</cite></p></li>
+</ul>
+<p>Handles:</p>
+<ul class="simple">
+<li><p>HTTP to HTTPS redirection</p></li>
+<li><p>SSL certificates</p></li>
+<li><p>Load balancing</p></li>
+</ul>
+</section>
+<section id="documentation-server">
+<h2>Documentation Server<a class="headerlink" href="#documentation-server" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Built from</strong>: <cite>./docs/Dockerfile</cite></p></li>
+<li><p><strong>Purpose</strong>: Serves this Sphinx documentation.</p></li>
+<li><p><strong>Port</strong>: 8080</p></li>
+<li><p><strong>Technology</strong>: Nginx serving static HTML</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Automatically rebuilt with documentation updates.</p>
+</div>
+</section>
+<section id="service-dependencies">
+<h2>Service Dependencies<a class="headerlink" href="#service-dependencies" title="Link to this heading"></a></h2>
+<p>The services have the following dependencies:</p>
+<ul class="simple">
+<li><p>Database (db) -&gt; Nextcloud App</p></li>
+<li><p>Redis -&gt; Nextcloud App</p></li>
+<li><p>Nextcloud App -&gt; Nginx Proxy</p></li>
+<li><p>OnlyOffice -&gt; Nginx Proxy</p></li>
+<li><p>Documentation Server (optional) -&gt; Nginx Proxy</p></li>
+</ul>
+<p>Nginx acts as the reverse proxy for app and onlyoffice, while docs serves documentation independently.</p>
+</section>
+<section id="monitoring-services">
+<h2>Monitoring Services<a class="headerlink" href="#monitoring-services" title="Link to this heading"></a></h2>
+<p>To monitor services:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>ps
+docker<span class="w"> </span>stats
+</pre></div>
+</div>
+<p>For logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>&lt;service&gt;
+</pre></div>
+</div>
+<p>Replace <cite>&lt;service&gt;</cite> with db, redis, etc.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

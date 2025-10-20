@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # 1. Base de Datos (PostgreSQL)
   db:
     image: postgres:15-alpine
     restart: always
@@ -14,14 +13,12 @@ services:
     networks:
       - nextcloud_network
 
-  # 2. Redis (Cache de Alto Rendimiento)
   redis:
     image: redis:alpine
     restart: always
     networks:
       - nextcloud_network
 
-  # 3. Nextcloud Core (El DMS/Servidor de Archivos)
   app:
     image: nextcloud:latest
     restart: always
@@ -55,7 +52,6 @@ services:
     networks:
       - nextcloud_network
       
-  # 4. ONLYOFFICE Document Server (para Nextcloud Office)
   onlyoffice:
     image: onlyoffice/documentserver:latest
     restart: always
@@ -73,10 +69,6 @@ services:
     networks:
       - nextcloud_network
       
-# 5. Proxy/Gateway (Nginx + Certbot) - OPCIONAL PERO MUY RECOMENDADO
-#    *Maneja el tráfico, la redirección a HTTPS y el certificado SSL.*
-#    Si ya tienes un proxy Nginx o Caddy externo, puedes omitir este servicio
-#    y mapear el puerto 443 del host al puerto 443 de 'app'.
   nginx:
     image: nginx:alpine
     restart: always
@@ -86,6 +78,14 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./certs:/etc/nginx/certs
+    networks:
+      - nextcloud_network
+
+  docs:
+    build: ./docs
+    restart: always
+    ports:
+      - "8080:80"
     networks:
       - nextcloud_network
 
