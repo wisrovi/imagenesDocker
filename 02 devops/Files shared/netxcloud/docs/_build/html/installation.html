@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; Nextcloud Docker Deployment 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Nextcloud Docker Deployment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#step-by-step-installation">Step-by-Step Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clone-the-repository">1. Clone the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-environment-file">2. Create Environment File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-ssl-certificates">3. Generate SSL Certificates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-the-stack">4. Start the Stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#access-nextcloud">5. Access Nextcloud</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-make-commands">Using Make Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-installation-steps">Post-Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-installation">Troubleshooting Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextcloud Docker Deployment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>This section guides you through the installation process of the Nextcloud Docker stack.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before proceeding, ensure your system meets the following requirements:</p>
+<ul class="simple">
+<li><p><strong>Operating System</strong>: Linux, macOS, or Windows (with WSL2).</p></li>
+<li><p><strong>Docker</strong>: Version 20.10 or later. Download from <a class="reference external" href="https://www.docker.com/get-started">Docker Official Site</a>.</p></li>
+<li><p><strong>Docker Compose</strong>: Version 2.0 or later. Included with Docker Desktop.</p></li>
+<li><p><strong>Git</strong>: For cloning the repository. Download from <a class="reference external" href="https://git-scm.com">Git Official Site</a>.</p></li>
+<li><p><strong>Domain Name</strong>: Recommended for SSL. Point it to your server’s IP.</p></li>
+</ul>
+<section id="system-requirements">
+<h3>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>CPU</strong>: At least 2 cores.</p></li>
+<li><p><strong>RAM</strong>: Minimum 4GB, recommended 8GB+.</p></li>
+<li><p><strong>Storage</strong>: 20GB+ free space for data and containers.</p></li>
+</ul>
+</section>
+</section>
+<section id="step-by-step-installation">
+<h2>Step-by-Step Installation<a class="headerlink" href="#step-by-step-installation" title="Link to this heading"></a></h2>
+<section id="clone-the-repository">
+<h3>1. Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+<span class="nb">cd</span><span class="w"> </span>nextcloud-docker-deployment
+</pre></div>
+</div>
+<p>Replace <cite>&lt;repository-url&gt;</cite> with the actual repository URL.</p>
+</section>
+<section id="create-environment-file">
+<h3>2. Create Environment File<a class="headerlink" href="#create-environment-file" title="Link to this heading"></a></h3>
+<p>Create a <cite>.env</cite> file in the root directory:</p>
+<div class="highlight-env notranslate"><div class="highlight"><pre><span></span>DB_PASSWORD=your_secure_db_password
+NEXTCLOUD_DOMAIN=your-domain.com
+ADMIN_USER=admin
+ADMIN_PASSWORD=your_admin_password
+ONLYOFFICE_JWT_SECRET=your_jwt_secret
+ONLYOFFICE_DOMAIN=onlyoffice.your-domain.com
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use strong, unique passwords. Never commit the <cite>.env</cite> file to version control.</p>
+</div>
+</section>
+<section id="generate-ssl-certificates">
+<h3>3. Generate SSL Certificates<a class="headerlink" href="#generate-ssl-certificates" title="Link to this heading"></a></h3>
+<p>Navigate to the <cite>openssl/</cite> directory and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up
+</pre></div>
+</div>
+<p>This generates <cite>fullchain.pem</cite> and <cite>privkey.pem</cite> in the <cite>certs/</cite> directory.</p>
+<p>For production, consider using <a class="reference external" href="https://letsencrypt.org">Let’s Encrypt</a> for valid certificates.</p>
+</section>
+<section id="start-the-stack">
+<h3>4. Start the Stack<a class="headerlink" href="#start-the-stack" title="Link to this heading"></a></h3>
+<p>From the root directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>This pulls images, builds containers, and starts all services in detached mode.</p>
+</section>
+<section id="access-nextcloud">
+<h3>5. Access Nextcloud<a class="headerlink" href="#access-nextcloud" title="Link to this heading"></a></h3>
+<p>Open your browser and navigate to <cite>https://your-domain.com</cite>. Log in with the admin credentials from the <cite>.env</cite> file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The first startup may take a few minutes as images are downloaded.</p>
+</div>
+</section>
+</section>
+<section id="using-make-commands">
+<h2>Using Make Commands<a class="headerlink" href="#using-make-commands" title="Link to this heading"></a></h2>
+<p>Alternatively, use the provided Makefile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>up<span class="w">  </span><span class="c1"># Start the stack</span>
+make<span class="w"> </span>down<span class="w">  </span><span class="c1"># Stop the stack</span>
+make<span class="w"> </span>logs<span class="w">  </span><span class="c1"># View logs</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> for more commands.</p>
+</section>
+<section id="post-installation-steps">
+<h2>Post-Installation Steps<a class="headerlink" href="#post-installation-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Configure Apps</strong>: Install and configure Nextcloud apps from the admin panel.</p></li>
+<li><p><strong>Set Up Backups</strong>: Regularly back up volumes as described in <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a>.</p></li>
+<li><p><strong>Monitor Logs</strong>: Use <cite>docker-compose logs -f</cite> to monitor for issues.</p></li>
+</ul>
+</section>
+<section id="troubleshooting-installation">
+<h2>Troubleshooting Installation<a class="headerlink" href="#troubleshooting-installation" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Port Conflicts</strong>: Ensure ports 80, 443, and 8080 are free.</p></li>
+<li><p><strong>Permission Issues</strong>: Run commands with appropriate permissions (e.g., sudo if needed).</p></li>
+<li><p><strong>SSL Errors</strong>: Verify certificate paths in <cite>nginx/conf.d/default.conf</cite>.</p></li>
+</ul>
+<p>If you encounter issues, refer to the <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> section.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

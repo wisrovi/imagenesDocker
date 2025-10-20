@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troubleshooting &mdash; Nextcloud Docker Deployment 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Nextcloud Docker Deployment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#port-conflicts">Port Conflicts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssl-issues">SSL Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-connection">Database Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-failures">Service Failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-upload-limits">File Upload Limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-issues">Performance Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logs-and-debugging">Logs and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preventive-measures">Preventive Measures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextcloud Docker Deployment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<p>Common issues and solutions.</p>
+<section id="port-conflicts">
+<h2>Port Conflicts<a class="headerlink" href="#port-conflicts" title="Link to this heading"></a></h2>
+<p><strong>Error</strong>: Port already in use.</p>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netstat<span class="w"> </span>-tulpn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:80
+<span class="c1"># Kill conflicting process or change ports in docker-compose.yaml</span>
+</pre></div>
+</div>
+</section>
+<section id="ssl-issues">
+<h2>SSL Issues<a class="headerlink" href="#ssl-issues" title="Link to this heading"></a></h2>
+<p><strong>Error</strong>: SSL certificate invalid.</p>
+<p><strong>Solution</strong>:</p>
+<ul class="simple">
+<li><p>Regenerate certificates: <cite>make certs</cite></p></li>
+<li><p>For production: Use Let’s Encrypt.</p></li>
+</ul>
+</section>
+<section id="database-connection">
+<h2>Database Connection<a class="headerlink" href="#database-connection" title="Link to this heading"></a></h2>
+<p><strong>Error</strong>: Can’t connect to database.</p>
+<p><strong>Solution</strong>:</p>
+<ul class="simple">
+<li><p>Check <cite>.env</cite> for correct DB_PASSWORD.</p></li>
+<li><p>Verify db service is running: <cite>docker-compose ps</cite></p></li>
+</ul>
+</section>
+<section id="service-failures">
+<h2>Service Failures<a class="headerlink" href="#service-failures" title="Link to this heading"></a></h2>
+<p><strong>Error</strong>: Service not starting.</p>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>&lt;service&gt;
+<span class="c1"># Fix issues and restart: docker-compose restart &lt;service&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="file-upload-limits">
+<h2>File Upload Limits<a class="headerlink" href="#file-upload-limits" title="Link to this heading"></a></h2>
+<p><strong>Error</strong>: File too large.</p>
+<p><strong>Solution</strong>:</p>
+<ul class="simple">
+<li><p>Increase <cite>client_max_body_size</cite> in <cite>nginx/conf.d/default.conf</cite>.</p></li>
+<li><p>Restart nginx: <cite>docker-compose restart nginx</cite></p></li>
+</ul>
+</section>
+<section id="performance-issues">
+<h2>Performance Issues<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h2>
+<p><strong>Symptoms</strong>: Slow response.</p>
+<p><strong>Solutions</strong>:</p>
+<ul class="simple">
+<li><p>Add more RAM.</p></li>
+<li><p>Optimize Redis cache.</p></li>
+<li><p>Scale services.</p></li>
+</ul>
+</section>
+<section id="logs-and-debugging">
+<h2>Logs and Debugging<a class="headerlink" href="#logs-and-debugging" title="Link to this heading"></a></h2>
+<p>View all logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
+</pre></div>
+</div>
+<p>For specific service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>app
+</pre></div>
+</div>
+<p>Enable debug mode in Nextcloud:</p>
+<ul class="simple">
+<li><p>Go to Settings &gt; Administration &gt; Logging.</p></li>
+<li><p>Set log level to Debug.</p></li>
+</ul>
+</section>
+<section id="common-errors">
+<h2>Common Errors<a class="headerlink" href="#common-errors" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Common Errors</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Error</p></th>
+<th class="head"><p>Cause</p></th>
+<th class="head"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>502 Bad Gateway</p></td>
+<td><p>App service down</p></td>
+<td><p><cite>docker-compose restart app</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p>504 Timeout</p></td>
+<td><p>Slow database</p></td>
+<td><p>Optimize queries or add resources</p></td>
+</tr>
+<tr class="row-even"><td><p>SSL Handshake Failed</p></td>
+<td><p>Certificate issue</p></td>
+<td><p>Regenerate certificates</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Check <cite>docker-compose ps</cite> for service status.</p></li>
+<li><p>Search <a class="reference external" href="https://help.nextcloud.com">Nextcloud Forums</a>.</p></li>
+<li><p>Open an issue on the project repository.</p></li>
+</ul>
+</section>
+<section id="preventive-measures">
+<h2>Preventive Measures<a class="headerlink" href="#preventive-measures" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Monitor resources with <cite>docker stats</cite>.</p></li>
+<li><p>Set up alerts for service failures.</p></li>
+<li><p>Keep Docker and images updated.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
