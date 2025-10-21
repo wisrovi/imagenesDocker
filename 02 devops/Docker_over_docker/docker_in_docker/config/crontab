@@ -1,0 +1,31 @@
+# Cron jobs for Docker-in-Docker maintenance tasks
+
+# Backup volumes daily at 2 AM
+0 2 * * * /usr/local/bin/backup.sh
+
+# Log rotation hourly
+0 * * * * /usr/sbin/logrotate /etc/logrotate.d/app
+
+# Update package lists daily
+0 3 * * * apk update >/dev/null 2>&1
+
+# Clean up old Docker images weekly (Sundays at 3 AM)
+0 3 * * 0 docker system prune -f >/dev/null 2>&1
+
+# Health check every 5 minutes
+*/5 * * * * curl -f http://localhost:9000/api/status >/dev/null 2>&1 || echo "Portainer health check failed"
+
+# Monitor disk usage daily
+0 6 * * * df -h | grep -E "(9[0-9]|100)%" && echo "Disk usage warning" | /usr/local/bin/notify.sh "High disk usage detected" "Disk Alert" "warning"
+
+# SSL certificate renewal check (if using Let's Encrypt)
+0 12 * * * [ -f /etc/ssl/certs/server.crt ] && openssl x509 -checkend 864000 -noout -in /etc/ssl/certs/server.crt || /usr/local/bin/setup_ssl.sh
+
+# Container cleanup - remove exited containers daily
+0 4 * * * docker container prune -f >/dev/null 2>&1
+
+# Volume cleanup - remove unused volumes weekly
+0 4 * * 0 docker volume prune -f >/dev/null 2>&1
+
+# Network cleanup - remove unused networks weekly
+0 4 * * 0 docker network prune -f >/dev/null 2>&1
