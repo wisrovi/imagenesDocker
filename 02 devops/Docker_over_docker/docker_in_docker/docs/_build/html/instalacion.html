@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instalación &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Configuración" href="configuracion.html" />
+    <link rel="prev" title="Introducción" href="introduccion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Instalación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerrequisitos-del-sistema">Prerrequisitos del Sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verificacion-de-prerrequisitos">Verificación de Prerrequisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instalacion-paso-a-paso">Instalación Paso a Paso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#paso-1-obtener-el-proyecto">Paso 1: Obtener el Proyecto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paso-2-configuracion-inicial">Paso 2: Configuración Inicial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paso-3-construir-e-iniciar">Paso 3: Construir e Iniciar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paso-4-verificar-instalacion">Paso 4: Verificar Instalación</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#acceso-a-los-servicios">Acceso a los Servicios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instalacion-avanzada">Instalación Avanzada</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modo-desarrollo">Modo Desarrollo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modo-produccion">Modo Producción</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#solucion-de-problemas-en-instalacion">Solución de Problemas en Instalación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#desinstalacion">Desinstalación</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">Uso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mejores-practicas.html">Mejores Prácticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Solución de Problemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Preguntas Frecuentes (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instalación</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instalacion.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="introduccion.html" class="btn btn-neutral float-left" title="Introducción" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="configuracion.html" class="btn btn-neutral float-right" title="Configuración" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="instalacion">
+<h1>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading"></a></h1>
+<section id="prerrequisitos-del-sistema">
+<span id="id1"></span><h2>Prerrequisitos del Sistema<a class="headerlink" href="#prerrequisitos-del-sistema" title="Link to this heading"></a></h2>
+<p>Antes de proceder con la instalación, verifique que su sistema cumpla con los siguientes requisitos:</p>
+<p><strong>Software Requerido:</strong></p>
+<ul>
+<li><p><strong>Docker Engine</strong>: Versión 20.10.0 o superior</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>--version
+</pre></div>
+</div>
+</li>
+<li><p><strong>Docker Compose</strong>: Versión 1.29.0 o superior</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>--version
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Requisitos de Hardware:</strong></p>
+<ul class="simple">
+<li><p><strong>Memoria RAM</strong>: Mínimo 4GB, recomendado 8GB</p></li>
+<li><p><strong>Espacio en Disco</strong>: Mínimo 10GB libres</p></li>
+<li><p><strong>CPU</strong>: 2 núcleos o más (recomendado)</p></li>
+</ul>
+<p><strong>Sistemas Operativos Soportados:</strong></p>
+<ul class="simple">
+<li><p>Linux (Ubuntu, CentOS, Debian, etc.)</p></li>
+<li><p>macOS (con Docker Desktop)</p></li>
+<li><p>Windows (con WSL2 + Docker Desktop)</p></li>
+</ul>
+</section>
+<section id="verificacion-de-prerrequisitos">
+<h2>Verificación de Prerrequisitos<a class="headerlink" href="#verificacion-de-prerrequisitos" title="Link to this heading"></a></h2>
+<p>Ejecute estos comandos para verificar su instalación:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificar Docker</span>
+docker<span class="w"> </span>run<span class="w"> </span>hello-world
+
+<span class="c1"># Verificar Docker Compose</span>
+docker-compose<span class="w"> </span>--version
+
+<span class="c1"># Verificar espacio en disco</span>
+df<span class="w"> </span>-h
+
+<span class="c1"># Verificar memoria</span>
+free<span class="w"> </span>-h
+</pre></div>
+</div>
+</section>
+<section id="instalacion-paso-a-paso">
+<h2>Instalación Paso a Paso<a class="headerlink" href="#instalacion-paso-a-paso" title="Link to this heading"></a></h2>
+<section id="paso-1-obtener-el-proyecto">
+<h3>Paso 1: Obtener el Proyecto<a class="headerlink" href="#paso-1-obtener-el-proyecto" title="Link to this heading"></a></h3>
+<p>Clone el repositorio o descargue los archivos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-repo/docker-dind-portainer.git
+<span class="nb">cd</span><span class="w"> </span>docker-dind-portainer
+</pre></div>
+</div>
+<p>O descargue el ZIP desde el repositorio.</p>
+</section>
+<section id="paso-2-configuracion-inicial">
+<h3>Paso 2: Configuración Inicial<a class="headerlink" href="#paso-2-configuracion-inicial" title="Link to this heading"></a></h3>
+<p>No se requiere configuración adicional. Los archivos están pre-configurados para funcionar out-of-the-box.</p>
+<p>Sin embargo, puede personalizar:</p>
+<ul class="simple">
+<li><p>Puertos en <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code></p></li>
+<li><p>Contraseña SSH en <code class="docutils literal notranslate"><span class="pre">scripts/install_ssh.sh</span></code></p></li>
+<li><p>Configuración de Portainer</p></li>
+</ul>
+</section>
+<section id="paso-3-construir-e-iniciar">
+<h3>Paso 3: Construir e Iniciar<a class="headerlink" href="#paso-3-construir-e-iniciar" title="Link to this heading"></a></h3>
+<p>Ejecute el comando principal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Este comando:</p>
+<ol class="arabic simple">
+<li><p><strong>Descarga imágenes</strong>: Obtiene <code class="docutils literal notranslate"><span class="pre">docker:dind</span></code> y dependencias</p></li>
+<li><p><strong>Construye contenedor</strong>: Crea la imagen personalizada con SSH y Portainer</p></li>
+<li><p><strong>Configura volúmenes</strong>: Crea directorios para persistencia de datos</p></li>
+<li><p><strong>Inicia servicios</strong>: Levanta el contenedor con todos los servicios</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La primera ejecución puede tomar varios minutos debido a la descarga de imágenes.</p>
+</div>
+</section>
+<section id="paso-4-verificar-instalacion">
+<h3>Paso 4: Verificar Instalación<a class="headerlink" href="#paso-4-verificar-instalacion" title="Link to this heading"></a></h3>
+<p>Compruebe que todo esté funcionando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ver estado de contenedores</span>
+docker-compose<span class="w"> </span>ps
+
+<span class="c1"># Ver logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>dind
+</pre></div>
+</div>
+<p>Debería ver algo como:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME      IMAGE                   COMMAND                  SERVICE   STATUS
+dind      docker_in_docker-dind   &quot;/usr/local/bin/star…&quot;   dind      Up 2 minutes (healthy)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="acceso-a-los-servicios">
+<h2>Acceso a los Servicios<a class="headerlink" href="#acceso-a-los-servicios" title="Link to this heading"></a></h2>
+<p>Una vez instalado, acceda a los servicios:</p>
+<p><strong>Portainer (Interfaz Web):</strong></p>
+<ul class="simple">
+<li><p>URL: <a class="reference external" href="http://localhost:9003">http://localhost:9003</a></p></li>
+<li><p>Usuario: admin (primera vez)</p></li>
+<li><p>Contraseña: Configure en la interfaz</p></li>
+</ul>
+<p><strong>SSH (Acceso Terminal):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">50422</span>
+Password:<span class="w"> </span>password
+</pre></div>
+</div>
+<p><strong>Docker API (Interna):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>tcp://localhost:2375
+docker<span class="w"> </span>ps
+</pre></div>
+</div>
+</section>
+<section id="instalacion-avanzada">
+<h2>Instalación Avanzada<a class="headerlink" href="#instalacion-avanzada" title="Link to this heading"></a></h2>
+<section id="modo-desarrollo">
+<h3>Modo Desarrollo<a class="headerlink" href="#modo-desarrollo" title="Link to this heading"></a></h3>
+<p>Para desarrollo, puede montar el código fuente:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./scripts:/app/scripts</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./docs:/app/docs</span>
+</pre></div>
+</div>
+</section>
+<section id="modo-produccion">
+<h3>Modo Producción<a class="headerlink" href="#modo-produccion" title="Link to this heading"></a></h3>
+<p>Para producción, considere:</p>
+<ul class="simple">
+<li><p>Cambiar contraseñas por defecto</p></li>
+<li><p>Usar secrets de Docker</p></li>
+<li><p>Configurar logging persistente</p></li>
+<li><p>Implementar backups automáticos</p></li>
+</ul>
+</section>
+</section>
+<section id="solucion-de-problemas-en-instalacion">
+<h2>Solución de Problemas en Instalación<a class="headerlink" href="#solucion-de-problemas-en-instalacion" title="Link to this heading"></a></h2>
+<p><strong>Error: «Port already in use»</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cambiar puertos en docker-compose.yaml</span>
+ports:
+<span class="w">  </span>-<span class="w"> </span><span class="s2">&quot;9004:9000&quot;</span><span class="w">  </span><span class="c1"># Portainer</span>
+<span class="w">  </span>-<span class="w"> </span><span class="s2">&quot;50423:50422&quot;</span><span class="w">  </span><span class="c1"># SSH</span>
+</pre></div>
+</div>
+<p><strong>Error: «Permission denied»</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Añadir usuario al grupo docker</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+<span class="c1"># Reiniciar sesión</span>
+</pre></div>
+</div>
+<p><strong>Error: «No space left on device»</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Limpiar Docker</span>
+docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>-a
+<span class="c1"># Liberar espacio en disco</span>
+</pre></div>
+</div>
+</section>
+<section id="desinstalacion">
+<h2>Desinstalación<a class="headerlink" href="#desinstalacion" title="Link to this heading"></a></h2>
+<p>Para remover completamente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detener y remover contenedores</span>
+docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+
+<span class="c1"># Remover imágenes</span>
+docker<span class="w"> </span>rmi<span class="w"> </span>docker_in_docker-dind
+
+<span class="c1"># Limpiar volúmenes (opcional)</span>
+sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>volumes/
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="introduccion.html" class="btn btn-neutral float-left" title="Introducción" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="configuracion.html" class="btn btn-neutral float-right" title="Configuración" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejemplos &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Tutoriales" href="tutoriales.html" />
+    <link rel="prev" title="Uso" href="uso.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacion.html">Instalación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">Uso</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ejemplos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aplicacion-web-completa">Aplicación Web Completa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#microservicios-con-balanceo-de-carga">Microservicios con Balanceo de Carga</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-cd-pipeline-simulado">CI/CD Pipeline Simulado</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-con-selenium">Testing con Selenium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#desarrollo-con-hot-reload">Desarrollo con Hot Reload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-automatizado">Backup Automatizado</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoreo-con-prometheus">Monitoreo con Prometheus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ejemplos-avanzados">Ejemplos Avanzados</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mejores-practicas.html">Mejores Prácticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Solución de Problemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Preguntas Frecuentes (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Ejemplos</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ejemplos.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="uso.html" class="btn btn-neutral float-left" title="Uso" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="tutoriales.html" class="btn btn-neutral float-right" title="Tutoriales" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ejemplos">
+<h1>Ejemplos<a class="headerlink" href="#ejemplos" title="Link to this heading"></a></h1>
+<p id="id1">Esta sección proporciona ejemplos prácticos para aprovechar al máximo el entorno DinD.</p>
+<section id="aplicacion-web-completa">
+<h2>Aplicación Web Completa<a class="headerlink" href="#aplicacion-web-completa" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Desplegar una aplicación web con base de datos.</p>
+<ol class="arabic">
+<li><p><strong>Estructura de archivos:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>volumes/files/
+├── docker-compose.yml
+├── app/
+│   ├── server.js
+│   ├── package.json
+│   └── Dockerfile
+└── db/
+    └── init.sql
+</pre></div>
+</div>
+</li>
+<li><p><strong>docker-compose.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">web</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./app</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3000:3000&quot;</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgres://user:pass@db:5432/mydb</span>
+
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:13</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_DB=mydb</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_USER=user</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_PASSWORD=pass</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/init.sql:/docker-entrypoint-initdb.d/init.sql</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Aplicación Node.js:</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">express</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Client</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;pg&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">express</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Client</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">connectionString</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DATABASE_URL</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;SELECT NOW()&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Hello from DinD!&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">time</span><span class="o">:</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">rows</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Server running on port 3000&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Despliegue:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dentro del contenedor</span>
+<span class="nb">cd</span><span class="w"> </span>/app
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Acceda en: <a class="reference external" href="http://localhost:51080">http://localhost:51080</a></p>
+</li>
+</ol>
+</section>
+<section id="microservicios-con-balanceo-de-carga">
+<h2>Microservicios con Balanceo de Carga<a class="headerlink" href="#microservicios-con-balanceo-de-carga" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Arquitectura de microservicios con nginx como proxy reverso.</p>
+<ol class="arabic">
+<li><p><strong>docker-compose.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:alpine</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;80:80&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./nginx.conf:/etc/nginx/nginx.conf</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api2</span>
+
+<span class="w">  </span><span class="nt">api1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./api</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PORT=3001</span>
+
+<span class="w">  </span><span class="nt">api2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./api</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PORT=3002</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>nginx.conf:</strong></p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">events</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kn">worker_connections</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">http</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kn">upstream</span><span class="w"> </span><span class="s">api_backend</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">api1</span><span class="p">:</span><span class="mi">3001</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">api2</span><span class="p">:</span><span class="mi">3002</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://api_backend</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">      </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="ci-cd-pipeline-simulado">
+<h2>CI/CD Pipeline Simulado<a class="headerlink" href="#ci-cd-pipeline-simulado" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Simular un pipeline de CI/CD completo.</p>
+<ol class="arabic">
+<li><p><strong>Script de pipeline:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== CI/CD Pipeline ===&quot;</span>
+
+<span class="c1"># Build</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Building application...&quot;</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp:<span class="si">${</span><span class="nv">BUILD_NUMBER</span><span class="k">:-</span><span class="nv">latest</span><span class="si">}</span><span class="w"> </span>.
+
+<span class="c1"># Test</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Running tests...&quot;</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>myapp:<span class="si">${</span><span class="nv">BUILD_NUMBER</span><span class="k">:-</span><span class="nv">latest</span><span class="si">}</span><span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Security scan</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Security scanning...&quot;</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>goodwithtech/dockle:latest<span class="w"> </span>myapp:<span class="si">${</span><span class="nv">BUILD_NUMBER</span><span class="k">:-</span><span class="nv">latest</span><span class="si">}</span>
+
+<span class="c1"># Deploy</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying...&quot;</span>
+docker<span class="w"> </span>tag<span class="w"> </span>myapp:<span class="si">${</span><span class="nv">BUILD_NUMBER</span><span class="k">:-</span><span class="nv">latest</span><span class="si">}</span><span class="w"> </span>myapp:stable
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span><span class="nv">web</span><span class="o">=</span><span class="m">3</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pipeline completed successfully!&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Ejecución:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/app
+chmod<span class="w"> </span>+x<span class="w"> </span>pipeline.sh
+./pipeline.sh
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="testing-con-selenium">
+<h2>Testing con Selenium<a class="headerlink" href="#testing-con-selenium" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Testing de UI con Selenium en contenedores.</p>
+<ol class="arabic">
+<li><p><strong>docker-compose.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">selenium</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">selenium/standalone-chrome</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;4444:4444&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;7900:7900&quot;</span>
+
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">selenium</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SELENIUM_URL=http://selenium:4444/wd/hub</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Test script:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.desired_capabilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">DesiredCapabilities</span>
+
+<span class="c1"># Configurar driver remoto</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Remote</span><span class="p">(</span>
+    <span class="n">command_executor</span><span class="o">=</span><span class="s1">&#39;http://selenium:4444/wd/hub&#39;</span><span class="p">,</span>
+    <span class="n">desired_capabilities</span><span class="o">=</span><span class="n">DesiredCapabilities</span><span class="o">.</span><span class="n">CHROME</span>
+<span class="p">)</span>
+
+<span class="c1"># Ejecutar test</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://web-app&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s1">&#39;Welcome&#39;</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="desarrollo-con-hot-reload">
+<h2>Desarrollo con Hot Reload<a class="headerlink" href="#desarrollo-con-hot-reload" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Desarrollo con recarga automática de código.</p>
+<ol class="arabic">
+<li><p><strong>docker-compose.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3000:3000&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.:/app</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/app/node_modules</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run dev</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CHOKIDAR_USEPOLLING=true</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>package.json:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nodemon server.js&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;express&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.18.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;nodemon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.0.0&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Uso:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cambios en código se reflejan automáticamente</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Modificando server.js...&quot;</span>
+<span class="c1"># La aplicación se recarga sola</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="backup-automatizado">
+<h2>Backup Automatizado<a class="headerlink" href="#backup-automatizado" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Sistema de backup automático de datos.</p>
+<ol class="arabic">
+<li><p><strong>Script de backup:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&quot;/backups&quot;</span>
+<span class="nv">TIMESTAMP</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+
+<span class="c1"># Backup de base de datos</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>user<span class="w"> </span>mydb<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/db_<span class="si">${</span><span class="nv">TIMESTAMP</span><span class="si">}</span>.sql
+
+<span class="c1"># Backup de volúmenes</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>myapp_data:/data<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>:/backup<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>alpine<span class="w"> </span>tar<span class="w"> </span>czf<span class="w"> </span>/backup/volumes_<span class="si">${</span><span class="nv">TIMESTAMP</span><span class="si">}</span>.tar.gz<span class="w"> </span>-C<span class="w"> </span>/<span class="w"> </span>data
+
+<span class="c1"># Limpiar backups antiguos (mantener 7 días)</span>
+find<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+find<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.tar.gz&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backup completed: </span><span class="si">${</span><span class="nv">TIMESTAMP</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Programar con cron:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Añadir al crontab</span>
+<span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/path/to/backup.sh
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="monitoreo-con-prometheus">
+<h2>Monitoreo con Prometheus<a class="headerlink" href="#monitoreo-con-prometheus" title="Link to this heading"></a></h2>
+<p><strong>Objetivo:</strong> Monitoreo completo del entorno.</p>
+<ol class="arabic">
+<li><p><strong>docker-compose.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prom/prometheus</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9090:9090&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./prometheus.yml:/etc/prometheus/prometheus.yml</span>
+
+<span class="w">  </span><span class="nt">grafana</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana/grafana</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3001:3000&quot;</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+
+<span class="w">  </span><span class="nt">node-exporter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prom/node-exporter</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9100:9100&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>prometheus.yml:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">global</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
+
+<span class="nt">scrape_configs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;docker&#39;</span>
+<span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;host.docker.internal:9100&#39;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="ejemplos-avanzados">
+<h2>Ejemplos Avanzados<a class="headerlink" href="#ejemplos-avanzados" title="Link to this heading"></a></h2>
+<p><strong>Kubernetes Local:</strong></p>
+<p>Simule un cluster Kubernetes con minikube dentro de DinD.</p>
+<p><strong>Machine Learning:</strong></p>
+<p>Ejecute notebooks Jupyter con GPU passthrough.</p>
+<p><strong>Base de Datos Distribuida:</strong></p>
+<p>Configure un cluster de bases de datos con replicación.</p>
+<p><strong>Serverless:</strong></p>
+<p>Implemente funciones serverless con OpenFaaS.</p>
+<p>Cada ejemplo incluye archivos completos y instrucciones detalladas en el repositorio.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="uso.html" class="btn btn-neutral float-left" title="Uso" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="tutoriales.html" class="btn btn-neutral float-right" title="Tutoriales" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

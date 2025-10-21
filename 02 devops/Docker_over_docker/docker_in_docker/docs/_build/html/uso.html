@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uso &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Ejemplos" href="ejemplos.html" />
+    <link rel="prev" title="Configuración" href="configuracion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacion.html">Instalación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uso</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#primeros-pasos">Primeros Pasos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#acceso-basico">Acceso Básico</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#comandos-docker-internos">Comandos Docker Internos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gestion-de-aplicaciones">Gestión de Aplicaciones</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estructura-de-archivos">Estructura de Archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ejemplo-practico-aplicacion-node-js">Ejemplo Práctico: Aplicación Node.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gestion-de-contenedores-con-portainer">Gestión de Contenedores con Portainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flujos-de-trabajo-comunes">Flujos de Trabajo Comunes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#desarrollo-local">Desarrollo Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ci-cd-pipeline">CI/CD Pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-de-infraestructura">Testing de Infraestructura</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoreo-y-logs">Monitoreo y Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-y-restauracion">Backup y Restauración</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comandos-utiles">Comandos Útiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mejores-practicas.html">Mejores Prácticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Solución de Problemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Preguntas Frecuentes (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Uso</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/uso.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="configuracion.html" class="btn btn-neutral float-left" title="Configuración" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="ejemplos.html" class="btn btn-neutral float-right" title="Ejemplos" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uso">
+<h1>Uso<a class="headerlink" href="#uso" title="Link to this heading"></a></h1>
+<section id="primeros-pasos">
+<span id="id1"></span><h2>Primeros Pasos<a class="headerlink" href="#primeros-pasos" title="Link to this heading"></a></h2>
+<p>Después de la instalación, familiarícese con el entorno.</p>
+<section id="acceso-basico">
+<h3>Acceso Básico<a class="headerlink" href="#acceso-basico" title="Link to this heading"></a></h3>
+<p><strong>Interfaz Web (Portainer):</strong></p>
+<ol class="arabic simple">
+<li><p>Abra <a class="reference external" href="http://localhost:9003">http://localhost:9003</a> en su navegador</p></li>
+<li><p>Configure la contraseña de administrador en la primera visita</p></li>
+<li><p>Explore el dashboard de contenedores</p></li>
+</ol>
+<p><strong>Acceso SSH:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">50422</span>
+<span class="c1"># Password: password (cámbiela inmediatamente)</span>
+</pre></div>
+</div>
+<p><strong>Acceso Directo al Contenedor:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>dind<span class="w"> </span>sh
+</pre></div>
+</div>
+</section>
+</section>
+<section id="comandos-docker-internos">
+<h2>Comandos Docker Internos<a class="headerlink" href="#comandos-docker-internos" title="Link to this heading"></a></h2>
+<p>Una vez dentro del contenedor, use Docker normalmente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Listar contenedores</span>
+docker<span class="w"> </span>ps<span class="w"> </span>-a
+
+<span class="c1"># Ver imágenes</span>
+docker<span class="w"> </span>images
+
+<span class="c1"># Ejecutar contenedor de prueba</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world
+
+<span class="c1"># Ver logs de Portainer</span>
+docker<span class="w"> </span>logs<span class="w"> </span>portainer
+</pre></div>
+</div>
+</section>
+<section id="gestion-de-aplicaciones">
+<h2>Gestión de Aplicaciones<a class="headerlink" href="#gestion-de-aplicaciones" title="Link to this heading"></a></h2>
+<section id="estructura-de-archivos">
+<h3>Estructura de Archivos<a class="headerlink" href="#estructura-de-archivos" title="Link to this heading"></a></h3>
+<p>Coloque sus aplicaciones en <code class="docutils literal notranslate"><span class="pre">./volumes/files/</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>volumes/
+└── files/
+    ├── app.js
+    ├── Dockerfile
+    └── docker-compose.yml
+</pre></div>
+</div>
+<p>Estos archivos estarán disponibles en <code class="docutils literal notranslate"><span class="pre">/app</span></code> dentro del contenedor.</p>
+</section>
+<section id="ejemplo-practico-aplicacion-node-js">
+<h3>Ejemplo Práctico: Aplicación Node.js<a class="headerlink" href="#ejemplo-practico-aplicacion-node-js" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Crear aplicación</strong> (<code class="docutils literal notranslate"><span class="pre">./volumes/files/app.js</span></code>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mf">200</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text/plain&#39;</span><span class="p">});</span>
+<span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="sb">`Hello from </span><span class="si">${</span><span class="nx">os</span><span class="p">.</span><span class="nx">hostname</span><span class="p">()</span><span class="si">}</span><span class="sb">!\\n`</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Server running on port 3000&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear Dockerfile</strong> (<code class="docutils literal notranslate"><span class="pre">./volumes/files/Dockerfile</span></code>):</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">node:18-alpine</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>app.js<span class="w"> </span>.
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.js&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Construir y ejecutar</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dentro del contenedor DinD</span>
+<span class="nb">cd</span><span class="w"> </span>/app
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-app<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span>--name<span class="w"> </span>my-app<span class="w"> </span>my-app
+</pre></div>
+</div>
+</li>
+<li><p><strong>Acceder</strong>: <a class="reference external" href="http://localhost:51080">http://localhost:51080</a></p></li>
+</ol>
+</section>
+</section>
+<section id="gestion-de-contenedores-con-portainer">
+<h2>Gestión de Contenedores con Portainer<a class="headerlink" href="#gestion-de-contenedores-con-portainer" title="Link to this heading"></a></h2>
+<p>Portainer ofrece una interfaz intuitiva para:</p>
+<ul class="simple">
+<li><p><strong>Dashboard</strong>: Vista general del sistema</p></li>
+<li><p><strong>Contenedores</strong>: Crear, iniciar, detener, eliminar</p></li>
+<li><p><strong>Imágenes</strong>: Gestionar imágenes Docker</p></li>
+<li><p><strong>Volúmenes</strong>: Administrar almacenamiento persistente</p></li>
+<li><p><strong>Redes</strong>: Configurar conectividad</p></li>
+<li><p><strong>Registros</strong>: Ver logs y métricas</p></li>
+</ul>
+</section>
+<section id="flujos-de-trabajo-comunes">
+<h2>Flujos de Trabajo Comunes<a class="headerlink" href="#flujos-de-trabajo-comunes" title="Link to this heading"></a></h2>
+<section id="desarrollo-local">
+<h3>Desarrollo Local<a class="headerlink" href="#desarrollo-local" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Desarrolle en <code class="docutils literal notranslate"><span class="pre">./volumes/files/</span></code></p></li>
+<li><p>Use Portainer para testing rápido</p></li>
+<li><p>Acceda vía SSH para debugging avanzado</p></li>
+</ol>
+</section>
+<section id="ci-cd-pipeline">
+<h3>CI/CD Pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Monte código fuente como volumen</p></li>
+<li><p>Ejecute builds dentro del contenedor</p></li>
+<li><p>Use Docker interno para testing</p></li>
+</ol>
+</section>
+<section id="testing-de-infraestructura">
+<h3>Testing de Infraestructura<a class="headerlink" href="#testing-de-infraestructura" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Simule entornos complejos</p></li>
+<li><p>Test configuraciones de red</p></li>
+<li><p>Valide compatibilidad entre servicios</p></li>
+</ol>
+</section>
+</section>
+<section id="monitoreo-y-logs">
+<h2>Monitoreo y Logs<a class="headerlink" href="#monitoreo-y-logs" title="Link to this heading"></a></h2>
+<p><strong>Ver logs del sistema:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>dind
+</pre></div>
+</div>
+<p><strong>Monitoreo de recursos:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stats<span class="w"> </span>dind
+</pre></div>
+</div>
+<p><strong>Health checks:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>inspect<span class="w"> </span>dind<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="s2">&quot;Health&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="backup-y-restauracion">
+<h2>Backup y Restauración<a class="headerlink" href="#backup-y-restauracion" title="Link to this heading"></a></h2>
+<p><strong>Backup de datos:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Backup de volúmenes</span>
+tar<span class="w"> </span>-czf<span class="w"> </span>backup.tar.gz<span class="w"> </span>volumes/
+</pre></div>
+</div>
+<p><strong>Restauración:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detener contenedores</span>
+docker-compose<span class="w"> </span>down
+
+<span class="c1"># Restaurar volúmenes</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>backup.tar.gz
+
+<span class="c1"># Reiniciar</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</section>
+<section id="comandos-utiles">
+<h2>Comandos Útiles<a class="headerlink" href="#comandos-utiles" title="Link to this heading"></a></h2>
+<p><strong>Reinicio completo:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>down
+docker-compose<span class="w"> </span>build<span class="w"> </span>--no-cache
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p><strong>Limpieza:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>-f
+</pre></div>
+</div>
+<p><strong>Debugging:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Acceso directo</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>dind<span class="w"> </span>sh
+
+<span class="c1"># Ver procesos</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dind<span class="w"> </span>ps<span class="w"> </span>aux
+
+<span class="c1"># Ver redes</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dind<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>ls
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="configuracion.html" class="btn btn-neutral float-left" title="Configuración" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="ejemplos.html" class="btn btn-neutral float-right" title="Ejemplos" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
