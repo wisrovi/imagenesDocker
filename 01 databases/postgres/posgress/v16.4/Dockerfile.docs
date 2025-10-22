@@ -1,0 +1,19 @@
+# Dockerfile for Sphinx documentation
+FROM python:3.9-slim
+
+WORKDIR /docs
+
+# Install Sphinx and extensions
+RUN pip install sphinx furo sphinx-tabs sphinx-copybutton
+
+# Copy docs
+COPY docs/ .
+
+# Build documentation
+RUN sphinx-build -b html . _build/html
+
+# Expose port
+EXPOSE 8000
+
+# Serve documentation
+CMD ["python", "-m", "http.server", "8000", "-d", "_build/html"]

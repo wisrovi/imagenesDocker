@@ -1,0 +1,11 @@
+# Ignore database data directory
+data/
+
+# Ignore environment files
+.env
+
+# Ignore logs
+*.log
+
+# Ignore Docker build artifacts if any
+.dockerignore
