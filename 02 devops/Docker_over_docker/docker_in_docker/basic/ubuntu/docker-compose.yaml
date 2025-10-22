@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  dind-basic:
+    build: .
+    container_name: dind-basic
+    privileged: true
+    ports:
+      - "50421:9000"  # Portainer
+      - "50422:50422"  # SSH
+      - "50423:7681"  # Web Terminal (ttyd)
+      - "50424:80"  # 80
+      - "50425:443"  # 443
+      - "50426:9000"  # Portainer agent
+    volumes:
+      - ./data/dind-data:/var/lib/docker
+      - ./data/portainer_data:/data
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    hostname: wisrovi
+    networks:
+      - dind-network
+    restart: unless-stopped
+
+networks:
+  dind-network:
+    driver: bridge
