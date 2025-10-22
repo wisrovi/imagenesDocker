@@ -1,0 +1,50 @@
+API Reference
+=============
+
+.. _api:
+
+Esta sección documenta las APIs disponibles en el proyecto.
+
+Portainer API
+-------------
+
+Portainer expone una API REST completa para gestión programática.
+
+Endpoints principales:
+
+* ``GET /api/endpoints`` - Listar endpoints
+* ``POST /api/docker/containers/create`` - Crear contenedor
+* ``GET /api/docker/containers/json`` - Listar contenedores
+
+Para documentación completa, visite: https://docs.portainer.io/api/
+
+Docker API
+----------
+
+El daemon Docker interno expone la API estándar de Docker.
+
+Ejemplo de uso desde el host:
+
+.. code-block:: bash
+
+   # Conectar al daemon interno
+   export DOCKER_HOST=tcp://localhost:2375
+   docker ps
+
+Healthcheck Endpoint
+-------------------
+
+El contenedor incluye un healthcheck automático:
+
+.. code-block:: bash
+
+   docker inspect dind | grep -A 5 "Health"
+
+Métricas
+--------
+
+Para monitoreo, puede acceder a métricas del contenedor:
+
+.. code-block:: bash
+
+   docker stats dind
