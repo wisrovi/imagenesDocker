@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troubleshooting &mdash; MinIO Docker Setup for DVC 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="API Reference" href="api_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO Docker Setup for DVC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#container-issues">Container Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-container-won-t-start">MinIO Container Won’t Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#container-runs-but-minio-unavailable">Container Runs But MinIO Unavailable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-issues">Connection Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cannot-connect-to-minio-from-client">Cannot Connect to MinIO from Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication-problems">Authentication Problems</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-management-issues">Data Management Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#file-upload-download-failures">File Upload/Download Failures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bucket-creation-errors">Bucket Creation Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dvc-integration-problems">DVC Integration Problems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dvc-cannot-connect-to-minio">DVC Cannot Connect to MinIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dvc-push-pull-errors">DVC Push/Pull Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-issues">Performance Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slow-uploads-downloads">Slow Uploads/Downloads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-memory-usage">High Memory Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-issues">Storage Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#disk-space-problems">Disk Space Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permission-errors-on-host-volume">Permission Errors on Host Volume</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-and-recovery">Backup and Recovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-corruption-issues">Data Corruption Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lost-data-scenarios">Lost Data Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-logging">Monitoring and Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enable-detailed-logging">Enable Detailed Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-monitoring">Set Up Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO Docker Setup for DVC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<p>This section provides solutions to common issues encountered with the MinIO Docker Compose setup.</p>
+<section id="container-issues">
+<h2>Container Issues<a class="headerlink" href="#container-issues" title="Link to this heading"></a></h2>
+<section id="minio-container-won-t-start">
+<h3>MinIO Container Won’t Start<a class="headerlink" href="#minio-container-won-t-start" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Container exits immediately or fails to start.</p>
+<p><strong>Possible Causes and Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Port Conflicts</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if ports are in use</span>
+netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:30706
+netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:30707
+</pre></div>
+</div>
+<p><strong>Solution</strong>: Change ports in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> or free up the ports.</p>
+</li>
+<li><p><strong>Volume Permission Issues</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check directory permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/mnt/DVC_tmp/DVC_data
+</pre></div>
+</div>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>/mnt/DVC_tmp/DVC_data
+sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">755</span><span class="w"> </span>/mnt/DVC_tmp/DVC_data
+</pre></div>
+</div>
+</li>
+<li><p><strong>Insufficient Resources</strong>:</p>
+<p><strong>Solution</strong>: Ensure adequate CPU and memory are available. Add resource limits to <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2G</span>
+<span class="w">      </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1.0&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check Logs</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>dvc-minio
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="container-runs-but-minio-unavailable">
+<h3>Container Runs But MinIO Unavailable<a class="headerlink" href="#container-runs-but-minio-unavailable" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Container is running but cannot access MinIO console or API.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check Container Health</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>ps
+curl<span class="w"> </span>http://localhost:30706/minio/health/live
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify Port Mapping</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>port<span class="w"> </span>dvc-minio
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check Firewall</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>status
+<span class="c1"># Allow ports if needed</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">30706</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">30707</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="connection-issues">
+<h2>Connection Issues<a class="headerlink" href="#connection-issues" title="Link to this heading"></a></h2>
+<section id="cannot-connect-to-minio-from-client">
+<h3>Cannot Connect to MinIO from Client<a class="headerlink" href="#cannot-connect-to-minio-from-client" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Clients cannot connect to MinIO endpoints.</p>
+<p><strong>Troubleshooting Steps</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Verify Endpoints</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test API endpoint</span>
+curl<span class="w"> </span>-I<span class="w"> </span>http://localhost:30706
+
+<span class="c1"># Test console endpoint</span>
+curl<span class="w"> </span>-I<span class="w"> </span>http://localhost:30707
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check Network Configuration</strong>:</p>
+<ul class="simple">
+<li><p>Ensure Docker is using the correct network mode</p></li>
+<li><p>Verify that the host can reach the container IP</p></li>
+</ul>
+</li>
+<li><p><strong>DNS Resolution</strong>:</p>
+<p>If using custom domains, check DNS resolution:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nslookup<span class="w"> </span>localhost
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="authentication-problems">
+<h3>Authentication Problems<a class="headerlink" href="#authentication-problems" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Login fails or access denied errors.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Verify Credentials</strong>:</p>
+<p>Check that the credentials in client configuration match those in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code>.</p>
+</li>
+<li><p><strong>Check Signature Version</strong>:</p>
+<p>Ensure clients use Signature Version 4:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">botocore.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="s1">&#39;s3v4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Region Configuration</strong>:</p>
+<p>MinIO requires a region to be specified:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+    <span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+    <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">,</span>  <span class="c1"># Required for MinIO</span>
+    <span class="c1"># ... other config</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="data-management-issues">
+<h2>Data Management Issues<a class="headerlink" href="#data-management-issues" title="Link to this heading"></a></h2>
+<section id="file-upload-download-failures">
+<h3>File Upload/Download Failures<a class="headerlink" href="#file-upload-download-failures" title="Link to this heading"></a></h3>
+<p><strong>Common Issues</strong>:</p>
+<ol class="arabic">
+<li><p><strong>File Size Limits</strong>:</p>
+<p>MinIO has default limits. For large files, use multipart upload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For files &gt; 100MB</span>
+<span class="n">s3_client</span><span class="o">.</span><span class="n">create_multipart_upload</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;bucket&#39;</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s1">&#39;large_file&#39;</span><span class="p">)</span>
+<span class="c1"># ... upload parts ...</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Permission Errors</strong>:</p>
+<p>Ensure the MinIO user has write permissions to the bucket.</p>
+</li>
+<li><p><strong>Network Timeouts</strong>:</p>
+<p>Increase timeout settings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
+    <span class="n">read_timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">connect_timeout</span><span class="o">=</span><span class="mi">60</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="bucket-creation-errors">
+<h3>Bucket Creation Errors<a class="headerlink" href="#bucket-creation-errors" title="Link to this heading"></a></h3>
+<p><strong>Error</strong>: BucketAlreadyExists</p>
+<p><strong>Solution</strong>: Choose a unique bucket name or check existing buckets:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mc<span class="w"> </span>ls<span class="w"> </span>myminio/
+</pre></div>
+</div>
+<p><strong>Error</strong>: InvalidBucketName</p>
+<p><strong>Solution</strong>: Bucket names must follow S3 naming conventions:</p>
+<ul class="simple">
+<li><p>3-63 characters long</p></li>
+<li><p>Lowercase letters, numbers, hyphens only</p></li>
+<li><p>Must start and end with letter or number</p></li>
+</ul>
+</section>
+</section>
+<section id="dvc-integration-problems">
+<h2>DVC Integration Problems<a class="headerlink" href="#dvc-integration-problems" title="Link to this heading"></a></h2>
+<section id="dvc-cannot-connect-to-minio">
+<h3>DVC Cannot Connect to MinIO<a class="headerlink" href="#dvc-cannot-connect-to-minio" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">push</span></code> or <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">pull</span></code> fails.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Verify DVC Remote Configuration</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc<span class="w"> </span>remote<span class="w"> </span>list
+dvc<span class="w"> </span>remote<span class="w"> </span>show<span class="w"> </span>myremote
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check Credentials</strong>:</p>
+<p>Ensure the access key and secret match MinIO configuration.</p>
+</li>
+<li><p><strong>Test Connection</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test with mc</span>
+mc<span class="w"> </span>ls<span class="w"> </span>myminio/datasets/
+</pre></div>
+</div>
+</li>
+<li><p><strong>Endpoint URL</strong>:</p>
+<p>Make sure the endpoint URL includes the protocol:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>endpointurl<span class="w"> </span>http://localhost:30706
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="dvc-push-pull-errors">
+<h3>DVC Push/Pull Errors<a class="headerlink" href="#dvc-push-pull-errors" title="Link to this heading"></a></h3>
+<p><strong>Common Issues</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Large Files</strong>:</p>
+<p>For large files, DVC may need special configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>region<span class="w"> </span>us-east-1
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>use_ssl<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Path Issues</strong>:</p>
+<p>Ensure DVC cache and workspace paths are correct.</p>
+</li>
+<li><p><strong>Version Conflicts</strong>:</p>
+<p>Update DVC to the latest version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>dvc
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="performance-issues">
+<h2>Performance Issues<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h2>
+<section id="slow-uploads-downloads">
+<h3>Slow Uploads/Downloads<a class="headerlink" href="#slow-uploads-downloads" title="Link to this heading"></a></h3>
+<p><strong>Optimization Tips</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Use SSD Storage</strong>: Ensure data directory is on SSD.</p></li>
+<li><p><strong>Network Configuration</strong>: Use host networking for better performance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Connection Pooling</strong>: Configure client connection pools:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
+    <span class="n">max_pool_connections</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">retries</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max_attempts&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Multipart Uploads</strong>: Use for files &gt; 100MB.</p></li>
+</ol>
+</section>
+<section id="high-memory-usage">
+<h3>High Memory Usage<a class="headerlink" href="#high-memory-usage" title="Link to this heading"></a></h3>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Set Memory Limits</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4G</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Monitor Usage</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stats<span class="w"> </span>dvc-minio
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tune MinIO Settings</strong>:</p>
+<p>Environment variables for memory management:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MINIO_CACHE_SIZE</span></code>: Control cache size</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GOGC</span></code>: Go garbage collector tuning</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="storage-issues">
+<h2>Storage Issues<a class="headerlink" href="#storage-issues" title="Link to this heading"></a></h2>
+<section id="disk-space-problems">
+<h3>Disk Space Problems<a class="headerlink" href="#disk-space-problems" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Uploads fail due to insufficient space.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check Disk Usage</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>/mnt/DVC_tmp/DVC_data
+</pre></div>
+</div>
+</li>
+<li><p><strong>Clean Up Old Data</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List large objects</span>
+mc<span class="w"> </span>find<span class="w"> </span>myminio/<span class="w"> </span>--size<span class="w"> </span>+100MB
+
+<span class="c1"># Remove old versions</span>
+mc<span class="w"> </span>rm<span class="w"> </span>--versions<span class="w"> </span>myminio/bucket/old_file
+</pre></div>
+</div>
+</li>
+<li><p><strong>Expand Storage</strong>: Add more disk space or move to larger volume.</p></li>
+</ol>
+</section>
+<section id="permission-errors-on-host-volume">
+<h3>Permission Errors on Host Volume<a class="headerlink" href="#permission-errors-on-host-volume" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Container cannot write to mounted volume.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Fix Permissions</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>/mnt/DVC_tmp/DVC_data
+sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">755</span><span class="w"> </span>/mnt/DVC_tmp/DVC_data
+</pre></div>
+</div>
+</li>
+<li><p><strong>Use Named Volumes</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minio_data:/data</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">minio_data</span><span class="p">:</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check SELinux/AppArmor</strong>:</p>
+<p>Disable or configure security policies if interfering.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="backup-and-recovery">
+<h2>Backup and Recovery<a class="headerlink" href="#backup-and-recovery" title="Link to this heading"></a></h2>
+<section id="data-corruption-issues">
+<h3>Data Corruption Issues<a class="headerlink" href="#data-corruption-issues" title="Link to this heading"></a></h3>
+<p><strong>Symptoms</strong>: Files become corrupted or inaccessible.</p>
+<p><strong>Recovery Steps</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check MinIO Logs</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>dvc-minio<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>error
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run Healing</strong>:</p>
+<p>MinIO can repair corrupted data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mc<span class="w"> </span>admin<span class="w"> </span>heal<span class="w"> </span>myminio/
+</pre></div>
+</div>
+</li>
+<li><p><strong>Restore from Backup</strong>:</p>
+<p>If healing fails, restore from backup.</p>
+</li>
+</ol>
+</section>
+<section id="lost-data-scenarios">
+<h3>Lost Data Scenarios<a class="headerlink" href="#lost-data-scenarios" title="Link to this heading"></a></h3>
+<p><strong>Prevention</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Enable Versioning</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mc<span class="w"> </span>version<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>myminio/bucket
+</pre></div>
+</div>
+</li>
+<li><p><strong>Regular Backups</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create backup script</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nv">TIMESTAMP</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+docker-compose<span class="w"> </span>down
+tar<span class="w"> </span>-czf<span class="w"> </span><span class="s2">&quot;minio_backup_</span><span class="si">${</span><span class="nv">TIMESTAMP</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span><span class="w"> </span>/mnt/DVC_tmp/DVC_data
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</li>
+<li><p><strong>Use Replication</strong>: Set up MinIO server-side replication.</p></li>
+</ol>
+</section>
+</section>
+<section id="monitoring-and-logging">
+<h2>Monitoring and Logging<a class="headerlink" href="#monitoring-and-logging" title="Link to this heading"></a></h2>
+<section id="enable-detailed-logging">
+<h3>Enable Detailed Logging<a class="headerlink" href="#enable-detailed-logging" title="Link to this heading"></a></h3>
+<p><strong>MinIO Logging</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_LOG_LEVEL=DEBUG</span>
+</pre></div>
+</div>
+<p><strong>Docker Logging</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>dvc-minio
+</pre></div>
+</div>
+</section>
+<section id="set-up-monitoring">
+<h3>Set Up Monitoring<a class="headerlink" href="#set-up-monitoring" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Health Checks</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="k">if</span><span class="w"> </span>curl<span class="w"> </span>-f<span class="w"> </span>http://localhost:30706/minio/health/live<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;MinIO is healthy&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;MinIO is unhealthy&quot;</span>
+<span class="w">    </span><span class="c1"># Send alert</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Metrics Collection</strong>:</p>
+<p>MinIO exposes Prometheus metrics at <code class="docutils literal notranslate"><span class="pre">/minio/v2/metrics/cluster</span></code>.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<p>If issues persist:</p>
+<ol class="arabic">
+<li><p><strong>Check Official Documentation</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.min.io/minio/baremetal/troubleshooting/troubleshooting.html">MinIO Troubleshooting Guide</a></p></li>
+<li><p><a class="reference external" href="https://github.com/iterative/dvc/issues">DVC Issues</a></p></li>
+</ul>
+</li>
+<li><p><strong>Community Support</strong>:</p>
+<ul class="simple">
+<li><p>MinIO Slack: <a class="reference external" href="https://slack.min.io/">https://slack.min.io/</a></p></li>
+<li><p>DVC Discord: <a class="reference external" href="https://discord.gg/bTm8vAj">https://discord.gg/bTm8vAj</a></p></li>
+</ul>
+</li>
+<li><p><strong>Log Analysis</strong>:</p>
+<p>Provide detailed logs and configuration when seeking help.</p>
+</li>
+<li><p><strong>System Information</strong>:</p>
+<p>Include output of:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>--version
+docker-compose<span class="w"> </span>--version
+uname<span class="w"> </span>-a
+df<span class="w"> </span>-h
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_reference.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

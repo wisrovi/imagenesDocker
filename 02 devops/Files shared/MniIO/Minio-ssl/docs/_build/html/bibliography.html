@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8. Bibliography &mdash; MinIO SSL Setup 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=038ba4ab" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Author" href="author.html" />
+    <link rel="prev" title="7. API Reference" href="api-reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO SSL Setup
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">3. Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">4. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">5. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">6. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">7. API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#official-documentation">8.1. Official Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-documentation">8.1.1. MinIO Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-resources">8.1.2. Docker Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-tls-references">8.1.3. SSL/TLS References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-s3-compatibility">8.1.4. AWS S3 Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-languages">8.2. Programming Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python">8.2.1. Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#javascript-node-js">8.2.2. JavaScript/Node.js</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-tools">8.2.3. Command Line Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#standards-and-protocols">8.3. Standards and Protocols</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#http-https">8.3.1. HTTP/HTTPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rest-apis">8.3.2. REST APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security">8.4. Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#devops-and-infrastructure">8.5. DevOps and Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#community-resources">8.6. Community Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#books-and-articles">8.7. Books and Articles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-reading">8.7.1. Recommended Reading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#research-papers">8.7.2. Research Papers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-and-software">8.8. Tools and Software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-tools">8.8.1. Development Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-and-observability">8.8.2. Monitoring and Observability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backup-and-recovery">8.8.3. Backup and Recovery</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#legal-and-compliance">8.9. Legal and Compliance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#licenses">8.9.1. Licenses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compliance-standards">8.9.2. Compliance Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-protection">8.9.3. Data Protection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">8.10. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#author-information">8.11. Author Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project-author">8.11.1. Project Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contact-information">8.11.2. Contact Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-history">8.12. Version History</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-versions">8.12.1. Documentation Versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-updates">8.12.2. Future Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">9. Author</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html#project-author-wisrovi-rodriguez">10. Project Author: Wisrovi Rodriguez</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO SSL Setup</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>Bibliography</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bibliography.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bibliography">
+<h1><span class="section-number">8. </span>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading"></a></h1>
+<p>This section provides references to documentation, standards, and resources used in this project.</p>
+<section id="official-documentation">
+<h2><span class="section-number">8.1. </span>Official Documentation<a class="headerlink" href="#official-documentation" title="Link to this heading"></a></h2>
+<section id="minio-documentation">
+<h3><span class="section-number">8.1.1. </span>MinIO Documentation<a class="headerlink" href="#minio-documentation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MinIO Official Documentation: <a class="reference external" href="https://docs.min.io/">https://docs.min.io/</a></p></li>
+<li><p>MinIO GitHub Repository: <a class="reference external" href="https://github.com/minio/minio">https://github.com/minio/minio</a></p></li>
+<li><p>MinIO Docker Images: <a class="reference external" href="https://hub.docker.com/r/minio/minio">https://hub.docker.com/r/minio/minio</a></p></li>
+</ul>
+</section>
+<section id="docker-resources">
+<h3><span class="section-number">8.1.2. </span>Docker Resources<a class="headerlink" href="#docker-resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Docker Documentation: <a class="reference external" href="https://docs.docker.com/">https://docs.docker.com/</a></p></li>
+<li><p>Docker Compose Documentation: <a class="reference external" href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></p></li>
+<li><p>Docker Hub: <a class="reference external" href="https://hub.docker.com/">https://hub.docker.com/</a></p></li>
+</ul>
+</section>
+<section id="ssl-tls-references">
+<h3><span class="section-number">8.1.3. </span>SSL/TLS References<a class="headerlink" href="#ssl-tls-references" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>OpenSSL Documentation: <a class="reference external" href="https://www.openssl.org/docs/">https://www.openssl.org/docs/</a></p></li>
+<li><p>SSL/TLS Best Practices: <a class="reference external" href="https://tools.ietf.org/html/rfc8446">https://tools.ietf.org/html/rfc8446</a></p></li>
+<li><p>Certificate Authority List: <a class="reference external" href="https://en.wikipedia.org/wiki/Certificate_authority">https://en.wikipedia.org/wiki/Certificate_authority</a></p></li>
+</ul>
+</section>
+<section id="aws-s3-compatibility">
+<h3><span class="section-number">8.1.4. </span>AWS S3 Compatibility<a class="headerlink" href="#aws-s3-compatibility" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Amazon S3 API Reference: <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html">https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html</a></p></li>
+<li><p>AWS SDK Documentation: <a class="reference external" href="https://aws.amazon.com/tools/">https://aws.amazon.com/tools/</a></p></li>
+<li><p>S3 Compatibility Matrix: <a class="reference external" href="https://docs.min.io/docs/minio-and-aws-s3-compatibility.html">https://docs.min.io/docs/minio-and-aws-s3-compatibility.html</a></p></li>
+</ul>
+</section>
+</section>
+<section id="programming-languages">
+<h2><span class="section-number">8.2. </span>Programming Languages<a class="headerlink" href="#programming-languages" title="Link to this heading"></a></h2>
+<section id="python">
+<h3><span class="section-number">8.2.1. </span>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Python Official Documentation: <a class="reference external" href="https://docs.python.org/3/">https://docs.python.org/3/</a></p></li>
+<li><p>MinIO Python SDK: <a class="reference external" href="https://docs.min.io/docs/python-client-api-reference.html">https://docs.min.io/docs/python-client-api-reference.html</a></p></li>
+<li><p>Boto3 Documentation: <a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">https://boto3.amazonaws.com/v1/documentation/api/latest/index.html</a></p></li>
+</ul>
+</section>
+<section id="javascript-node-js">
+<h3><span class="section-number">8.2.2. </span>JavaScript/Node.js<a class="headerlink" href="#javascript-node-js" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Node.js Documentation: <a class="reference external" href="https://nodejs.org/en/docs/">https://nodejs.org/en/docs/</a></p></li>
+<li><p>MinIO JavaScript SDK: <a class="reference external" href="https://docs.min.io/docs/javascript-client-api-reference.html">https://docs.min.io/docs/javascript-client-api-reference.html</a></p></li>
+<li><p>AWS SDK for JavaScript: <a class="reference external" href="https://docs.aws.amazon.com/sdk-for-javascript/">https://docs.aws.amazon.com/sdk-for-javascript/</a></p></li>
+</ul>
+</section>
+<section id="command-line-tools">
+<h3><span class="section-number">8.2.3. </span>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>AWS CLI Documentation: <a class="reference external" href="https://docs.aws.amazon.com/cli/">https://docs.aws.amazon.com/cli/</a></p></li>
+<li><p>MinIO Client Documentation: <a class="reference external" href="https://docs.min.io/docs/minio-client-complete-guide.html">https://docs.min.io/docs/minio-client-complete-guide.html</a></p></li>
+</ul>
+</section>
+</section>
+<section id="standards-and-protocols">
+<h2><span class="section-number">8.3. </span>Standards and Protocols<a class="headerlink" href="#standards-and-protocols" title="Link to this heading"></a></h2>
+<section id="http-https">
+<h3><span class="section-number">8.3.1. </span>HTTP/HTTPS<a class="headerlink" href="#http-https" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>HTTP/1.1 Specification: <a class="reference external" href="https://tools.ietf.org/html/rfc7230">https://tools.ietf.org/html/rfc7230</a></p></li>
+<li><p>HTTPS Specification: <a class="reference external" href="https://tools.ietf.org/html/rfc2818">https://tools.ietf.org/html/rfc2818</a></p></li>
+<li><p>TLS 1.3 Specification: <a class="reference external" href="https://tools.ietf.org/html/rfc8446">https://tools.ietf.org/html/rfc8446</a></p></li>
+</ul>
+</section>
+<section id="rest-apis">
+<h3><span class="section-number">8.3.2. </span>REST APIs<a class="headerlink" href="#rest-apis" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>REST API Design: <a class="reference external" href="https://restfulapi.net/">https://restfulapi.net/</a></p></li>
+<li><p>HTTP Status Codes: <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-6">https://tools.ietf.org/html/rfc7231#section-6</a></p></li>
+</ul>
+</section>
+</section>
+<section id="security">
+<h2><span class="section-number">8.4. </span>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>OWASP Security Guidelines: <a class="reference external" href="https://owasp.org/www-project-top-ten/">https://owasp.org/www-project-top-ten/</a></p></li>
+<li><p>SSL/TLS Deployment Best Practices: <a class="reference external" href="https://tools.ietf.org/html/rfc7525">https://tools.ietf.org/html/rfc7525</a></p></li>
+<li><p>Certificate Best Practices: <a class="reference external" href="https://cabforum.org/">https://cabforum.org/</a></p></li>
+</ul>
+</section>
+<section id="devops-and-infrastructure">
+<h2><span class="section-number">8.5. </span>DevOps and Infrastructure<a class="headerlink" href="#devops-and-infrastructure" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Infrastructure as Code: <a class="reference external" href="https://en.wikipedia.org/wiki/Infrastructure_as_code">https://en.wikipedia.org/wiki/Infrastructure_as_code</a></p></li>
+<li><p>Container Orchestration: <a class="reference external" href="https://kubernetes.io/docs/concepts/overview/">https://kubernetes.io/docs/concepts/overview/</a></p></li>
+<li><p>CI/CD Best Practices: <a class="reference external" href="https://cloud.google.com/architecture/devops/devops-tech-overview">https://cloud.google.com/architecture/devops/devops-tech-overview</a></p></li>
+</ul>
+</section>
+<section id="community-resources">
+<h2><span class="section-number">8.6. </span>Community Resources<a class="headerlink" href="#community-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>MinIO Community Forum: <a class="reference external" href="https://forum.min.io/">https://forum.min.io/</a></p></li>
+<li><p>Docker Community Forums: <a class="reference external" href="https://forums.docker.com/">https://forums.docker.com/</a></p></li>
+<li><p>Stack Overflow - MinIO: <a class="reference external" href="https://stackoverflow.com/questions/tagged/minio">https://stackoverflow.com/questions/tagged/minio</a></p></li>
+<li><p>Stack Overflow - Docker: <a class="reference external" href="https://stackoverflow.com/questions/tagged/docker">https://stackoverflow.com/questions/tagged/docker</a></p></li>
+</ul>
+</section>
+<section id="books-and-articles">
+<h2><span class="section-number">8.7. </span>Books and Articles<a class="headerlink" href="#books-and-articles" title="Link to this heading"></a></h2>
+<section id="recommended-reading">
+<h3><span class="section-number">8.7.1. </span>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>“Designing Data-Intensive Applications” by Martin Kleppmann</p></li>
+<li><p>“Infrastructure as Code” by Kief Morris</p></li>
+<li><p>“The Docker Book” by James Turnbull</p></li>
+<li><p>“Web Scalability for Startup Engineers” by Artur Ejsmont</p></li>
+</ul>
+</section>
+<section id="research-papers">
+<h3><span class="section-number">8.7.2. </span>Research Papers<a class="headerlink" href="#research-papers" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MinIO Architecture Paper: <a class="reference external" href="https://blog.min.io/minio-architecture/">https://blog.min.io/minio-architecture/</a></p></li>
+<li><p>S3 API Evolution: <a class="reference external" href="https://aws.amazon.com/blogs/aws/amazon-s3-a-decade-of-growth/">https://aws.amazon.com/blogs/aws/amazon-s3-a-decade-of-growth/</a></p></li>
+<li><p>Object Storage Systems Survey: <a class="reference external" href="https://www.usenix.org/system/files/conference/fast15/fast15-paper-balakrishnan.pdf">https://www.usenix.org/system/files/conference/fast15/fast15-paper-balakrishnan.pdf</a></p></li>
+</ul>
+</section>
+</section>
+<section id="tools-and-software">
+<h2><span class="section-number">8.8. </span>Tools and Software<a class="headerlink" href="#tools-and-software" title="Link to this heading"></a></h2>
+<section id="development-tools">
+<h3><span class="section-number">8.8.1. </span>Development Tools<a class="headerlink" href="#development-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Visual Studio Code: <a class="reference external" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p></li>
+<li><p>Git: <a class="reference external" href="https://git-scm.com/doc">https://git-scm.com/doc</a></p></li>
+<li><p>Postman: <a class="reference external" href="https://www.postman.com/">https://www.postman.com/</a></p></li>
+<li><p>Docker Desktop: <a class="reference external" href="https://www.docker.com/products/docker-desktop">https://www.docker.com/products/docker-desktop</a></p></li>
+</ul>
+</section>
+<section id="monitoring-and-observability">
+<h3><span class="section-number">8.8.2. </span>Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Prometheus: <a class="reference external" href="https://prometheus.io/docs/">https://prometheus.io/docs/</a></p></li>
+<li><p>Grafana: <a class="reference external" href="https://grafana.com/docs/">https://grafana.com/docs/</a></p></li>
+<li><p>ELK Stack: <a class="reference external" href="https://www.elastic.co/guide/index.html">https://www.elastic.co/guide/index.html</a></p></li>
+</ul>
+</section>
+<section id="backup-and-recovery">
+<h3><span class="section-number">8.8.3. </span>Backup and Recovery<a class="headerlink" href="#backup-and-recovery" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Restic: <a class="reference external" href="https://restic.readthedocs.io/">https://restic.readthedocs.io/</a></p></li>
+<li><p>BorgBackup: <a class="reference external" href="https://borgbackup.readthedocs.io/">https://borgbackup.readthedocs.io/</a></p></li>
+<li><p>MinIO Backup Strategies: <a class="reference external" href="https://docs.min.io/docs/minio-admin-complete-guide.html#backup">https://docs.min.io/docs/minio-admin-complete-guide.html#backup</a></p></li>
+</ul>
+</section>
+</section>
+<section id="legal-and-compliance">
+<h2><span class="section-number">8.9. </span>Legal and Compliance<a class="headerlink" href="#legal-and-compliance" title="Link to this heading"></a></h2>
+<section id="licenses">
+<h3><span class="section-number">8.9.1. </span>Licenses<a class="headerlink" href="#licenses" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MinIO License: <a class="reference external" href="https://github.com/minio/minio/blob/master/LICENSE">https://github.com/minio/minio/blob/master/LICENSE</a></p></li>
+<li><p>Docker License: <a class="reference external" href="https://www.docker.com/legal/docker-software-end-user-license-agreement">https://www.docker.com/legal/docker-software-end-user-license-agreement</a></p></li>
+<li><p>OpenSSL License: <a class="reference external" href="https://www.openssl.org/source/license.html">https://www.openssl.org/source/license.html</a></p></li>
+</ul>
+</section>
+<section id="compliance-standards">
+<h3><span class="section-number">8.9.2. </span>Compliance Standards<a class="headerlink" href="#compliance-standards" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GDPR: <a class="reference external" href="https://gdpr-info.eu/">https://gdpr-info.eu/</a></p></li>
+<li><p>HIPAA: <a class="reference external" href="https://www.hhs.gov/hipaa/index.html">https://www.hhs.gov/hipaa/index.html</a></p></li>
+<li><p>SOC 2: <a class="reference external" href="https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/sorhome.html">https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/sorhome.html</a></p></li>
+</ul>
+</section>
+<section id="data-protection">
+<h3><span class="section-number">8.9.3. </span>Data Protection<a class="headerlink" href="#data-protection" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Data Encryption at Rest: <a class="reference external" href="https://docs.min.io/docs/minio-encryption-guide.html">https://docs.min.io/docs/minio-encryption-guide.html</a></p></li>
+<li><p>Data Encryption in Transit: <a class="reference external" href="https://tools.ietf.org/html/rfc8446">https://tools.ietf.org/html/rfc8446</a></p></li>
+<li><p>Backup Encryption: <a class="reference external" href="https://docs.min.io/docs/minio-admin-complete-guide.html#encryption">https://docs.min.io/docs/minio-admin-complete-guide.html#encryption</a></p></li>
+</ul>
+</section>
+</section>
+<section id="contributing">
+<h2><span class="section-number">8.10. </span>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>MinIO Contributing Guide: <a class="reference external" href="https://github.com/minio/minio/blob/master/CONTRIBUTING.md">https://github.com/minio/minio/blob/master/CONTRIBUTING.md</a></p></li>
+<li><p>Docker Contributing: <a class="reference external" href="https://docs.docker.com/contribute/">https://docs.docker.com/contribute/</a></p></li>
+<li><p>Open Source Best Practices: <a class="reference external" href="https://opensource.guide/">https://opensource.guide/</a></p></li>
+</ul>
+</section>
+<section id="author-information">
+<h2><span class="section-number">8.11. </span>Author Information<a class="headerlink" href="#author-information" title="Link to this heading"></a></h2>
+<section id="project-author">
+<h3><span class="section-number">8.11.1. </span>Project Author<a class="headerlink" href="#project-author" title="Link to this heading"></a></h3>
+<p><strong>Wisrovi Rodriguez</strong></p>
+<ul class="simple">
+<li><p>LinkedIn: <a class="reference external" href="https://es.linkedin.com/in/wisrovi-rodriguez">https://es.linkedin.com/in/wisrovi-rodriguez</a></p></li>
+<li><p>Professional Background: Independent Author and DevOps Engineer</p></li>
+<li><p>Expertise: Containerization, Cloud Infrastructure, Security</p></li>
+</ul>
+</section>
+<section id="contact-information">
+<h3><span class="section-number">8.11.2. </span>Contact Information<a class="headerlink" href="#contact-information" title="Link to this heading"></a></h3>
+<p>For questions about this documentation or the MinIO SSL Setup project:</p>
+<ul class="simple">
+<li><p>Create an issue on the project repository</p></li>
+<li><p>Contact the author via LinkedIn</p></li>
+<li><p>Post on MinIO community forums</p></li>
+</ul>
+</section>
+</section>
+<section id="version-history">
+<h2><span class="section-number">8.12. </span>Version History<a class="headerlink" href="#version-history" title="Link to this heading"></a></h2>
+<section id="documentation-versions">
+<h3><span class="section-number">8.12.1. </span>Documentation Versions<a class="headerlink" href="#documentation-versions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>v1.0 - Initial release (October 2025)</p></li>
+<li><p>Comprehensive MinIO SSL setup guide</p></li>
+<li><p>Includes installation, configuration, and usage examples</p></li>
+<li><p>Covers multiple programming languages and tools</p></li>
+</ul>
+</section>
+<section id="future-updates">
+<h3><span class="section-number">8.12.2. </span>Future Updates<a class="headerlink" href="#future-updates" title="Link to this heading"></a></h3>
+<p>Planned improvements:</p>
+<ul class="simple">
+<li><p>Additional SDK examples</p></li>
+<li><p>Advanced configuration scenarios</p></li>
+<li><p>Performance tuning guides</p></li>
+<li><p>Security hardening procedures</p></li>
+<li><p>Multi-node cluster setup</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api-reference.html" class="btn btn-neutral float-left" title="7. API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="author.html" class="btn btn-neutral float-right" title="9. Author" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
