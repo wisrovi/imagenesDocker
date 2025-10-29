@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bibliography &mdash; MinIO Docker Setups 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Author" href="author.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO Docker Setups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#official-documentation">Official Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-documentation">MinIO Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-and-containerization">Docker and Containerization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-documentation">Docker Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-and-s3">AWS and S3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#amazon-web-services">Amazon Web Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-version-control">Data Version Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dvc-documentation">DVC Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-and-ssl-tls">Security and SSL/TLS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-tls-resources">SSL/TLS Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python-libraries">Python Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-ecosystem">Python Ecosystem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#machine-learning">Machine Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ml-frameworks-and-tools">ML Frameworks and Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#devops-and-ci-cd">DevOps and CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ci-cd-resources">CI/CD Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-tools">Monitoring Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#standards-and-specifications">Standards and Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#industry-standards">Industry Standards</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#academic-papers-and-research">Academic Papers and Research</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#research-papers">Research Papers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#community-resources">Community Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#community-support">Community Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorials-and-guides">Tutorials and Guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#learning-resources">Learning Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-and-utilities">Tools and Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-tools">Development Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#legal-and-licensing">Legal and Licensing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#licenses">Licenses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compliance-and-security">Compliance and Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#author-information">Author Information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project-author">Project Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#about-ecapturedtech">About eCaptureDtech</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgment">Acknowledgment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO Docker Setups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bibliography</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bibliography.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bibliography">
+<h1>Bibliography<a class="headerlink" href="#bibliography" title="Link to this heading"></a></h1>
+<p>This section provides references to documentation, standards, and resources used in the MinIO Docker Setups project.</p>
+<section id="official-documentation">
+<h2>Official Documentation<a class="headerlink" href="#official-documentation" title="Link to this heading"></a></h2>
+<section id="minio-documentation">
+<h3>MinIO Documentation<a class="headerlink" href="#minio-documentation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>MinIO Official Documentation</strong>: Comprehensive guide to MinIO features, APIs, and administration.
+- URL: <a class="reference external" href="https://docs.min.io/">https://docs.min.io/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>MinIO S3 API Reference</strong>: Complete reference for S3-compatible APIs implemented by MinIO.
+- URL: <a class="reference external" href="https://docs.min.io/docs/minio-admin-complete-guide.html">https://docs.min.io/docs/minio-admin-complete-guide.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>MinIO Client (mc) Documentation</strong>: Guide for using the MinIO command-line client.
+- URL: <a class="reference external" href="https://docs.min.io/docs/minio-client-quickstart-guide.html">https://docs.min.io/docs/minio-client-quickstart-guide.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="docker-and-containerization">
+<h2>Docker and Containerization<a class="headerlink" href="#docker-and-containerization" title="Link to this heading"></a></h2>
+<section id="docker-documentation">
+<h3>Docker Documentation<a class="headerlink" href="#docker-documentation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Docker Compose Documentation</strong>: Official guide for Docker Compose usage and configuration.
+- URL: <a class="reference external" href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Docker Documentation</strong>: Comprehensive Docker platform documentation.
+- URL: <a class="reference external" href="https://docs.docker.com/">https://docs.docker.com/</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="aws-and-s3">
+<h2>AWS and S3<a class="headerlink" href="#aws-and-s3" title="Link to this heading"></a></h2>
+<section id="amazon-web-services">
+<h3>Amazon Web Services<a class="headerlink" href="#amazon-web-services" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Amazon S3 API Reference</strong>: Official AWS S3 API documentation.
+- URL: <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html">https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>AWS CLI Documentation</strong>: Guide for using the AWS Command Line Interface.
+- URL: <a class="reference external" href="https://docs.aws.amazon.com/cli/">https://docs.aws.amazon.com/cli/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>AWS SDK for Python (boto3)</strong>: Documentation for the AWS SDK for Python.
+- URL: <a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">https://boto3.amazonaws.com/v1/documentation/api/latest/index.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="data-version-control">
+<h2>Data Version Control<a class="headerlink" href="#data-version-control" title="Link to this heading"></a></h2>
+<section id="dvc-documentation">
+<h3>DVC Documentation<a class="headerlink" href="#dvc-documentation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>DVC Documentation</strong>: Official Data Version Control documentation.
+- URL: <a class="reference external" href="https://dvc.org/doc">https://dvc.org/doc</a>
+- Accessed: 2025</p></li>
+<li><p><strong>DVC Remote Storage</strong>: Guide for configuring remote storage in DVC.
+- URL: <a class="reference external" href="https://dvc.org/doc/user-guide/data-management/remote-storage">https://dvc.org/doc/user-guide/data-management/remote-storage</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="security-and-ssl-tls">
+<h2>Security and SSL/TLS<a class="headerlink" href="#security-and-ssl-tls" title="Link to this heading"></a></h2>
+<section id="ssl-tls-resources">
+<h3>SSL/TLS Resources<a class="headerlink" href="#ssl-tls-resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>OpenSSL Documentation</strong>: Official OpenSSL documentation and command reference.
+- URL: <a class="reference external" href="https://www.openssl.org/docs/">https://www.openssl.org/docs/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>SSL/TLS Best Practices</strong>: Mozilla’s SSL configuration generator and guidelines.
+- URL: <a class="reference external" href="https://ssl-config.mozilla.org/">https://ssl-config.mozilla.org/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Let’s Encrypt</strong>: Free SSL certificate authority documentation.
+- URL: <a class="reference external" href="https://letsencrypt.org/docs/">https://letsencrypt.org/docs/</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="python-libraries">
+<h2>Python Libraries<a class="headerlink" href="#python-libraries" title="Link to this heading"></a></h2>
+<section id="python-ecosystem">
+<h3>Python Ecosystem<a class="headerlink" href="#python-ecosystem" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Python boto3 Library</strong>: AWS SDK for Python documentation.
+- URL: <a class="reference external" href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">https://boto3.amazonaws.com/v1/documentation/api/latest/index.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>MinIO Python SDK</strong>: Official MinIO SDK for Python.
+- URL: <a class="reference external" href="https://docs.min.io/docs/python-client-quickstart-guide.html">https://docs.min.io/docs/python-client-quickstart-guide.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Pandas Documentation</strong>: Python data analysis library.
+- URL: <a class="reference external" href="https://pandas.pydata.org/docs/">https://pandas.pydata.org/docs/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>NumPy Documentation</strong>: Fundamental package for array computing in Python.
+- URL: <a class="reference external" href="https://numpy.org/doc/">https://numpy.org/doc/</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="machine-learning">
+<h2>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading"></a></h2>
+<section id="ml-frameworks-and-tools">
+<h3>ML Frameworks and Tools<a class="headerlink" href="#ml-frameworks-and-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Scikit-learn Documentation</strong>: Machine learning library for Python.
+- URL: <a class="reference external" href="https://scikit-learn.org/stable/user_guide.html">https://scikit-learn.org/stable/user_guide.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>TensorFlow Documentation</strong>: End-to-end open source platform for machine learning.
+- URL: <a class="reference external" href="https://www.tensorflow.org/guide">https://www.tensorflow.org/guide</a>
+- Accessed: 2025</p></li>
+<li><p><strong>PyTorch Documentation</strong>: Open source machine learning framework.
+- URL: <a class="reference external" href="https://pytorch.org/docs/">https://pytorch.org/docs/</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="devops-and-ci-cd">
+<h2>DevOps and CI/CD<a class="headerlink" href="#devops-and-ci-cd" title="Link to this heading"></a></h2>
+<section id="ci-cd-resources">
+<h3>CI/CD Resources<a class="headerlink" href="#ci-cd-resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>GitHub Actions Documentation</strong>: Automate workflows with GitHub Actions.
+- URL: <a class="reference external" href="https://docs.github.com/en/actions">https://docs.github.com/en/actions</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Jenkins Documentation</strong>: Open source automation server.
+- URL: <a class="reference external" href="https://www.jenkins.io/doc/">https://www.jenkins.io/doc/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>GitLab CI/CD Documentation</strong>: GitLab’s continuous integration and deployment.
+- URL: <a class="reference external" href="https://docs.gitlab.com/ee/ci/">https://docs.gitlab.com/ee/ci/</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="monitoring-and-observability">
+<h2>Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Link to this heading"></a></h2>
+<section id="monitoring-tools">
+<h3>Monitoring Tools<a class="headerlink" href="#monitoring-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Prometheus Documentation</strong>: Monitoring and alerting toolkit.
+- URL: <a class="reference external" href="https://prometheus.io/docs/">https://prometheus.io/docs/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Grafana Documentation</strong>: Open source analytics and monitoring platform.
+- URL: <a class="reference external" href="https://grafana.com/docs/">https://grafana.com/docs/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>ELK Stack Documentation</strong>: Elasticsearch, Logstash, and Kibana.
+- URL: <a class="reference external" href="https://www.elastic.co/guide/index.html">https://www.elastic.co/guide/index.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="standards-and-specifications">
+<h2>Standards and Specifications<a class="headerlink" href="#standards-and-specifications" title="Link to this heading"></a></h2>
+<section id="industry-standards">
+<h3>Industry Standards<a class="headerlink" href="#industry-standards" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>RFC 2616 - HTTP/1.1</strong>: Hypertext Transfer Protocol – HTTP/1.1.
+- URL: <a class="reference external" href="https://tools.ietf.org/html/rfc2616">https://tools.ietf.org/html/rfc2616</a>
+- Accessed: 2025</p></li>
+<li><p><strong>RFC 5246 - TLS 1.2</strong>: The Transport Layer Security (TLS) Protocol Version 1.2.
+- URL: <a class="reference external" href="https://tools.ietf.org/html/rfc5246">https://tools.ietf.org/html/rfc5246</a>
+- Accessed: 2025</p></li>
+<li><p><strong>RFC 8446 - TLS 1.3</strong>: The Transport Layer Security (TLS) Protocol Version 1.3.
+- URL: <a class="reference external" href="https://tools.ietf.org/html/rfc8446">https://tools.ietf.org/html/rfc8446</a>
+- Accessed: 2025</p></li>
+<li><p><strong>ISO/IEC 27001</strong>: Information security management systems.
+- URL: <a class="reference external" href="https://www.iso.org/isoiec-27001-information-security.html">https://www.iso.org/isoiec-27001-information-security.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="academic-papers-and-research">
+<h2>Academic Papers and Research<a class="headerlink" href="#academic-papers-and-research" title="Link to this heading"></a></h2>
+<section id="research-papers">
+<h3>Research Papers<a class="headerlink" href="#research-papers" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>MinIO: High Performance, Kubernetes Native Object Storage</strong>: MinIO’s architecture and performance characteristics.
+- Authors: MinIO Team
+- URL: <a class="reference external" href="https://min.io/resources/docs/MinIO-Architecture-Overview.pdf">https://min.io/resources/docs/MinIO-Architecture-Overview.pdf</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Erasure Coding in Distributed Storage Systems</strong>: Technical background on erasure coding used in MinIO.
+- Authors: Various
+- URL: <a class="reference external" href="https://en.wikipedia.org/wiki/Erasure_code">https://en.wikipedia.org/wiki/Erasure_code</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Data Version Control: Git for Data Scientists</strong>: Introduction to DVC concepts.
+- Authors: DVC Team
+- URL: <a class="reference external" href="https://dvc.org/doc/start/data-versioning">https://dvc.org/doc/start/data-versioning</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="community-resources">
+<h2>Community Resources<a class="headerlink" href="#community-resources" title="Link to this heading"></a></h2>
+<section id="community-support">
+<h3>Community Support<a class="headerlink" href="#community-support" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>MinIO GitHub Repository</strong>: Source code and issue tracking.
+- URL: <a class="reference external" href="https://github.com/minio/minio">https://github.com/minio/minio</a>
+- Accessed: 2025</p></li>
+<li><p><strong>MinIO Slack Community</strong>: Community support and discussions.
+- URL: <a class="reference external" href="https://slack.min.io/">https://slack.min.io/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>DVC GitHub Repository</strong>: DVC source code and community.
+- URL: <a class="reference external" href="https://github.com/iterative/dvc">https://github.com/iterative/dvc</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Stack Overflow - MinIO</strong>: Community Q&amp;A for MinIO-related questions.
+- URL: <a class="reference external" href="https://stackoverflow.com/questions/tagged/minio">https://stackoverflow.com/questions/tagged/minio</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="tutorials-and-guides">
+<h2>Tutorials and Guides<a class="headerlink" href="#tutorials-and-guides" title="Link to this heading"></a></h2>
+<section id="learning-resources">
+<h3>Learning Resources<a class="headerlink" href="#learning-resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>MinIO Quickstart Guide</strong>: Getting started with MinIO.
+- URL: <a class="reference external" href="https://docs.min.io/docs/minio-quickstart-guide.html">https://docs.min.io/docs/minio-quickstart-guide.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>DVC Tutorial</strong>: Learn DVC with hands-on examples.
+- URL: <a class="reference external" href="https://dvc.org/doc/tutorials/get-started">https://dvc.org/doc/tutorials/get-started</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Docker Compose Getting Started</strong>: Introduction to Docker Compose.
+- URL: <a class="reference external" href="https://docs.docker.com/compose/gettingstarted/">https://docs.docker.com/compose/gettingstarted/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>AWS S3 Tutorial</strong>: Learn Amazon S3 concepts.
+- URL: <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html">https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="tools-and-utilities">
+<h2>Tools and Utilities<a class="headerlink" href="#tools-and-utilities" title="Link to this heading"></a></h2>
+<section id="development-tools">
+<h3>Development Tools<a class="headerlink" href="#development-tools" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Sphinx Documentation Generator</strong>: Tool used to generate this documentation.
+- URL: <a class="reference external" href="https://www.sphinx-doc.org/">https://www.sphinx-doc.org/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Read the Docs Theme</strong>: Sphinx theme used for documentation styling.
+- URL: <a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/">https://sphinx-rtd-theme.readthedocs.io/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>OpenSSL</strong>: Toolkit for SSL/TLS certificates.
+- URL: <a class="reference external" href="https://www.openssl.org/">https://www.openssl.org/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Docker Hub - MinIO</strong>: Official MinIO Docker images.
+- URL: <a class="reference external" href="https://hub.docker.com/r/minio/minio">https://hub.docker.com/r/minio/minio</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="legal-and-licensing">
+<h2>Legal and Licensing<a class="headerlink" href="#legal-and-licensing" title="Link to this heading"></a></h2>
+<section id="licenses">
+<h3>Licenses<a class="headerlink" href="#licenses" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>GNU AGPL v3</strong>: MinIO’s license.
+- URL: <a class="reference external" href="https://www.gnu.org/licenses/agpl-3.0.en.html">https://www.gnu.org/licenses/agpl-3.0.en.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>Apache License 2.0</strong>: License for various components.
+- URL: <a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a>
+- Accessed: 2025</p></li>
+<li><p><strong>MIT License</strong>: License for open source components.
+- URL: <a class="reference external" href="https://opensource.org/licenses/MIT">https://opensource.org/licenses/MIT</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+<section id="compliance-and-security">
+<h3>Compliance and Security<a class="headerlink" href="#compliance-and-security" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>GDPR Compliance Guide</strong>: General Data Protection Regulation guidelines.
+- URL: <a class="reference external" href="https://gdpr.eu/">https://gdpr.eu/</a>
+- Accessed: 2025</p></li>
+<li><p><strong>HIPAA Security Rule</strong>: Health Insurance Portability and Accountability Act.
+- URL: <a class="reference external" href="https://www.hhs.gov/hipaa/for-professionals/security/guidance/index.html">https://www.hhs.gov/hipaa/for-professionals/security/guidance/index.html</a>
+- Accessed: 2025</p></li>
+<li><p><strong>SOC 2 Compliance</strong>: System and Organization Controls 2.
+- URL: <a class="reference external" href="https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report.html">https://www.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report.html</a>
+- Accessed: 2025</p></li>
+</ul>
+</section>
+</section>
+<section id="author-information">
+<h2>Author Information<a class="headerlink" href="#author-information" title="Link to this heading"></a></h2>
+<section id="project-author">
+<h3>Project Author<a class="headerlink" href="#project-author" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>William R. Rodriguez</strong>: AI Leader and Solutions Architect at eCaptureDtech.
+- LinkedIn: <a class="reference external" href="https://es.linkedin.com/in/wisrovi-rodriguez">https://es.linkedin.com/in/wisrovi-rodriguez</a>
+- Location: Badajoz, Extremadura, Spain
+- Expertise: Artificial Intelligence, Machine Learning, MLOps, DevOps</p></li>
+</ul>
+</section>
+<section id="about-ecapturedtech">
+<h3>About eCaptureDtech<a class="headerlink" href="#about-ecapturedtech" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>eCaptureDtech</strong>: Technology company specializing in AI solutions and digital transformation.
+- Website: <a class="reference external" href="https://www.ecapturedtech.com">https://www.ecapturedtech.com</a>
+- Focus: AI-driven solutions for business optimization</p></li>
+</ul>
+</section>
+</section>
+<section id="acknowledgment">
+<h2>Acknowledgment<a class="headerlink" href="#acknowledgment" title="Link to this heading"></a></h2>
+<p>This documentation was created using Sphinx and incorporates knowledge from various open source projects and community contributions. Special thanks to the MinIO team, DVC contributors, and the broader open source community for their excellent tools and documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="author.html" class="btn btn-neutral float-right" title="Author" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, William R. Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Installation &mdash; MinIO SSL Setup 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=038ba4ab" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Configuration" href="configuration.html" />
+    <link rel="prev" title="1. Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO SSL Setup
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements">2.1. System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">2.2. Installation Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-download-the-project">2.2.1. Step 1: Download the Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-verify-docker-installation">2.2.2. Step 2: Verify Docker Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-generate-ssl-certificates">2.2.3. Step 3: Generate SSL Certificates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-start-minio-server">2.2.4. Step 4: Start MinIO Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-verify-installation">2.2.5. Step 5: Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#access-points">2.3. Access Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-credentials">2.4. Default Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-installation-configuration">2.5. Post-Installation Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-installation">2.6. Troubleshooting Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">2.7. Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">3. Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">4. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">5. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">6. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">7. API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">8. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">9. Author</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html#project-author-wisrovi-rodriguez">10. Project Author: Wisrovi Rodriguez</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO SSL Setup</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1><span class="section-number">2. </span>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<section id="system-requirements">
+<h2><span class="section-number">2.1. </span>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading"></a></h2>
+<p>Before installing, ensure your system meets these requirements:</p>
+<ul class="simple">
+<li><p><strong>Operating System</strong>: Linux, macOS, or Windows with WSL2</p></li>
+<li><p><strong>Docker</strong>: Version 20.10 or later</p></li>
+<li><p><strong>Docker Compose</strong>: Version 2.0 or later</p></li>
+<li><p><strong>RAM</strong>: Minimum 2GB, recommended 4GB+</p></li>
+<li><p><strong>Disk Space</strong>: At least 10GB for data and containers</p></li>
+<li><p><strong>Network</strong>: Access to Docker Hub for image downloads</p></li>
+</ul>
+</section>
+<section id="installation-steps">
+<h2><span class="section-number">2.2. </span>Installation Steps<a class="headerlink" href="#installation-steps" title="Link to this heading"></a></h2>
+<section id="step-1-download-the-project">
+<h3><span class="section-number">2.2.1. </span>Step 1: Download the Project<a class="headerlink" href="#step-1-download-the-project" title="Link to this heading"></a></h3>
+<p>Clone or download the MinIO SSL Setup repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+<span class="nb">cd</span><span class="w"> </span>minio-ssl-setup
+</pre></div>
+</div>
+<p>Alternatively, download and extract the ZIP archive.</p>
+</section>
+<section id="step-2-verify-docker-installation">
+<h3><span class="section-number">2.2.2. </span>Step 2: Verify Docker Installation<a class="headerlink" href="#step-2-verify-docker-installation" title="Link to this heading"></a></h3>
+<p>Ensure Docker and Docker Compose are properly installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>--version
+docker-compose<span class="w"> </span>--version
+</pre></div>
+</div>
+</section>
+<section id="step-3-generate-ssl-certificates">
+<h3><span class="section-number">2.2.3. </span>Step 3: Generate SSL Certificates<a class="headerlink" href="#step-3-generate-ssl-certificates" title="Link to this heading"></a></h3>
+<p>Generate the required SSL certificates:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Using Makefile</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Manual Command</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>certs
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>openssl
+docker-compose<span class="w"> </span>up
+</pre></div>
+</div>
+</div></div>
+<p>This process will:</p>
+<ul class="simple">
+<li><p>Build a custom OpenSSL Docker image</p></li>
+<li><p>Generate a 4096-bit RSA key pair</p></li>
+<li><p>Create a self-signed certificate valid for 825 days</p></li>
+<li><p>Save certificates to the <code class="docutils literal notranslate"><span class="pre">certs/</span></code> directory</p></li>
+</ul>
+</section>
+<section id="step-4-start-minio-server">
+<h3><span class="section-number">2.2.4. </span>Step 4: Start MinIO Server<a class="headerlink" href="#step-4-start-minio-server" title="Link to this heading"></a></h3>
+<p>Launch the MinIO server with SSL enabled:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Using Makefile</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Manual Command</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>up
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="step-5-verify-installation">
+<h3><span class="section-number">2.2.5. </span>Step 5: Verify Installation<a class="headerlink" href="#step-5-verify-installation" title="Link to this heading"></a></h3>
+<p>Check that MinIO is running correctly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>ps
+</pre></div>
+</div>
+<p>You should see the <code class="docutils literal notranslate"><span class="pre">dvc-minio</span></code> service in “Up” status.</p>
+</section>
+</section>
+<section id="access-points">
+<h2><span class="section-number">2.3. </span>Access Points<a class="headerlink" href="#access-points" title="Link to this heading"></a></h2>
+<p>After successful installation, MinIO will be accessible at:</p>
+<ul class="simple">
+<li><p><strong>Web Console</strong>: <a class="reference external" href="https://localhost:30707">https://localhost:30707</a></p></li>
+<li><p><strong>S3 API Endpoint</strong>: <a class="reference external" href="https://localhost:30706">https://localhost:30706</a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since we’re using self-signed certificates, your browser may show a security warning. This is normal for development environments.</p>
+</div>
+</section>
+<section id="default-credentials">
+<h2><span class="section-number">2.4. </span>Default Credentials<a class="headerlink" href="#default-credentials" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Username</strong>: DVC</p></li>
+<li><p><strong>Password</strong>: uTAntEMTuVpcJucNjOJm</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Change these default credentials immediately in production environments!</p>
+</div>
+</section>
+<section id="post-installation-configuration">
+<h2><span class="section-number">2.5. </span>Post-Installation Configuration<a class="headerlink" href="#post-installation-configuration" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Change Default Password</strong>: Update credentials in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code></p></li>
+<li><p><strong>Configure Firewall</strong>: Ensure ports 30706 and 30707 are accessible</p></li>
+<li><p><strong>Set Up Backups</strong>: Configure regular backups of the <code class="docutils literal notranslate"><span class="pre">DVC_data/</span></code> directory</p></li>
+<li><p><strong>SSL Certificate</strong>: For production, replace self-signed certificates with CA-signed ones</p></li>
+</ol>
+</section>
+<section id="troubleshooting-installation">
+<h2><span class="section-number">2.6. </span>Troubleshooting Installation<a class="headerlink" href="#troubleshooting-installation" title="Link to this heading"></a></h2>
+<p>Common issues and solutions:</p>
+<dl class="simple">
+<dt><strong>Certificate Generation Fails</strong></dt><dd><p>Ensure Docker has write permissions to the project directory.</p>
+</dd>
+<dt><strong>Port Already in Use</strong></dt><dd><p>Change port mappings in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> or stop conflicting services.</p>
+</dd>
+<dt><strong>Insufficient Permissions</strong></dt><dd><p>Run commands with appropriate privileges or configure Docker permissions.</p>
+</dd>
+<dt><strong>Container Won’t Start</strong></dt><dd><p>Check logs with <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">logs</span></code> for detailed error messages.</p>
+</dd>
+</dl>
+</section>
+<section id="next-steps">
+<h2><span class="section-number">2.7. </span>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Once installed, proceed to:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for advanced setup options</p></li>
+<li><p><a class="reference internal" href="usage.html"><span class="doc">Usage</span></a> for basic operations</p></li>
+<li><p><a class="reference internal" href="examples.html"><span class="doc">Examples</span></a> for code samples</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="1. Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="3. Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
