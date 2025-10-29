@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MinIO Docker Setup for DVC &mdash; MinIO Docker Setup for DVC 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            MinIO Docker Setup for DVC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">MinIO Docker Setup for DVC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MinIO Docker Setup for DVC</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="minio-docker-setup-for-dvc">
+<h1>MinIO Docker Setup for DVC<a class="headerlink" href="#minio-docker-setup-for-dvc" title="Link to this heading"></a></h1>
+<p>This project provides a Docker Compose configuration to deploy a MinIO server, an S3-compatible object storage server, optimized for use with Data Version Control (DVC). MinIO is used here to store and manage datasets and models in a distributed, scalable manner.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>MinIO is a high-performance, Kubernetes-native object storage server that is fully compatible with Amazon S3 APIs. This setup allows you to run MinIO locally or in a containerized environment, making it ideal for development, testing, and integration with tools like DVC for machine learning workflows.</p>
+<p>The configuration includes:</p>
+<ul class="simple">
+<li><p>MinIO server running on a specific version</p></li>
+<li><p>Pre-configured root user and password</p></li>
+<li><p>Mapped ports for S3 API and web console access</p></li>
+<li><p>Persistent volume mounting for data storage</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before running this setup, ensure you have the following installed on your system:</p>
+<ul class="simple">
+<li><p>Docker (version 20.10 or later recommended)</p></li>
+<li><p>Docker Compose (version 2.0 or later)</p></li>
+<li><p>Sufficient disk space for your data storage needs (mounted at <code class="docutils literal notranslate"><span class="pre">/mnt/DVC_tmp/DVC_data</span></code> or equivalent)</p></li>
+</ul>
+</section>
+<section id="installation-and-setup">
+<h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Clone or Download the Project</strong>:
+Ensure you have this <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file in your project directory.</p></li>
+<li><p><strong>Configure Volumes</strong>:
+- The default volume mount is set to <code class="docutils literal notranslate"><span class="pre">/mnt/DVC_tmp/DVC_data:/data</span></code>.
+- If this path does not exist on your host system, create it or modify the volume mapping in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> to point to an appropriate directory.
+- Example: Change <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">/mnt/DVC_tmp/DVC_data:/data</span></code> to <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">./DVC_data:/data</span></code> for a local directory.</p></li>
+<li><p><strong>Environment Variables</strong>:
+- <code class="docutils literal notranslate"><span class="pre">MINIO_ROOT_USER</span></code>: Set to <code class="docutils literal notranslate"><span class="pre">DVC</span></code> (default admin username)
+- <code class="docutils literal notranslate"><span class="pre">MINIO_ROOT_PASSWORD</span></code>: Set to <code class="docutils literal notranslate"><span class="pre">uTAntEMTuVpcJucNjOJm</span></code> (change this for production use)
+- Optional: Uncomment <code class="docutils literal notranslate"><span class="pre">MINIO_DEFAULT_BUCKETS=datasets</span></code> to create a default bucket named “datasets” on startup.</p></li>
+</ol>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="starting-the-minio-server">
+<h3>Starting the MinIO Server<a class="headerlink" href="#starting-the-minio-server" title="Link to this heading"></a></h3>
+<p>To start the MinIO server, run the following command in the directory containing <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>This will:</p>
+<ul class="simple">
+<li><p>Pull the MinIO image if not already present</p></li>
+<li><p>Start the MinIO server in detached mode</p></li>
+<li><p>Map the necessary ports</p></li>
+<li><p>Mount the specified volume for data persistence</p></li>
+</ul>
+</section>
+<section id="accessing-minio">
+<h3>Accessing MinIO<a class="headerlink" href="#accessing-minio" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>S3 API Endpoint</strong>: <code class="docutils literal notranslate"><span class="pre">http://localhost:30706</span></code></p></li>
+<li><p><strong>Web Console (Admin UI)</strong>: <code class="docutils literal notranslate"><span class="pre">http://localhost:30707</span></code></p></li>
+</ul>
+<p>Log in to the web console using:</p>
+<ul class="simple">
+<li><p>Username: <code class="docutils literal notranslate"><span class="pre">DVC</span></code></p></li>
+<li><p>Password: <code class="docutils literal notranslate"><span class="pre">uTAntEMTuVpcJucNjOJm</span></code></p></li>
+</ul>
+</section>
+<section id="integration-with-dvc">
+<h3>Integration with DVC<a class="headerlink" href="#integration-with-dvc" title="Link to this heading"></a></h3>
+<p>This MinIO setup is designed for use with DVC. To configure DVC to use this MinIO instance:</p>
+<ol class="arabic">
+<li><p>Install DVC if not already installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>dvc
+</pre></div>
+</div>
+</li>
+<li><p>Configure DVC remote storage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>myremote<span class="w"> </span>s3://bucket-name
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>endpointurl<span class="w"> </span>http://localhost:30706
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>access_key_id<span class="w"> </span>DVC
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>secret_access_key<span class="w"> </span>uTAntEMTuVpcJucNjOJm
+</pre></div>
+</div>
+</li>
+<li><p>Create a bucket in MinIO (via web console or CLI) and use it in your DVC workflows.</p></li>
+</ol>
+</section>
+<section id="stopping-the-server">
+<h3>Stopping the Server<a class="headerlink" href="#stopping-the-server" title="Link to this heading"></a></h3>
+<p>To stop the MinIO server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>down
+</pre></div>
+</div>
+<p>This will stop and remove the containers, but your data will persist in the mounted volume.</p>
+</section>
+</section>
+<section id="configuration-details">
+<h2>Configuration Details<a class="headerlink" href="#configuration-details" title="Link to this heading"></a></h2>
+<section id="ports">
+<h3>Ports<a class="headerlink" href="#ports" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">30706:9000</span></code> - S3 API port (external:30706, internal:9000)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">30707:9001</span></code> - MinIO Console port (external:30707, internal:9001)</p></li>
+</ul>
+</section>
+<section id="volumes">
+<h3>Volumes<a class="headerlink" href="#volumes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/mnt/DVC_tmp/DVC_data:/data</span></code> - Mounts host directory to container’s <code class="docutils literal notranslate"><span class="pre">/data</span></code> for persistent storage</p></li>
+</ul>
+</section>
+<section id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MINIO_ROOT_USER</span></code>: Root username for MinIO</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MINIO_ROOT_PASSWORD</span></code>: Root password for MinIO</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MINIO_DEFAULT_BUCKETS</span></code>: (Commented out) Default buckets to create on startup</p></li>
+</ul>
+</section>
+</section>
+<section id="security-considerations">
+<h2>Security Considerations<a class="headerlink" href="#security-considerations" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Change Default Credentials</strong>: The default password is provided for convenience. For production deployments, generate strong, unique credentials.</p></li>
+<li><p><strong>Network Security</strong>: Ensure ports 30706 and 30707 are not exposed publicly unless necessary.</p></li>
+<li><p><strong>Data Encryption</strong>: MinIO supports server-side encryption. Consider enabling it for sensitive data.</p></li>
+<li><p><strong>Access Control</strong>: Use MinIO’s IAM features to manage users, groups, and policies.</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Port Conflicts</strong>: If ports 30706 or 30707 are already in use, modify the port mappings in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code>.</p></li>
+<li><p><strong>Volume Permissions</strong>: Ensure the host directory has appropriate read/write permissions for the Docker user.</p></li>
+<li><p><strong>MinIO Not Starting</strong>: Check Docker logs with <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">logs</span> <span class="pre">dvc-minio</span></code> for error messages.</p></li>
+<li><p><strong>Connection Refused</strong>: Verify that MinIO is running and accessible on the specified ports.</p></li>
+</ol>
+</section>
+<section id="logs">
+<h3>Logs<a class="headerlink" href="#logs" title="Link to this heading"></a></h3>
+<p>View MinIO logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>dvc-minio
+</pre></div>
+</div>
+</section>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<p>If you encounter issues or have suggestions for improvements, please create an issue in the project repository.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>This configuration is provided as-is. MinIO itself is licensed under the Apache License 2.0.</p>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.min.io/">MinIO Documentation</a></p></li>
+<li><p><a class="reference external" href="https://dvc.org/doc">DVC Documentation</a></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/compose/">Docker Compose Documentation</a></p></li>
+</ul>
+</section>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h2>
+<p>This documentation and project setup was created by <a class="reference external" href="https://es.linkedin.com/in/wisrovi-rodriguez">Wisrovi Rodriguez</a>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#downloading-the-project">Downloading the Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-dependencies">Installing Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#initial-configuration">Initial Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#port-configuration">Port Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#volume-mounting">Volume Mounting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#advanced-configuration">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#security-considerations">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#troubleshooting-configuration-issues">Troubleshooting Configuration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#starting-and-stopping-minio">Starting and Stopping MinIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#accessing-minio-interfaces">Accessing MinIO Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#minio-client-setup">MinIO Client Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-minio-operations">Basic MinIO Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#integration-with-dvc">Integration with DVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#monitoring-and-maintenance">Monitoring and Maintenance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#scaling-considerations">Scaling Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#python-setup">Python Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-minio-operations-with-python">Basic MinIO Operations with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#machine-learning-workflow-example">Machine Learning Workflow Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#dvc-integration-example">DVC Integration Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#batch-processing-example">Batch Processing Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#error-handling-and-best-practices">Error Handling and Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#minio-s3-api">MinIO S3 API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#python-client-libraries">Python Client Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#command-line-tools">Command Line Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#dvc-api">DVC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#rest-api-endpoints">REST API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#error-codes">Error Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#rate-limiting">Rate Limiting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#container-issues">Container Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#connection-issues">Connection Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#data-management-issues">Data Management Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#dvc-integration-problems">DVC Integration Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#performance-issues">Performance Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#storage-issues">Storage Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#backup-and-recovery">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#monitoring-and-logging">Monitoring and Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#getting-help">Getting Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#official-documentation">Official Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#python-libraries">Python Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#books-and-guides">Books and Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#standards-and-specifications">Standards and Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#community-resources">Community Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#tutorials-and-guides">Tutorials and Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#legal-and-compliance">Legal and Compliance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#tools-and-software-versions">Tools and Software Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#change-log">Change Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#support">Support</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
