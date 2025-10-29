@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MinIO Docker Setups Documentation &mdash; MinIO Docker Setups 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            MinIO Docker Setups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">MinIO Docker Setups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MinIO Docker Setups Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="minio-docker-setups-documentation">
+<h1>MinIO Docker Setups Documentation<a class="headerlink" href="#minio-docker-setups-documentation" title="Link to this heading"></a></h1>
+<a class="reference external image-reference" href="https://github.com/minio/minio"><img alt="MinIO" src="https://img.shields.io/badge/MinIO-Docker%20Setups-blue.svg" />
+</a>
+<a class="reference external image-reference" href="https://docs.docker.com/compose/"><img alt="Docker Compose" src="https://img.shields.io/badge/Docker-Compose-green.svg" />
+</a>
+<a class="reference external image-reference" href="https://www.gnu.org/licenses/agpl-3.0.en.html"><img alt="License" src="https://img.shields.io/badge/License-AGPL--3.0-orange.svg" />
+</a>
+<p>Welcome to the comprehensive documentation for MinIO Docker Setups. This project provides Docker Compose configurations for deploying MinIO, a high-performance, S3-compatible object storage server, in two variants: a basic setup for development and an SSL-enabled setup for secure production environments.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>MinIO is a Kubernetes-native object storage server that is fully compatible with Amazon S3 APIs. This repository offers easy-to-deploy configurations using Docker, making it ideal for local development, testing, and integration with tools like Data Version Control (DVC) for machine learning workflows.</p>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>High Performance</strong>: MinIO provides erasure coding, bitrot protection, and multi-cloud support for scalable storage.</p></li>
+<li><p><strong>S3 Compatibility</strong>: Full API compatibility with Amazon S3, allowing seamless integration with existing tools.</p></li>
+<li><p><strong>Docker Deployment</strong>: Simple containerized deployment using Docker Compose.</p></li>
+<li><p><strong>Two Configurations</strong>: Basic setup for development and SSL-enabled setup for secure environments.</p></li>
+<li><p><strong>DVC Integration</strong>: Optimized for use with DVC in machine learning pipelines.</p></li>
+</ul>
+</section>
+<section id="project-structure">
+<h3>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MniIO/
+├── MinIO-normal/
+│   ├── README.md
+│   └── docker-compose.yaml
+├── Minio-ssl/
+│   ├── README.md
+│   ├── docker-compose.yaml
+│   ├── openssl/
+│   │   ├── docker-compose.yaml
+│   │   └── nginx/
+│   │       ├── Dockerfile
+│   │       └── conf/
+│   │           └── openssl_wisrovi.cnf
+│   └── docs/
+├── docs/
+│   ├── conf.py
+│   ├── index.rst
+│   └── ...
+├── README.md
+└── Makefile
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h3>
+<p>For a quick start with the basic MinIO setup:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">MinIO-Normal</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">MinIO-SSL</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>MinIO-normal
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Access the console at <a class="reference external" href="http://localhost:30707">http://localhost:30707</a></p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Minio-ssl
+<span class="nb">cd</span><span class="w"> </span>openssl<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w">  </span><span class="c1"># Generate certificates</span>
+<span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+<p>Access the console at <a class="reference external" href="https://localhost:30707">https://localhost:30707</a></p>
+</div></div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#key-benefits">Key Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#comparison-of-setups">Comparison of Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-steps">Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#minio-normal-installation">MinIO-Normal Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#minio-ssl-installation">MinIO-SSL Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration-options">Configuration Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting-installation">Troubleshooting Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#uninstallation">Uninstallation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#starting-and-stopping-minio">Starting and Stopping MinIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#accessing-the-minio-console">Accessing the MinIO Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#using-minio-with-s3-compatible-tools">Using MinIO with S3-Compatible Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#integration-with-dvc">Integration with DVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#managing-buckets-and-objects">Managing Buckets and Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#monitoring-and-logs">Monitoring and Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#backup-and-recovery">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#python-examples">Python Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#javascript-node-js-examples">JavaScript/Node.js Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#bash-scripting-examples">Bash Scripting Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#docker-compose-examples">Docker Compose Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#minio-s3-api">MinIO S3 API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#minio-client-mc-commands">MinIO Client (mc) Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#aws-cli-configuration">AWS CLI Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#python-boto3-api">Python boto3 API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#dvc-configuration">DVC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#health-check-endpoints">Health Check Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#configuration-files">Configuration Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#installation-issues">Installation Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#ssl-tls-issues">SSL/TLS Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#runtime-issues">Runtime Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#client-connection-issues">Client Connection Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#dvc-integration-issues">DVC Integration Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#monitoring-and-logging">Monitoring and Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#backup-and-recovery">Backup and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#getting-help">Getting Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#official-documentation">Official Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#docker-and-containerization">Docker and Containerization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#aws-and-s3">AWS and S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#data-version-control">Data Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#security-and-ssl-tls">Security and SSL/TLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#python-libraries">Python Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#machine-learning">Machine Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#devops-and-ci-cd">DevOps and CI/CD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#standards-and-specifications">Standards and Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#academic-papers-and-research">Academic Papers and Research</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#community-resources">Community Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#tutorials-and-guides">Tutorials and Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#tools-and-utilities">Tools and Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#legal-and-licensing">Legal and Licensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#author-information">Author Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#acknowledgment">Acknowledgment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="author.html#william-r-rodriguez">William R. Rodriguez</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, William R. Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

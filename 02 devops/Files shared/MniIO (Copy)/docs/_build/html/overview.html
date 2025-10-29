@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; MinIO Docker Setups 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="MinIO Docker Setups Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO Docker Setups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-benefits">Key Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comparison-of-setups">Comparison of Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO Docker Setups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>MinIO is a high-performance, distributed object storage system that is API-compatible with Amazon S3. It is designed to be lightweight, scalable, and easy to deploy, making it an excellent choice for modern cloud-native applications.</p>
+<p>This repository provides two Docker Compose configurations for MinIO:</p>
+<ol class="arabic simple">
+<li><p><strong>MinIO-Normal</strong>: A basic setup without SSL, suitable for development, testing, and local workflows.</p></li>
+<li><p><strong>MinIO-SSL</strong>: A secure setup with SSL/TLS encryption, including automated certificate generation, ideal for production or secure development environments.</p></li>
+</ol>
+<p>Both configurations are optimized for integration with Data Version Control (DVC), a tool for versioning data and models in machine learning projects.</p>
+</section>
+<section id="key-benefits">
+<h2>Key Benefits<a class="headerlink" href="#key-benefits" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>S3 Compatibility</strong>: MinIO implements the S3 API, allowing you to use familiar tools and libraries designed for Amazon S3.</p></li>
+<li><p><strong>High Performance</strong>: Features like erasure coding and bitrot protection ensure data integrity and efficient storage.</p></li>
+<li><p><strong>Scalability</strong>: Easily scale from single-node deployments to distributed clusters.</p></li>
+<li><p><strong>Security</strong>: The SSL variant provides encrypted communication and secure access.</p></li>
+<li><p><strong>Ease of Use</strong>: Docker Compose makes deployment and management straightforward.</p></li>
+</ul>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>MinIO operates as a distributed object storage server. In these configurations:</p>
+<ul class="simple">
+<li><p><strong>MinIO Server</strong>: The core storage server running in a Docker container.</p></li>
+<li><p><strong>Console</strong>: A web-based UI for managing buckets, users, and policies.</p></li>
+<li><p><strong>SSL Layer</strong> (SSL variant): Nginx or built-in SSL for encrypted connections.</p></li>
+<li><p><strong>Certificate Generation</strong> (SSL variant): Automated OpenSSL-based certificate creation.</p></li>
+</ul>
+</section>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Machine Learning Pipelines</strong>: Store and version datasets and models with DVC.</p></li>
+<li><p><strong>Development Environments</strong>: Quick local S3-compatible storage for testing applications.</p></li>
+<li><p><strong>Data Lakes</strong>: Build scalable data lakes for analytics and processing.</p></li>
+<li><p><strong>Backup and Archiving</strong>: Reliable, distributed storage for backups.</p></li>
+<li><p><strong>CI/CD Pipelines</strong>: Store artifacts and build outputs.</p></li>
+</ul>
+</section>
+<section id="comparison-of-setups">
+<h2>Comparison of Setups<a class="headerlink" href="#comparison-of-setups" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Setup Comparison</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>MinIO-Normal</p></th>
+<th class="head"><p>MinIO-SSL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SSL/TLS</p></td>
+<td><p>No</p></td>
+<td><p>Yes (self-signed certificates)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Certificate Generation</p></td>
+<td><p>N/A</p></td>
+<td><p>Automated with OpenSSL</p></td>
+</tr>
+<tr class="row-even"><td><p>Production Ready</p></td>
+<td><p>Development/Testing</p></td>
+<td><p>Production (with CA certs)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Complexity</p></td>
+<td><p>Low</p></td>
+<td><p>Medium</p></td>
+</tr>
+<tr class="row-even"><td><p>Ports</p></td>
+<td><p>30706 (API), 30707 (Console)</p></td>
+<td><p>Same, with HTTPS</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Docker (version 20.10 or later)</p></li>
+<li><p>Docker Compose (version 2.0 or later)</p></li>
+<li><p>Sufficient disk space for data storage</p></li>
+<li><p>Basic knowledge of Docker and containerization</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>: Detailed installation instructions</p></li>
+<li><p><a class="reference internal" href="usage.html"><span class="doc">Usage</span></a>: How to use the MinIO setups</p></li>
+<li><p><a class="reference internal" href="examples.html"><span class="doc">Examples</span></a>: Code examples and use cases</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MinIO Docker Setups Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, William R. Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

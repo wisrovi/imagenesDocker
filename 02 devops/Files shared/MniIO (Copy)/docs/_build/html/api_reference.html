@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; MinIO Docker Setups 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO Docker Setups
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#minio-s3-api">MinIO S3 API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-endpoints">Common Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication">Authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-compose-configuration">Docker Compose Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-normal-configuration">MinIO-Normal Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minio-ssl-configuration">MinIO-SSL Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-environment-variables">MinIO Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-configuration">SSL Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#minio-client-mc-commands">MinIO Client (mc) Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-mc-commands">Common mc Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-cli-configuration">AWS CLI Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-aws-cli-commands">Common AWS CLI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#python-boto3-api">Python boto3 API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#client-initialization">Client Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-methods">Common Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dvc-configuration">DVC Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dvc-remote-configuration">DVC Remote Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dvc-commands">DVC Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#health-check-endpoints">Health Check Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metrics-endpoints">Metrics Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#openssl-configuration-ssl-setup">OpenSSL Configuration (SSL Setup)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nginx-configuration-optional">Nginx Configuration (Optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="author.html">Author</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO Docker Setups</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api_reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section provides reference information for MinIO APIs and configurations used in the Docker setups.</p>
+<section id="minio-s3-api">
+<h2>MinIO S3 API<a class="headerlink" href="#minio-s3-api" title="Link to this heading"></a></h2>
+<p>MinIO implements the Amazon S3 API. For complete API documentation, see the <a class="reference external" href="https://docs.min.io/docs/minio-admin-complete-guide.html">official MinIO S3 API documentation</a>.</p>
+<section id="common-endpoints">
+<h3>Common Endpoints<a class="headerlink" href="#common-endpoints" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Service Operations</strong>:
+- GET / (ListBuckets)</p></li>
+<li><p><strong>Bucket Operations</strong>:
+- GET /bucket (ListObjects)
+- PUT /bucket (CreateBucket)
+- DELETE /bucket (DeleteBucket)</p></li>
+<li><p><strong>Object Operations</strong>:
+- GET /bucket/key (GetObject)
+- PUT /bucket/key (PutObject)
+- DELETE /bucket/key (DeleteObject)</p></li>
+</ul>
+</section>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h3>
+<p>MinIO uses AWS Signature Version 4 for authentication. The default credentials are:</p>
+<ul class="simple">
+<li><p>Access Key: <code class="docutils literal notranslate"><span class="pre">DVC</span></code></p></li>
+<li><p>Secret Key: <code class="docutils literal notranslate"><span class="pre">uTAntEMTuVpcJucNjOJm</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="docker-compose-configuration">
+<h2>Docker Compose Configuration<a class="headerlink" href="#docker-compose-configuration" title="Link to this heading"></a></h2>
+<section id="minio-normal-configuration">
+<h3>MinIO-Normal Configuration<a class="headerlink" href="#minio-normal-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dvc-minio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minio/minio:RELEASE.2025-02-28T09-55-16Z</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">server /data --console-address &quot;:9001&quot;</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_USER=DVC</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_PASSWORD=uTAntEMTuVpcJucNjOJm</span>
+<span class="w">      </span><span class="c1"># - MINIO_DEFAULT_BUCKETS=datasets</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30706:9000&quot;</span><span class="w">  </span><span class="c1"># S3 API</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30707:9001&quot;</span><span class="w">  </span><span class="c1"># Console</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/DVC_tmp/DVC_data:/data</span>
+</pre></div>
+</div>
+</section>
+<section id="minio-ssl-configuration">
+<h3>MinIO-SSL Configuration<a class="headerlink" href="#minio-ssl-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dvc-minio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minio/minio:RELEASE.2025-02-28T09-55-16Z</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">server /data --console-address &quot;:9001&quot;</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_USER=DVC</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_PASSWORD=uTAntEMTuVpcJucNjOJm</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_CERT_PUBLIC_KEY=/root/.minio/certs/public.crt</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_CERT_PRIVATE_KEY=/root/.minio/certs/private.key</span>
+<span class="w">      </span><span class="c1"># - MINIO_DEFAULT_BUCKETS=datasets</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30706:9000&quot;</span><span class="w">  </span><span class="c1"># S3 API (HTTPS)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30707:9001&quot;</span><span class="w">  </span><span class="c1"># Console (HTTPS)</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./DVC_data:/data</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/root/.minio/certs</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<section id="minio-environment-variables">
+<h3>MinIO Environment Variables<a class="headerlink" href="#minio-environment-variables" title="Link to this heading"></a></h3>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">MinIO Environment Variables</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MINIO_ROOT_USER</p></td>
+<td><p>Root username for MinIO</p></td>
+<td><p>minioadmin</p></td>
+</tr>
+<tr class="row-odd"><td><p>MINIO_ROOT_PASSWORD</p></td>
+<td><p>Root password for MinIO</p></td>
+<td><p>minioadmin</p></td>
+</tr>
+<tr class="row-even"><td><p>MINIO_DEFAULT_BUCKETS</p></td>
+<td><p>Comma-separated list of buckets to create on startup</p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MINIO_CERT_PUBLIC_KEY</p></td>
+<td><p>Path to public certificate file</p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-even"><td><p>MINIO_CERT_PRIVATE_KEY</p></td>
+<td><p>Path to private key file</p></td>
+<td><p>(none)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MINIO_SERVER_URL</p></td>
+<td><p>External URL for MinIO server</p></td>
+<td><p>(auto-detected)</p></td>
+</tr>
+<tr class="row-even"><td><p>MINIO_BROWSER_REDIRECT_URL</p></td>
+<td><p>External URL for MinIO Console</p></td>
+<td><p>(auto-detected)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ssl-configuration">
+<h3>SSL Configuration<a class="headerlink" href="#ssl-configuration" title="Link to this heading"></a></h3>
+<p>For SSL setup, certificates are generated using OpenSSL with the following configuration:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[req]</span>
+<span class="na">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">req_distinguished_name</span>
+<span class="na">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">v3_req</span>
+<span class="na">prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span>
+
+<span class="k">[req_distinguished_name]</span>
+<span class="na">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ES</span>
+<span class="na">ST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Extremadura</span>
+<span class="na">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Badajoz</span>
+<span class="na">O</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">eCaptureDtech</span>
+<span class="na">OU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">AI Solutions</span>
+<span class="na">CN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">www.dvc.ecapturedtech.com</span>
+
+<span class="k">[v3_req]</span>
+<span class="na">keyUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">keyEncipherment, dataEncipherment</span>
+<span class="na">extendedKeyUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">serverAuth</span>
+<span class="na">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@alt_names</span>
+
+<span class="k">[alt_names]</span>
+<span class="na">DNS.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">www.dvc.ecapturedtech.com</span>
+<span class="na">DNS.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">dvc.ecapturedtech.com</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="minio-client-mc-commands">
+<h2>MinIO Client (mc) Commands<a class="headerlink" href="#minio-client-mc-commands" title="Link to this heading"></a></h2>
+<section id="common-mc-commands">
+<h3>Common mc Commands<a class="headerlink" href="#common-mc-commands" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure alias</span>
+mc<span class="w"> </span><span class="nb">alias</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>myminio<span class="w"> </span>http://localhost:30706<span class="w"> </span>ACCESS_KEY<span class="w"> </span>SECRET_KEY
+
+<span class="c1"># List buckets</span>
+mc<span class="w"> </span>ls<span class="w"> </span>myminio/
+
+<span class="c1"># Create bucket</span>
+mc<span class="w"> </span>mb<span class="w"> </span>myminio/my-bucket
+
+<span class="c1"># Upload file</span>
+mc<span class="w"> </span>cp<span class="w"> </span>file.txt<span class="w"> </span>myminio/my-bucket/
+
+<span class="c1"># Download file</span>
+mc<span class="w"> </span>cp<span class="w"> </span>myminio/my-bucket/file.txt<span class="w"> </span>.
+
+<span class="c1"># Sync directory</span>
+mc<span class="w"> </span>mirror<span class="w"> </span>local-dir<span class="w"> </span>myminio/my-bucket/
+
+<span class="c1"># Remove object</span>
+mc<span class="w"> </span>rm<span class="w"> </span>myminio/my-bucket/file.txt
+
+<span class="c1"># Get bucket info</span>
+mc<span class="w"> </span>stat<span class="w"> </span>myminio/my-bucket
+</pre></div>
+</div>
+</section>
+</section>
+<section id="aws-cli-configuration">
+<h2>AWS CLI Configuration<a class="headerlink" href="#aws-cli-configuration" title="Link to this heading"></a></h2>
+<p>For AWS CLI compatibility:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default.s3.endpoint_url<span class="w"> </span>http://localhost:30706
+aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default.s3.signature_version<span class="w"> </span>s3v4
+aws<span class="w"> </span>configure<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default.s3.addressing_style<span class="w"> </span>path
+</pre></div>
+</div>
+<section id="common-aws-cli-commands">
+<h3>Common AWS CLI Commands<a class="headerlink" href="#common-aws-cli-commands" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List buckets</span>
+aws<span class="w"> </span>s3<span class="w"> </span>ls
+
+<span class="c1"># Create bucket</span>
+aws<span class="w"> </span>s3<span class="w"> </span>mb<span class="w"> </span>s3://my-bucket
+
+<span class="c1"># Upload file</span>
+aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>file.txt<span class="w"> </span>s3://my-bucket/
+
+<span class="c1"># Download file</span>
+aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>s3://my-bucket/file.txt<span class="w"> </span>.
+
+<span class="c1"># Sync directory</span>
+aws<span class="w"> </span>s3<span class="w"> </span>sync<span class="w"> </span>local-dir<span class="w"> </span>s3://my-bucket/
+
+<span class="c1"># Remove object</span>
+aws<span class="w"> </span>s3<span class="w"> </span>rm<span class="w"> </span>s3://my-bucket/file.txt
+</pre></div>
+</div>
+</section>
+</section>
+<section id="python-boto3-api">
+<h2>Python boto3 API<a class="headerlink" href="#python-boto3-api" title="Link to this heading"></a></h2>
+<section id="client-initialization">
+<h3>Client Initialization<a class="headerlink" href="#client-initialization" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+
+<span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span>
+    <span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+    <span class="n">endpoint_url</span><span class="o">=</span><span class="s1">&#39;http://localhost:30706&#39;</span><span class="p">,</span>
+    <span class="n">aws_access_key_id</span><span class="o">=</span><span class="s1">&#39;DVC&#39;</span><span class="p">,</span>
+    <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="s1">&#39;uTAntEMTuVpcJucNjOJm&#39;</span><span class="p">,</span>
+    <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="common-methods">
+<h3>Common Methods<a class="headerlink" href="#common-methods" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># List buckets</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">s3_client</span><span class="o">.</span><span class="n">list_buckets</span><span class="p">()</span>
+
+<span class="c1"># Create bucket</span>
+<span class="n">s3_client</span><span class="o">.</span><span class="n">create_bucket</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;my-bucket&#39;</span><span class="p">)</span>
+
+<span class="c1"># Upload file</span>
+<span class="n">s3_client</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="s1">&#39;local_file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;my-bucket&#39;</span><span class="p">,</span> <span class="s1">&#39;remote_file.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download file</span>
+<span class="n">s3_client</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;my-bucket&#39;</span><span class="p">,</span> <span class="s1">&#39;remote_file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;local_file.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># List objects</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">s3_client</span><span class="o">.</span><span class="n">list_objects_v2</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;my-bucket&#39;</span><span class="p">)</span>
+
+<span class="c1"># Delete object</span>
+<span class="n">s3_client</span><span class="o">.</span><span class="n">delete_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;my-bucket&#39;</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s1">&#39;remote_file.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># Generate presigned URL</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">s3_client</span><span class="o">.</span><span class="n">generate_presigned_url</span><span class="p">(</span>
+    <span class="s1">&#39;get_object&#39;</span><span class="p">,</span>
+    <span class="n">Params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Bucket&#39;</span><span class="p">:</span> <span class="s1">&#39;my-bucket&#39;</span><span class="p">,</span> <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="s1">&#39;remote_file.txt&#39;</span><span class="p">},</span>
+    <span class="n">ExpiresIn</span><span class="o">=</span><span class="mi">3600</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dvc-configuration">
+<h2>DVC Configuration<a class="headerlink" href="#dvc-configuration" title="Link to this heading"></a></h2>
+<section id="dvc-remote-configuration">
+<h3>DVC Remote Configuration<a class="headerlink" href="#dvc-remote-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>-d<span class="w"> </span>myremote<span class="w"> </span>s3://my-bucket
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>endpointurl<span class="w"> </span>http://localhost:30706
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>access_key_id<span class="w"> </span>DVC
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>myremote<span class="w"> </span>secret_access_key<span class="w"> </span>uTAntEMTuVpcJucNjOJm
+</pre></div>
+</div>
+</section>
+<section id="dvc-commands">
+<h3>DVC Commands<a class="headerlink" href="#dvc-commands" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize DVC</span>
+dvc<span class="w"> </span>init
+
+<span class="c1"># Track file</span>
+dvc<span class="w"> </span>add<span class="w"> </span>data.csv
+
+<span class="c1"># Push to remote</span>
+dvc<span class="w"> </span>push
+
+<span class="c1"># Pull from remote</span>
+dvc<span class="w"> </span>pull
+
+<span class="c1"># List tracked files</span>
+dvc<span class="w"> </span>list<span class="w"> </span>.
+
+<span class="c1"># Show data status</span>
+dvc<span class="w"> </span>status
+</pre></div>
+</div>
+</section>
+</section>
+<section id="health-check-endpoints">
+<h2>Health Check Endpoints<a class="headerlink" href="#health-check-endpoints" title="Link to this heading"></a></h2>
+<p>MinIO provides several health check endpoints:</p>
+<ul class="simple">
+<li><p><strong>Live Check</strong>: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/minio/health/live</span></code></p></li>
+<li><p><strong>Ready Check</strong>: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/minio/health/ready</span></code></p></li>
+<li><p><strong>Cluster Health</strong>: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/minio/v2/health/cluster</span></code></p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:30706/minio/health/live
+</pre></div>
+</div>
+<section id="metrics-endpoints">
+<h3>Metrics Endpoints<a class="headerlink" href="#metrics-endpoints" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Cluster Metrics</strong>: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/minio/v2/metrics/cluster</span></code></p></li>
+<li><p><strong>Node Metrics</strong>: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/minio/v2/metrics/node</span></code></p></li>
+</ul>
+<p>These endpoints provide Prometheus-compatible metrics for monitoring.</p>
+</section>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h2>
+<section id="openssl-configuration-ssl-setup">
+<h3>OpenSSL Configuration (SSL Setup)<a class="headerlink" href="#openssl-configuration-ssl-setup" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">openssl_wisrovi.cnf</span></code> file used for certificate generation:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[ req ]</span>
+<span class="na">default_bits</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">4096</span>
+<span class="na">prompt</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="s">no</span>
+<span class="na">default_md</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">sha256</span>
+<span class="na">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">dn</span>
+<span class="na">x509_extensions</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">v3_req</span>
+
+<span class="k">[ dn ]</span>
+<span class="na">C</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">ES</span>
+<span class="na">ST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Badajoz</span>
+<span class="na">L</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">Badajoz</span>
+<span class="na">O</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s">Wisrovi Rodriguez</span>
+<span class="na">OU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Autor Independiente</span>
+<span class="na">CN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">www.dvc.ecapturedtech.com</span>
+<span class="na">emailAddress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">wrodriguez@ecapturedtech.com</span>
+
+<span class="k">[ v3_req ]</span>
+<span class="na">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@alt_names</span>
+<span class="na">1.3.6.1.4.1.311.20.2.3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ASN1:UTF8String:https://ecapturedtech.com/</span>
+
+<span class="k">[ alt_names ]</span>
+<span class="na">URI.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://ecapturedtech.com/</span>
+</pre></div>
+</div>
+</section>
+<section id="nginx-configuration-optional">
+<h3>Nginx Configuration (Optional)<a class="headerlink" href="#nginx-configuration-optional" title="Link to this heading"></a></h3>
+<p>For advanced SSL termination, you can use Nginx as a reverse proxy:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">minio.example.com</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/etc/ssl/certs/minio.crt</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/etc/ssl/private/minio.key</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://localhost:30706</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$http_host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, William R. Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

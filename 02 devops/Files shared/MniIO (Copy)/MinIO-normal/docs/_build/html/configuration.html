@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; MinIO Docker Setup for DVC 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MinIO Docker Setup for DVC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#port-configuration">Port Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#volume-mounting">Volume Mounting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minio-server-command-options">MinIO Server Command Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restart-policies">Restart Policies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-limits">Resource Limits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-considerations">Security Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-configuration-issues">Troubleshooting Configuration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MinIO Docker Setup for DVC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>This section details the configuration options available for the MinIO Docker Compose setup.</p>
+<section id="docker-compose-configuration">
+<h2>Docker Compose Configuration<a class="headerlink" href="#docker-compose-configuration" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file contains the following key sections:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dvc-minio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minio/minio:RELEASE.2025-02-28T09-55-16Z</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">server /data --console-address &quot;:9001&quot;</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_USER=DVC</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_ROOT_PASSWORD=uTAntEMTuVpcJucNjOJm</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30706:9000&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;30707:9001&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/DVC_tmp/DVC_data:/data</span>
+</pre></div>
+</div>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<p>Configure MinIO behavior through environment variables:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Environment Variables</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MINIO_ROOT_USER</p></td>
+<td><p>DVC</p></td>
+<td><p>Admin username</p></td>
+</tr>
+<tr class="row-odd"><td><p>MINIO_ROOT_PASSWORD</p></td>
+<td><p>uTAntEMTuVpcJucNjOJm</p></td>
+<td><p>Admin password</p></td>
+</tr>
+<tr class="row-even"><td><p>MINIO_DEFAULT_BUCKETS</p></td>
+<td><p>(uncommented)</p></td>
+<td><p>Comma-separated bucket list</p></td>
+</tr>
+<tr class="row-odd"><td><p>MINIO_DOMAIN</p></td>
+<td><p>localhost</p></td>
+<td><p>Domain for MinIO server</p></td>
+</tr>
+<tr class="row-even"><td><p>MINIO_BROWSER</p></td>
+<td><p>on</p></td>
+<td><p>Enable/disable web console</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For production deployments, use strong, unique credentials and consider enabling TLS.</p>
+</div>
+</section>
+<section id="port-configuration">
+<h2>Port Configuration<a class="headerlink" href="#port-configuration" title="Link to this heading"></a></h2>
+<p>The setup exposes two ports:</p>
+<ul class="simple">
+<li><p><strong>30706</strong>: S3 API endpoint (maps to container port 9000)</p></li>
+<li><p><strong>30707</strong>: MinIO Console (maps to container port 9001)</p></li>
+</ul>
+<p>To change ports, modify the <code class="docutils literal notranslate"><span class="pre">ports</span></code> section in <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9000:9000&quot;</span><span class="w">  </span><span class="c1"># S3 API</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9001:9001&quot;</span><span class="w">  </span><span class="c1"># Console</span>
+</pre></div>
+</div>
+</section>
+<section id="volume-mounting">
+<h2>Volume Mounting<a class="headerlink" href="#volume-mounting" title="Link to this heading"></a></h2>
+<p>Data persistence is achieved through volume mounting:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/DVC_tmp/DVC_data:/data</span>
+</pre></div>
+</div>
+<p>This mounts the host directory <code class="docutils literal notranslate"><span class="pre">/mnt/DVC_tmp/DVC_data</span></code> to the container’s <code class="docutils literal notranslate"><span class="pre">/data</span></code> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure the host directory exists and has appropriate permissions before starting the container.</p>
+</div>
+</section>
+<section id="advanced-configuration">
+<h2>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Link to this heading"></a></h2>
+<section id="minio-server-command-options">
+<h3>MinIO Server Command Options<a class="headerlink" href="#minio-server-command-options" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">command</span></code> directive specifies MinIO server options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>server<span class="w"> </span>/data<span class="w"> </span>--console-address<span class="w"> </span><span class="s2">&quot;:9001&quot;</span>
+</pre></div>
+</div>
+<p>Common options include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--address</span> <span class="pre">&quot;:9000&quot;</span></code>: Specify API server address</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--console-address</span> <span class="pre">&quot;:9001&quot;</span></code>: Web console address</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--certs-dir</span> <span class="pre">/certs</span></code>: Directory for TLS certificates</p></li>
+</ul>
+</section>
+<section id="restart-policies">
+<h3>Restart Policies<a class="headerlink" href="#restart-policies" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">restart:</span> <span class="pre">always</span></code> policy ensures the container restarts automatically on failure or system reboot.</p>
+<p>Other options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">no</span></code>: Never restart</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on-failure</span></code>: Restart only on non-zero exit codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unless-stopped</span></code>: Restart unless explicitly stopped</p></li>
+</ul>
+</section>
+<section id="resource-limits">
+<h3>Resource Limits<a class="headerlink" href="#resource-limits" title="Link to this heading"></a></h3>
+<p>For production use, add resource constraints:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2.0&#39;</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4G</span>
+<span class="w">    </span><span class="nt">reservations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1.0&#39;</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2G</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="security-considerations">
+<h2>Security Considerations<a class="headerlink" href="#security-considerations" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Network Security</strong>:</p>
+<ul class="simple">
+<li><p>Use firewalls to restrict access to MinIO ports</p></li>
+<li><p>Consider using Docker networks for isolation</p></li>
+</ul>
+</li>
+<li><p><strong>Data Encryption</strong>:</p>
+<ul class="simple">
+<li><p>Enable server-side encryption in MinIO</p></li>
+<li><p>Use encrypted volumes for sensitive data</p></li>
+</ul>
+</li>
+<li><p><strong>Access Control</strong>:</p>
+<ul class="simple">
+<li><p>Implement IAM policies for fine-grained access</p></li>
+<li><p>Use MinIO’s built-in user management</p></li>
+</ul>
+</li>
+<li><p><strong>TLS Configuration</strong>:</p>
+<p>For secure deployments, configure TLS:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/root/.minio/certs</span>
+<span class="nt">environment</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MINIO_SERVER_URL=https://minio.example.com:9000</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="troubleshooting-configuration-issues">
+<h2>Troubleshooting Configuration Issues<a class="headerlink" href="#troubleshooting-configuration-issues" title="Link to this heading"></a></h2>
+<p>Common configuration problems and solutions:</p>
+<ol class="arabic simple">
+<li><p><strong>Port Conflicts</strong>: Use <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-tlnp</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">:30706</span></code> to check port usage</p></li>
+<li><p><strong>Permission Errors</strong>: Ensure host directory permissions allow Docker access</p></li>
+<li><p><strong>Volume Mount Issues</strong>: Verify host path exists and is accessible</p></li>
+<li><p><strong>Environment Variables</strong>: Check for typos in variable names and values</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
