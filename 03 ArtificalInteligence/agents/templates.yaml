@@ -7,7 +7,9 @@ templates:
   
   - name: CREAR_MAKEFILE
     description: "crea (o actualiza si ya existe) el makefile con los comandos necesarios para ejecutar los puntos importantes del proyecto"
-    
+
+  - name: SUBE_SPHINX_NUEVO_NIVEL
+    description: "toma esa doc de sphinx, llevala a un nuevo nivel profesional, usabilidad y explicativo, todo en ingles, con muchas pestañas, ejemplos de python, bibliografia, recursos fuente, etc, que sea usable, funcional, perfecto, moderno y muy intuitivo"
     
   - name: PRIMERA_CONFIG_AGENTE
     description: "memoriza esto, soy william rodriguez, mi linkedin es: https://es.linkedin.com/in/wisrovi-rodriguez, siempre me hablaras en español, pero los codigos, readme, docstrings, comentarios, codigos, metodos de funciones, clases, variables y todo codigo sera en un ingles perfecto, siempre evaluaras si hay un readme en los proyectos en los que hablemos, si no lo hay lo debes crear, si lo hay, ante cualqueir cambio que te pida deberas actualziar el readme, te presente mi linkedin, con el fin de que siempre en los readme y documentacion de sphinx que te pida, pongas un apartado de autor con la informacino que peudas encontrar de mi"
