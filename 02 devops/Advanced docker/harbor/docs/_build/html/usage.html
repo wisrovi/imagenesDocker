@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; Harbor Container Registry Setup 2.14.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7bb62513"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Harbor Container Registry Setup
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-operations">Basic Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#push-an-image">Push an Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pull-an-image">Pull an Image</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-scripts">Using the Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#individual-scripts">Individual Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bulk-upload-script">Bulk Upload Script</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-examples.html">API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">Backup and Restore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Harbor Container Registry Setup</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<section id="basic-operations">
+<h2>Basic Operations<a class="headerlink" href="#basic-operations" title="Link to this heading"></a></h2>
+<section id="push-an-image">
+<h3>Push an Image<a class="headerlink" href="#push-an-image" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tag image for Harbor</span>
+docker<span class="w"> </span>tag<span class="w"> </span>my-image:latest<span class="w"> </span>your-registry.com/library/my-image:latest
+
+<span class="c1"># Login to Harbor</span>
+docker<span class="w"> </span>login<span class="w"> </span>your-registry.com
+
+<span class="c1"># Push image</span>
+docker<span class="w"> </span>push<span class="w"> </span>your-registry.com/library/my-image:latest
+</pre></div>
+</div>
+</section>
+<section id="pull-an-image">
+<h3>Pull an Image<a class="headerlink" href="#pull-an-image" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>your-registry.com/library/my-image:latest
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-the-scripts">
+<h2>Using the Scripts<a class="headerlink" href="#using-the-scripts" title="Link to this heading"></a></h2>
+<section id="individual-scripts">
+<h3>Individual Scripts<a class="headerlink" href="#individual-scripts" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1.sh</span></code>: Pull image from Docker Hub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.sh</span></code>: Tag image for Harbor registry</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.sh</span></code>: Push image to Harbor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.sh</span></code>: Remove local image copy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5.sh</span></code>: Pull image from Harbor registry</p></li>
+</ul>
+<p>Usage example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/1.sh<span class="w"> </span>nginx<span class="w"> </span>latest
+./scripts/2.sh<span class="w"> </span>nginx<span class="w"> </span>latest
+./scripts/3.sh<span class="w"> </span>nginx<span class="w"> </span>latest
+./scripts/4.sh<span class="w"> </span>nginx<span class="w"> </span>latest
+./scripts/5.sh<span class="w"> </span>nginx<span class="w"> </span>latest
+</pre></div>
+</div>
+</section>
+<section id="bulk-upload-script">
+<h3>Bulk Upload Script<a class="headerlink" href="#bulk-upload-script" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">upload_multiple.sh</span></code> automates the process for multiple images:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./scripts/upload_multiple.sh
+</pre></div>
+</div>
+<p>This script processes a predefined list of popular images (Python, Node.js, Java, etc.) and uploads them to Harbor.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
