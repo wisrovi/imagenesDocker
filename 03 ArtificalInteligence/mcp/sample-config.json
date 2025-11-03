@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "example-server": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-everything"],
+      "env": {
+        "HELLO": "Hello MCP!"
+      }
+    },
+    "my-custom-server": {
+      "command": "node",
+      "args": ["build/index.js", "--debug"],
+      "env": {
+        "API_KEY": "your-api-key",
+        "DEBUG": "true"
+      }
+    }
+  }
+}</content>
+</xai:function_call"><xai:function_call name="edit">
+<parameter name="filePath">/home/william.rodriguez/Documents/imagenesDocker/03 ArtificalInteligence/mcp/docker-compose.yml

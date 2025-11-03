@@ -1,0 +1,27 @@
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Environment variables
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Backups
+backups/
+
+# Node modules (if any)
+node_modules/
+
+# Config files
+config.json
+mcp.json
+
+# Archives
+*.tar.gz
+
+# OS generated files
+.DS_Store
+Thumbs.db
