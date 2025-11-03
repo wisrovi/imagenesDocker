@@ -1,0 +1,26 @@
+Guía para el usuario Guillermo
+
+Antes de subir o descargar imágenes, inicia sesión en el registry:
+docker login localhost:40232 -u guillermo -p SWvgKk4fcJxfINusCYYg
+
+1. Subir una imagen nueva al registry:
+   - Descargar la imagen desde Docker Hub:
+     docker pull <nombre_imagen>:latest
+     Ejemplo: docker pull ubuntu:latest
+
+   - Etiquetar la imagen para el proyecto guillermo-limited:
+     docker tag <nombre_imagen>:latest localhost:40232/guillermo-limited/<nombre_imagen>:latest
+     Ejemplo: docker tag ubuntu:latest localhost:40232/guillermo-limited/ubuntu:latest
+
+   - Subir la imagen al registry:
+     docker push localhost:40232/guillermo-limited/<nombre_imagen>:latest
+     Ejemplo: docker push localhost:40232/guillermo-limited/ubuntu:latest
+
+2. Descargar una imagen:
+   - Para descargar una imagen que has subido:
+     docker pull localhost:40232/guillermo-limited/<nombre_imagen>:latest
+     Ejemplo: docker pull localhost:40232/guillermo-limited/ubuntu:latest
+
+   - Para descargar una imagen pública de Docker Hub:
+     docker pull <nombre_imagen>:latest
+     Ejemplo: docker pull nginx:latest

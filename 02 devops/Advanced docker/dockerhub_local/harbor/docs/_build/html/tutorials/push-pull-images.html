@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Push and Pull Images Tutorial &mdash; Harbor Container Registry Setup 2.14.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7bb62513"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setup Image Replication" href="setup-replication.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Harbor Container Registry Setup
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Push and Pull Images Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-login-to-harbor">Step 1: Login to Harbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-pull-an-image-from-docker-hub">Step 2: Pull an Image from Docker Hub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-tag-the-image-for-harbor">Step 3: Tag the Image for Harbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-push-to-harbor">Step 4: Push to Harbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-pull-from-harbor">Step 5: Pull from Harbor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup-replication.html">Setup Image Replication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configure-scanning.html">Configure Vulnerability Scanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage-users.html">Manage Users and Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="automate-with-scripts.html">Automate with Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#push-and-pull-images">Push and Pull Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#setup-image-replication">Setup Image Replication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#configure-vulnerability-scanning">Configure Vulnerability Scanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#manage-users-and-projects">Manage Users and Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#automate-with-scripts">Automate with Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api-examples.html">API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Security Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backup-restore.html">Backup and Restore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resources.html">Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Harbor Container Registry Setup</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Push and Pull Images Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/push-pull-images.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="push-and-pull-images-tutorial">
+<h1>Push and Pull Images Tutorial<a class="headerlink" href="#push-and-pull-images-tutorial" title="Link to this heading"></a></h1>
+<p>This tutorial shows how to push and pull container images using Harbor.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Harbor is installed and running</p></li>
+<li><p>Docker client installed</p></li>
+<li><p>Access to Harbor registry</p></li>
+</ul>
+</section>
+<section id="step-1-login-to-harbor">
+<h2>Step 1: Login to Harbor<a class="headerlink" href="#step-1-login-to-harbor" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>login<span class="w"> </span>your-harbor-hostname
+</pre></div>
+</div>
+<p>Enter your Harbor username and password when prompted.</p>
+</section>
+<section id="step-2-pull-an-image-from-docker-hub">
+<h2>Step 2: Pull an Image from Docker Hub<a class="headerlink" href="#step-2-pull-an-image-from-docker-hub" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>nginx:latest
+</pre></div>
+</div>
+</section>
+<section id="step-3-tag-the-image-for-harbor">
+<h2>Step 3: Tag the Image for Harbor<a class="headerlink" href="#step-3-tag-the-image-for-harbor" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>tag<span class="w"> </span>nginx:latest<span class="w"> </span>your-harbor-hostname/library/nginx:latest
+</pre></div>
+</div>
+</section>
+<section id="step-4-push-to-harbor">
+<h2>Step 4: Push to Harbor<a class="headerlink" href="#step-4-push-to-harbor" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>push<span class="w"> </span>your-harbor-hostname/library/nginx:latest
+</pre></div>
+</div>
+</section>
+<section id="step-5-pull-from-harbor">
+<h2>Step 5: Pull from Harbor<a class="headerlink" href="#step-5-pull-from-harbor" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>your-harbor-hostname/library/nginx:latest
+</pre></div>
+</div>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading"></a></h2>
+<p>Check in the Harbor Web UI that the image appears in the library project.</p>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="setup-replication.html"><span class="doc">Setup Image Replication</span></a> - Set up image replication</p></li>
+<li><p><a class="reference internal" href="configure-scanning.html"><span class="doc">Configure Vulnerability Scanning</span></a> - Enable vulnerability scanning</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup-replication.html" class="btn btn-neutral float-right" title="Setup Image Replication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
