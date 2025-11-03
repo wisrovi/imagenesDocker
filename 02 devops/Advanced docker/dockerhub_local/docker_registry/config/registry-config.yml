@@ -1,0 +1,17 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  delete:
+    enabled: true
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5000
+  headers:
+    Access-Control-Allow-Origin: ["https://localhost:40232", "http://localhost:40232"]
+    Access-Control-Allow-Methods: ["HEAD", "GET", "OPTIONS", "DELETE"]
+    Access-Control-Allow-Credentials: ["true"]
+    Access-Control-Allow-Headers: ["Authorization", "Accept", "Cache-Control"]
+    Access-Control-Expose-Headers: ["Docker-Content-Digest"]

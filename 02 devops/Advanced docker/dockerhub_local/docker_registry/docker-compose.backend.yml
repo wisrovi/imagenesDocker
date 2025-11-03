@@ -1,0 +1,27 @@
+secrets:
+  htpasswd:
+    file: ./auth/htpasswd
+  fullchain:
+    file: ./certs/fullchain.pem
+  privkey:
+    file: ./certs/privkey.pem
+
+services:
+  registry:
+    image: registry:2.8.2
+    restart: always
+    ports:
+      - "40231:5000"
+    volumes:
+      - ./registry-data:/var/lib/registry
+      - ./config/registry-config.yml:/etc/docker/registry/config.yml
+    secrets:
+      - htpasswd
+      - fullchain
+      - privkey
+    container_name: registry
+
+networks:
+  default:
+    name: docker_registry_default
+    external: true
