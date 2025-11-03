@@ -1,0 +1,21 @@
+services:
+  trivy:
+    image: goharbor/trivy-adapter-photon:v2.14.0
+    container_name: trivy-adapter
+    restart: always
+    user: root
+    volumes:
+      - ./data/trivy-adapter:/home/scanner/.cache
+    networks:
+      - harbor
+    ports:
+      - "8080:8080"
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "tcp://localhost:1514"
+        tag: "trivy"
+networks:
+  harbor:
+    external: true
+    name: harbor_harbor
