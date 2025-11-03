@@ -1,0 +1,33 @@
+secrets:
+  fullchain:
+    file: ./certs/fullchain.pem
+  privkey:
+    file: ./certs/privkey.pem
+
+services:
+  registry-ui:
+    image: joxit/docker-registry-ui:main
+    restart: always
+    ports:
+      - 40232:80
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=Docker Registry UI
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+       - NGINX_PROXY_PASS_URL=http://registry:5000
+       - REGISTRY_URL=http://localhost:40232
+       - DOCKER_REGISTRY_UI_MANIFESTS_INDEX=2
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=100
+       - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    container_name: registry-ui
+
+
+networks:
+  default:
+    name: docker_registry_default
+    external: true
