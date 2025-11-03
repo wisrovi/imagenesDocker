@@ -1,0 +1,63 @@
+Docker-in-Docker con Portainer y SSH
+====================================
+
+.. image:: _static/logo.png
+   :alt: Logo del proyecto
+   :align: center
+
+Un entorno completo de Docker-in-Docker con interfaz web Portainer y acceso SSH seguro.
+
+.. note::
+   Esta documentación está en español. Para versiones en otros idiomas, consulte el repositorio.
+
+Características principales
+---------------------------
+
+* 🚀 **Automatización completa**: Setup automático de SSH y Portainer
+* 🔒 **Seguridad integrada**: Configuraciones seguras con healthchecks
+* 📚 **Documentación completa**: Guías detalladas y ejemplos prácticos
+* 🐳 **Compatibilidad total**: Basado en imágenes oficiales de Docker
+
+.. toctree::
+   :maxdepth: 3
+   :caption: 🚀 Guía del Usuario:
+
+   introduccion
+   instalacion
+   configuracion
+   uso
+   ejemplos
+   tutoriales
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 📚 Referencia:
+
+   api
+   mejores-practicas
+   troubleshooting
+   seguridad
+   faq
+   glosario
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 💡 Avanzado:
+
+   casos-estudio
+   referencias
+
+.. toctree::
+   :maxdepth: 1
+   :caption: ℹ️ Acerca de:
+
+   changelog
+   contribuyendo
+   autor
+
+Índices y tablas
+================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

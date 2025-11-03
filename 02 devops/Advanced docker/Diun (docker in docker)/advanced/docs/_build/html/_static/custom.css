@@ -1,0 +1,173 @@
+/* Custom CSS for Docker-in-Docker documentation */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.highlight pre {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admonition {
+    border-radius: 8px;
+    border-left: 4px solid #2980B9;
+}
+
+.admonition.note {
+    background-color: #e8f4fd;
+}
+
+.admonition.warning {
+    background-color: #fdf2e8;
+    border-left-color: #e67e22;
+}
+
+.admonition.important {
+    background-color: #f8e8f8;
+    border-left-color: #9b59b6;
+}
+
+.code-block-caption {
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px 4px 0 0;
+    font-weight: bold;
+    color: #495057;
+}
+
+.literal-block-wrapper {
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+/* Custom table styles */
+table.docutils {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+table.docutils th,
+table.docutils td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+table.docutils thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+table.docutils tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+/* Navigation improvements */
+.wy-nav-side {
+    background-color: #2c3e50;
+}
+
+.wy-nav-side .wy-menu-vertical a:hover {
+    background-color: #34495e;
+}
+
+/* Footer styling */
+footer {
+    background-color: #34495e;
+    color: #ecf0f1;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer a {
+    color: #3498db;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .wy-nav-side {
+        width: 300px;
+    }
+
+    .wy-nav-content-wrap {
+        margin-left: 0;
+    }
+}
+
+/* Custom logo area */
+.wy-side-nav-search {
+    background-color: #2980B9;
+}
+
+.wy-side-nav-search input[type="text"] {
+    border-color: #3498db;
+}
+
+/* Code highlighting improvements */
+.highlight .k { color: #2980B9; } /* keywords */
+.highlight .nb { color: #e74c3c; } /* builtins */
+.highlight .s { color: #27ae60; } /* strings */
+.highlight .c { color: #95a5a6; } /* comments */
+
+/* Button styles for interactive elements */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2980B9;
+    border-color: #2980B9;
+}
+
+.btn-primary:hover {
+    background-color: #21618C;
+    border-color: #1B4F72;
+}
+
+/* Custom icons */
+.icon-docker {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%230098da" d="M13.983 2.068c-.06-.064-.146-.064-.206 0L11.15 4.215c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm-2.75 4.76c-.06-.064-.146-.064-.206 0L8.277 9.588c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm4.75 0c-.06-.064-.146-.064-.206 0L13.027 9.588c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zM9.733 11.52c-.06-.064-.146-.064-.206 0L6.9 13.667c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm4.75 0c-.06-.064-.146-.064-.206 0L11.65 13.667c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm4.75 0c-.06-.064-.146-.064-.206 0L16.4 13.667c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zM7.483 16.28c-.06-.064-.146-.064-.206 0L4.65 18.427c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm4.75 0c-.06-.064-.146-.064-.206 0L9.4 18.427c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246zm4.75 0c-.06-.064-.146-.064-.206 0L14.15 18.427c-.06.064-.086.17-.046.246l1.206 2.598c.04.076.146.076.186 0l1.206-2.598c.04-.076.014-.182-.046-.246z"/></svg>');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    padding-left: 25px;
+}
+
+/* Animation for loading */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.wy-body-for-nav {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Print styles */
+@media print {
+    .wy-nav-side,
+    .wy-nav-top,
+    footer {
+        display: none;
+    }
+
+    .wy-nav-content-wrap {
+        margin-left: 0;
+    }
+}

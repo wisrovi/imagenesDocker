@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mejores Prácticas &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Solución de Problemas" href="troubleshooting.html" />
+    <link rel="prev" title="API Reference" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacion.html">Instalación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">Uso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mejores Prácticas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#organizacion-del-proyecto">Organización del Proyecto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estructura-recomendada">Estructura Recomendada</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#versionado">Versionado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#seguridad">Seguridad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuracion-segura">Configuración Segura</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gestion-de-recursos">Gestión de Recursos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monitoreo-de-recursos">Monitoreo de Recursos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limpieza-automatica">Limpieza Automática</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#desarrollo">Desarrollo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flujo-de-trabajo">Flujo de Trabajo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#control-de-versiones">Control de Versiones</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estrategias-de-testing">Estrategias de Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-cd">CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pipelines-recomendados">Pipelines Recomendados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#despliegue">Despliegue</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estrategias-de-despliegue">Estrategias de Despliegue</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-y-recuperacion">Backup y Recuperación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estrategias-de-backup">Estrategias de Backup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recuperacion-de-desastres">Recuperación de Desastres</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentacion">Documentación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mantencion-de-documentacion">Mantención de Documentación</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#colaboracion">Colaboración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trabajo-en-equipo">Trabajo en Equipo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metricas-y-kpis">Métricas y KPIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monitoreo-de-exito">Monitoreo de Éxito</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusión</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Solución de Problemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Preguntas Frecuentes (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mejores Prácticas</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mejores-practicas.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Solución de Problemas" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mejores-practicas">
+<h1>Mejores Prácticas<a class="headerlink" href="#mejores-practicas" title="Link to this heading"></a></h1>
+<p id="id1">Esta guía presenta las mejores prácticas para usar el entorno DinD de manera efectiva y segura.</p>
+<section id="organizacion-del-proyecto">
+<h2>Organización del Proyecto<a class="headerlink" href="#organizacion-del-proyecto" title="Link to this heading"></a></h2>
+<section id="estructura-recomendada">
+<h3>Estructura Recomendada<a class="headerlink" href="#estructura-recomendada" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>my-dind-project/
+├── docker-compose.yaml
+├── scripts/
+│   ├── install_ssh.sh
+│   ├── install_portainer.sh
+│   └── start.sh
+├── volumes/
+│   ├── files/
+│   └── dind-data/
+├── docs/
+│   ├── index.rst
+│   └── ...
+├── .gitignore
+└── README.md
+</pre></div>
+</div>
+</section>
+<section id="versionado">
+<h3>Versionado<a class="headerlink" href="#versionado" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Usa Git para control de versiones</p></li>
+<li><p>Incluye <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> para excluir datos sensibles</p></li>
+<li><p>Etiqueta releases importantes</p></li>
+<li><p>Documenta cambios en <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="seguridad">
+<h2>Seguridad<a class="headerlink" href="#seguridad" title="Link to this heading"></a></h2>
+<section id="configuracion-segura">
+<h3>Configuración Segura<a class="headerlink" href="#configuracion-segura" title="Link to this heading"></a></h3>
+<p><strong>Cambia contraseñas por defecto:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># En scripts/install_ssh.sh</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;root:</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">12</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+</pre></div>
+</div>
+<p><strong>Usa variables de entorno:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># docker-compose.yaml</span>
+environment:
+<span class="w">  </span>-<span class="w"> </span><span class="nv">SSH_PASSWORD</span><span class="o">=</span><span class="si">${</span><span class="nv">SSH_PASSWORD</span><span class="si">}</span>
+<span class="w">  </span>-<span class="w"> </span><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="si">${</span><span class="nv">POSTGRES_PASSWORD</span><span class="si">}</span>
+</pre></div>
+</div>
+<p><strong>Limita acceso a red:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dind</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:9003:9000&quot;</span><span class="w">  </span><span class="c1"># Solo localhost</span>
+</pre></div>
+</div>
+<p><strong>Auditoría de logs:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monitoreo de logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>dind<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;error\|warning&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="gestion-de-recursos">
+<h2>Gestión de Recursos<a class="headerlink" href="#gestion-de-recursos" title="Link to this heading"></a></h2>
+<section id="monitoreo-de-recursos">
+<h3>Monitoreo de Recursos<a class="headerlink" href="#monitoreo-de-recursos" title="Link to this heading"></a></h3>
+<p><strong>Límites de recursos:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dind</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2.0&#39;</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4G</span>
+<span class="w">        </span><span class="nt">reservations</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0.5&#39;</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1G</span>
+</pre></div>
+</div>
+<p><strong>Monitoreo continuo:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script de monitoreo</span>
+<span class="c1">#!/bin/bash</span>
+<span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: CPU </span><span class="k">$(</span>docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;table {{.CPUPerc}}&#39;</span><span class="w"> </span>dind<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span><span class="s2">&quot;</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">60</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</section>
+<section id="limpieza-automatica">
+<h3>Limpieza Automática<a class="headerlink" href="#limpieza-automatica" title="Link to this heading"></a></h3>
+<p><strong>Eliminar contenedores no utilizados:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cron job para limpieza</span>
+<span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>-f<span class="w"> </span>--volumes
+</pre></div>
+</div>
+<p><strong>Rotación de logs:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># En docker-compose.yaml</span>
+logging:
+<span class="w">  </span>driver:<span class="w"> </span><span class="s2">&quot;json-file&quot;</span>
+<span class="w">  </span>options:
+<span class="w">    </span>max-size:<span class="w"> </span><span class="s2">&quot;10m&quot;</span>
+<span class="w">    </span>max-file:<span class="w"> </span><span class="s2">&quot;3&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="desarrollo">
+<h2>Desarrollo<a class="headerlink" href="#desarrollo" title="Link to this heading"></a></h2>
+<section id="flujo-de-trabajo">
+<h3>Flujo de Trabajo<a class="headerlink" href="#flujo-de-trabajo" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Desarrollo local:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Montar código fuente</span>
+volumes:
+<span class="w">  </span>-<span class="w"> </span>./src:/app/src
+</pre></div>
+</div>
+</li>
+<li><p><strong>Testing:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ejecutar tests dentro del contenedor</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dind<span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Debugging:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Acceso interactivo</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>dind<span class="w"> </span>sh
+
+<span class="c1"># Logs en tiempo real</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="control-de-versiones">
+<h3>Control de Versiones<a class="headerlink" href="#control-de-versiones" title="Link to this heading"></a></h3>
+<p><strong>Git workflow:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ramas por feature</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/nueva-funcionalidad
+
+<span class="c1"># Commits descriptivos</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: añadir autenticación JWT</span>
+
+<span class="s2">- Implementar middleware de auth</span>
+<span class="s2">- Añadir tests unitarios</span>
+<span class="s2">- Actualizar documentación&quot;</span>
+</pre></div>
+</div>
+<p><strong>Conventional commits:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">feat:</span></code> nuevas características</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fix:</span></code> corrección de bugs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs:</span></code> cambios en documentación</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style:</span></code> cambios de formato</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refactor:</span></code> refactorización</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test:</span></code> añadir tests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chore:</span></code> tareas de mantenimiento</p></li>
+</ul>
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<section id="estrategias-de-testing">
+<h3>Estrategias de Testing<a class="headerlink" href="#estrategias-de-testing" title="Link to this heading"></a></h3>
+<p><strong>Tests unitarios:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dentro del contenedor</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dind<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/unit/
+</pre></div>
+</div>
+<p><strong>Tests de integración:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing de servicios</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dind<span class="w"> </span>./test-integration.sh
+</pre></div>
+</div>
+<p><strong>Tests de carga:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usando herramientas como k6</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/tests:/tests<span class="w"> </span>loadimpact/k6<span class="w"> </span>run<span class="w"> </span>/tests/load-test.js
+</pre></div>
+</div>
+<p><strong>Tests de seguridad:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Escaneo de vulnerabilidades</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>goodwithtech/dockle:latest<span class="w"> </span>my-image
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ci-cd">
+<h2>CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading"></a></h2>
+<section id="pipelines-recomendados">
+<h3>Pipelines Recomendados<a class="headerlink" href="#pipelines-recomendados" title="Link to this heading"></a></h3>
+<p><strong>GitHub Actions:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI/CD</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup DinD</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-compose up -d</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker exec dind ./run-tests.sh</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and push</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker exec dind ./build-and-push.sh</span>
+</pre></div>
+</div>
+<p><strong>Jenkins Pipeline:</strong></p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">agent</span><span class="w"> </span><span class="n">any</span>
+<span class="w">    </span><span class="n">stages</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Setup&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;docker-compose up -d&#39;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Test&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;docker exec dind ./run-tests.sh&#39;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Deploy&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;docker exec dind ./deploy.sh&#39;</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">always</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;docker-compose down&#39;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="despliegue">
+<h2>Despliegue<a class="headerlink" href="#despliegue" title="Link to this heading"></a></h2>
+<section id="estrategias-de-despliegue">
+<h3>Estrategias de Despliegue<a class="headerlink" href="#estrategias-de-despliegue" title="Link to this heading"></a></h3>
+<p><strong>Blue-Green Deployment:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear nueva versión</span>
+docker<span class="w"> </span>tag<span class="w"> </span>myapp:latest<span class="w"> </span>myapp:v2
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>myapp-v2<span class="w"> </span>-p<span class="w"> </span><span class="m">8081</span>:80<span class="w"> </span>myapp:v2
+
+<span class="c1"># Verificar health</span>
+curl<span class="w"> </span>-f<span class="w"> </span>http://localhost:8081/health<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># Cambiar tráfico (usando nginx o load balancer)</span>
+<span class="c1"># ...</span>
+
+<span class="c1"># Remover versión anterior</span>
+docker<span class="w"> </span>stop<span class="w"> </span>myapp-v1
+docker<span class="w"> </span>rm<span class="w"> </span>myapp-v1
+</pre></div>
+</div>
+<p><strong>Rolling Updates:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Actualizar con zero-downtime</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span><span class="nv">web</span><span class="o">=</span><span class="m">2</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span><span class="nv">web</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p><strong>Canary Releases:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Desplegar 10% del tráfico a nueva versión</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>canary<span class="w"> </span>-p<span class="w"> </span><span class="m">8082</span>:80<span class="w"> </span>myapp:new-version
+
+<span class="c1"># Configurar load balancer para 10% del tráfico</span>
+<span class="c1"># Monitorear métricas</span>
+<span class="c1"># Si OK, aumentar tráfico gradualmente</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="backup-y-recuperacion">
+<h2>Backup y Recuperación<a class="headerlink" href="#backup-y-recuperacion" title="Link to this heading"></a></h2>
+<section id="estrategias-de-backup">
+<h3>Estrategias de Backup<a class="headerlink" href="#estrategias-de-backup" title="Link to this heading"></a></h3>
+<p><strong>Backup de datos:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Backup automático diario</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>myapp_data:/data<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/backups:/backup<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>alpine<span class="w"> </span>tar<span class="w"> </span>czf<span class="w"> </span>/backup/backup_<span class="si">${</span><span class="nv">DATE</span><span class="si">}</span>.tar.gz<span class="w"> </span>-C<span class="w"> </span>/<span class="w"> </span>/data
+</pre></div>
+</div>
+<p><strong>Backup de configuraciones:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Backup de docker-compose y scripts</span>
+tar<span class="w"> </span>czf<span class="w"> </span>config_backup.tar.gz<span class="w"> </span>docker-compose.yaml<span class="w"> </span>scripts/<span class="w"> </span>docs/
+</pre></div>
+</div>
+<p><strong>Backup de imágenes:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Guardar imágenes importantes</span>
+docker<span class="w"> </span>save<span class="w"> </span>myapp:latest<span class="w"> </span>&gt;<span class="w"> </span>myapp_latest.tar
+</pre></div>
+</div>
+</section>
+<section id="recuperacion-de-desastres">
+<h3>Recuperación de Desastres<a class="headerlink" href="#recuperacion-de-desastres" title="Link to this heading"></a></h3>
+<p><strong>Plan de recuperación:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Identificar el problema</strong></p></li>
+<li><p><strong>Aislar el sistema afectado</strong></p></li>
+<li><p><strong>Restaurar desde backup</strong></p></li>
+<li><p><strong>Verificar integridad</strong></p></li>
+<li><p><strong>Reanudar operaciones</strong></p></li>
+</ol>
+<p><strong>Tiempos objetivo:</strong></p>
+<ul class="simple">
+<li><p>RTO (Recovery Time Objective): 4 horas</p></li>
+<li><p>RPO (Recovery Point Objective): 1 hora</p></li>
+</ul>
+</section>
+</section>
+<section id="documentacion">
+<h2>Documentación<a class="headerlink" href="#documentacion" title="Link to this heading"></a></h2>
+<section id="mantencion-de-documentacion">
+<h3>Mantención de Documentación<a class="headerlink" href="#mantencion-de-documentacion" title="Link to this heading"></a></h3>
+<p><strong>Actualización automática:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hook de pre-commit para verificar docs</span>
+<span class="c1">#!/bin/bash</span>
+make<span class="w"> </span>docs
+git<span class="w"> </span>add<span class="w"> </span>docs/_build/
+</pre></div>
+</div>
+<p><strong>Revisión de documentación:</strong></p>
+<ul class="simple">
+<li><p>Actualizar con cada cambio significativo</p></li>
+<li><p>Revisar ortografía y gramática</p></li>
+<li><p>Verificar enlaces rotos</p></li>
+<li><p>Mantener ejemplos actualizados</p></li>
+</ul>
+<p><strong>Herramientas:</strong></p>
+<ul class="simple">
+<li><p>Sphinx para documentación técnica</p></li>
+<li><p>Read the Docs para hosting</p></li>
+<li><p>Markdown para documentación simple</p></li>
+<li><p>PlantUML para diagramas</p></li>
+</ul>
+</section>
+</section>
+<section id="colaboracion">
+<h2>Colaboración<a class="headerlink" href="#colaboracion" title="Link to this heading"></a></h2>
+<section id="trabajo-en-equipo">
+<h3>Trabajo en Equipo<a class="headerlink" href="#trabajo-en-equipo" title="Link to this heading"></a></h3>
+<p><strong>Roles definidos:</strong></p>
+<ul class="simple">
+<li><p><strong>DevOps:</strong> Mantenimiento de infraestructura</p></li>
+<li><p><strong>Developers:</strong> Desarrollo de aplicaciones</p></li>
+<li><p><strong>QA:</strong> Testing y calidad</p></li>
+<li><p><strong>DevRel:</strong> Documentación y soporte</p></li>
+</ul>
+<p><strong>Comunicación:</strong></p>
+<ul class="simple">
+<li><p>Issues y PRs bien documentados</p></li>
+<li><p>Reuniones de sincronización regulares</p></li>
+<li><p>Canales de Slack/Teams para soporte rápido</p></li>
+<li><p>Wiki interna para conocimiento compartido</p></li>
+</ul>
+<p><strong>Code Reviews:</strong></p>
+<ul class="simple">
+<li><p>Al menos 2 aprobaciones por PR</p></li>
+<li><p>Checklist de revisión estándar</p></li>
+<li><p>Tests obligatorios</p></li>
+<li><p>Documentación actualizada</p></li>
+</ul>
+</section>
+</section>
+<section id="metricas-y-kpis">
+<h2>Métricas y KPIs<a class="headerlink" href="#metricas-y-kpis" title="Link to this heading"></a></h2>
+<section id="monitoreo-de-exito">
+<h3>Monitoreo de Éxito<a class="headerlink" href="#monitoreo-de-exito" title="Link to this heading"></a></h3>
+<p><strong>Métricas técnicas:</strong></p>
+<ul class="simple">
+<li><p>Uptime del sistema: &gt;99.9%</p></li>
+<li><p>Tiempo de respuesta: &lt;500ms</p></li>
+<li><p>Tasa de error: &lt;1%</p></li>
+<li><p>Cobertura de tests: &gt;80%</p></li>
+</ul>
+<p><strong>Métricas de negocio:</strong></p>
+<ul class="simple">
+<li><p>Tiempo de desarrollo reducido</p></li>
+<li><p>Menos bugs en producción</p></li>
+<li><p>Mayor satisfacción del equipo</p></li>
+<li><p>ROI positivo</p></li>
+</ul>
+<p><strong>Monitoreo continuo:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dashboard de métricas</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>-v<span class="w"> </span>prometheus_data:/var/lib/prometheus<span class="w"> </span><span class="se">\\</span>
+<span class="w">  </span>grafana/grafana
+</pre></div>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusión<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Seguir estas mejores prácticas asegura que el entorno DinD sea:</p>
+<ul class="simple">
+<li><p><strong>Seguro:</strong> Minimizando riesgos y vulnerabilidades</p></li>
+<li><p><strong>Escalable:</strong> Capaz de crecer con las necesidades</p></li>
+<li><p><strong>Mantenible:</strong> Fácil de actualizar y mantener</p></li>
+<li><p><strong>Productivo:</strong> Maximizando la eficiencia del equipo</p></li>
+</ul>
+<p>La implementación consistente de estas prácticas es la diferencia entre un entorno útil y uno problemático.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Solución de Problemas" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
