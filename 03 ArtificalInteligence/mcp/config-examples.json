@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "servidor-streamable-http": {
+      "type": "streamable-http",
+      "url": "http://192.168.1.84:8015"
+    },
+    "servidor-sse": {
+      "type": "sse",
+      "url": "http://192.168.1.84:8015/sse"
+    },
+    "servidor-local": {
+      "command": "node",
+      "args": ["/path/to/server.js"],
+      "env": {
+        "PORT": "8015"
+      }
+    }
+  }
+}
