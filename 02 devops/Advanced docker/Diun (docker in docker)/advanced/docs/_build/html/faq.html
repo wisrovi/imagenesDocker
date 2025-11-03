@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas Frecuentes (FAQ) &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Glosario" href="glosario.html" />
+    <link rel="prev" title="Consideraciones de Seguridad" href="seguridad.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacion.html">Instalación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">Uso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mejores-practicas.html">Mejores Prácticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Solución de Problemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preguntas Frecuentes (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#es-seguro-usar-docker-in-docker">¿Es seguro usar Docker-in-Docker?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#puedo-usar-esto-en-produccion">¿Puedo usar esto en producción?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cual-es-la-diferencia-con-docker-compose-normal">¿Cuál es la diferencia con Docker Compose normal?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#puedo-cambiar-los-puertos-expuestos">¿Puedo cambiar los puertos expuestos?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hay-soporte-para-windows">¿Hay soporte para Windows?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cuantos-recursos-consume">¿Cuántos recursos consume?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#puedo-usar-volumenes-nombrados">¿Puedo usar volúmenes nombrados?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hay-logging-integrado">¿Hay logging integrado?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#puedo-personalizar-la-configuracion-de-ssh">¿Puedo personalizar la configuración de SSH?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#es-compatible-con-docker-swarm">¿Es compatible con Docker Swarm?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hay-soporte-para-gpu">¿Hay soporte para GPU?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Preguntas Frecuentes (FAQ)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/faq.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="seguridad.html" class="btn btn-neutral float-left" title="Consideraciones de Seguridad" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="glosario.html" class="btn btn-neutral float-right" title="Glosario" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="preguntas-frecuentes-faq">
+<h1>Preguntas Frecuentes (FAQ)<a class="headerlink" href="#preguntas-frecuentes-faq" title="Link to this heading"></a></h1>
+<section id="es-seguro-usar-docker-in-docker">
+<span id="faq"></span><h2>¿Es seguro usar Docker-in-Docker?<a class="headerlink" href="#es-seguro-usar-docker-in-docker" title="Link to this heading"></a></h2>
+<p>DinD requiere modo privilegiado, lo que puede tener riesgos de seguridad. Úselo solo en entornos de desarrollo o testing controlados. Para producción, considere alternativas como Docker-outside-of-Docker (DooD).</p>
+</section>
+<section id="puedo-usar-esto-en-produccion">
+<h2>¿Puedo usar esto en producción?<a class="headerlink" href="#puedo-usar-esto-en-produccion" title="Link to this heading"></a></h2>
+<p>No se recomienda para entornos de producción debido a los riesgos de seguridad y complejidad. Use contenedores normales o servicios gestionados como Kubernetes.</p>
+</section>
+<section id="cual-es-la-diferencia-con-docker-compose-normal">
+<h2>¿Cuál es la diferencia con Docker Compose normal?<a class="headerlink" href="#cual-es-la-diferencia-con-docker-compose-normal" title="Link to this heading"></a></h2>
+<p>Docker Compose ejecuta múltiples contenedores en el mismo host Docker. DinD ejecuta un daemon Docker completo dentro de un contenedor, permitiendo contenerización anidada.</p>
+</section>
+<section id="puedo-cambiar-los-puertos-expuestos">
+<h2>¿Puedo cambiar los puertos expuestos?<a class="headerlink" href="#puedo-cambiar-los-puertos-expuestos" title="Link to this heading"></a></h2>
+<p>Sí, edite el archivo <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> y cambie las asignaciones de puertos según sus necesidades.</p>
+</section>
+<section id="hay-soporte-para-windows">
+<h2>¿Hay soporte para Windows?<a class="headerlink" href="#hay-soporte-para-windows" title="Link to this heading"></a></h2>
+<p>Sí, funciona en Windows con WSL2 o Docker Desktop. Sin embargo, puede requerir configuraciones adicionales para modo privilegiado.</p>
+</section>
+<section id="cuantos-recursos-consume">
+<h2>¿Cuántos recursos consume?<a class="headerlink" href="#cuantos-recursos-consume" title="Link to this heading"></a></h2>
+<p>Aproximadamente 500MB-1GB de RAM y 5-10GB de disco por instancia. Escalee según sus necesidades.</p>
+</section>
+<section id="puedo-usar-volumenes-nombrados">
+<h2>¿Puedo usar volúmenes nombrados?<a class="headerlink" href="#puedo-usar-volumenes-nombrados" title="Link to this heading"></a></h2>
+<p>Sí, puede modificar los volúmenes en <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> para usar volúmenes nombrados en lugar de bind mounts.</p>
+</section>
+<section id="hay-logging-integrado">
+<h2>¿Hay logging integrado?<a class="headerlink" href="#hay-logging-integrado" title="Link to this heading"></a></h2>
+<p>Sí, todos los servicios registran en stdout/stderr. Use <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">logs</span></code> para ver los logs.</p>
+</section>
+<section id="puedo-personalizar-la-configuracion-de-ssh">
+<h2>¿Puedo personalizar la configuración de SSH?<a class="headerlink" href="#puedo-personalizar-la-configuracion-de-ssh" title="Link to this heading"></a></h2>
+<p>Sí, modifique los scripts en <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> para cambiar la configuración de SSH, como puerto, usuarios, etc.</p>
+</section>
+<section id="es-compatible-con-docker-swarm">
+<h2>¿Es compatible con Docker Swarm?<a class="headerlink" href="#es-compatible-con-docker-swarm" title="Link to this heading"></a></h2>
+<p>El daemon interno puede unirse a un Swarm, pero requiere configuración adicional. No se recomienda para producción.</p>
+</section>
+<section id="hay-soporte-para-gpu">
+<h2>¿Hay soporte para GPU?<a class="headerlink" href="#hay-soporte-para-gpu" title="Link to this heading"></a></h2>
+<p>No directamente. Para GPU, necesitaría pasar los dispositivos y configurar el contenedor apropiadamente.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="seguridad.html" class="btn btn-neutral float-left" title="Consideraciones de Seguridad" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="glosario.html" class="btn btn-neutral float-right" title="Glosario" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

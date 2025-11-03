@@ -1,0 +1,45 @@
+Configuración
+=============
+
+Configuración de Docker Compose
+-------------------------------
+
+El archivo `docker-compose.yaml` define las siguientes configuraciones clave:
+
+- **Imagen**: `docker:dind` - Imagen oficial Docker-in-Docker.
+- **Modo Privilegiado**: Habilitado para funcionalidad Docker completa dentro del contenedor.
+- **Puertos**:
+
+  - `9003:9000` - Interfaz web de Portainer (accesible en `http://localhost:9003`)
+  - `51678:5678` - Puerto de servicio personalizado
+  - `50422:50422` - Acceso SSH (conectar con `ssh root@localhost -p 50422`)
+  - `51080:80` - HTTP
+  - `51443:443` - HTTPS
+  - `51025:25` - SMTP
+  - `51465:465` - SMTP sobre SSL
+  - `51587:587` - SMTP submission
+
+- **Variables de Entorno**:
+
+  - `DOCKER_TLS_CERTDIR=` - Deshabilita TLS para facilitar conexiones desde otros contenedores.
+
+- **Volúmenes**:
+
+  - `./volumes/files:/app` - Monta archivos locales en el directorio `/app` del contenedor.
+  - `./volumes/dind-data:/var/lib/docker` - Persiste datos de Docker entre reinicios.
+
+- **Directorio de Trabajo**: `/app`
+- **Modo de Espacio de Nombres de Usuario**: `host` - Usa espacio de nombres de host para compatibilidad.
+- **Healthcheck**:
+
+  - Prueba: `["CMD", "docker", "ps"]`
+  - Intervalo: 30s
+  - Timeout: 10s
+  - Reintentos: 3
+  - Período de inicio: 40s
+
+Volúmenes
+---------
+
+- `dind-data`: Almacena imágenes, contenedores y volúmenes de Docker persistentemente.
+- `files`: Permite compartir archivos entre host y contenedor.

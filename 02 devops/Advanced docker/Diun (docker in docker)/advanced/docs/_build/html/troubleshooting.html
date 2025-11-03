@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solución de Problemas &mdash; documentación de Docker-in-Docker with Portainer and SSH - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9a984793" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=4936afed"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Consideraciones de Seguridad" href="seguridad.html" />
+    <link rel="prev" title="Mejores Prácticas" href="mejores-practicas.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Docker-in-Docker with Portainer and SSH
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Guía del Usuario:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduccion.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instalacion.html">Instalación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuracion.html">Configuración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">Uso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ejemplos.html">Ejemplos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutoriales.html">Tutoriales</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📚 Referencia:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mejores-practicas.html">Mejores Prácticas</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Solución de Problemas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#problemas-comunes">Problemas Comunes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logs-y-depuracion">Logs y Depuración</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comandos-utiles">Comandos Útiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="seguridad.html">Consideraciones de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Preguntas Frecuentes (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glosario.html">Glosario</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">💡 Avanzado:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="casos-estudio.html">Casos de Estudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="referencias.html">Referencias</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ℹ️ Acerca de:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Registro de Cambios (Changelog)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribuyendo.html">Contribuyendo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autor.html">Autor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker-in-Docker with Portainer and SSH</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Solución de Problemas</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="mejores-practicas.html" class="btn btn-neutral float-left" title="Mejores Prácticas" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="seguridad.html" class="btn btn-neutral float-right" title="Consideraciones de Seguridad" accesskey="n">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="solucion-de-problemas">
+<h1>Solución de Problemas<a class="headerlink" href="#solucion-de-problemas" title="Link to this heading"></a></h1>
+<section id="problemas-comunes">
+<h2>Problemas Comunes<a class="headerlink" href="#problemas-comunes" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Conflictos de Puertos</strong>:</p>
+<ul class="simple">
+<li><p>Asegúrese de que los puertos expuestos (ej. 50422 para SSH) no estén en uso por otros servicios.</p></li>
+<li><p>Solución: Cambie las asignaciones de puertos en <cite>docker-compose.yaml</cite>.</p></li>
+</ul>
+</li>
+<li><p><strong>Denegación de Permisos</strong>:</p>
+<ul class="simple">
+<li><p>DinD requiere modo privilegiado. Si encuentra errores de permisos, asegúrese de que el contenedor se ejecute con <cite>–privileged</cite>.</p></li>
+<li><p>En algunos sistemas, puede necesitar ajustar la configuración del daemon de Docker.</p></li>
+</ul>
+</li>
+<li><p><strong>Conexión SSH Rechazada</strong>:</p>
+<ul class="simple">
+<li><p>Verifique que SSH esté ejecutándose dentro del contenedor: <cite>ps aux | grep sshd</cite></p></li>
+<li><p>Compruebe si la sesión tmux está activa: <cite>tmux ls</cite></p></li>
+<li><p>Asegúrese de que la contraseña esté configurada correctamente.</p></li>
+</ul>
+</li>
+<li><p><strong>Portainer No Accesible</strong>:</p>
+<ul class="simple">
+<li><p>Confirme que el contenedor esté ejecutándose: <cite>docker-compose ps</cite></p></li>
+<li><p>Verifique logs: <cite>docker-compose logs dind</cite></p></li>
+<li><p>Asegúrese de que el puerto 9003 no esté bloqueado por firewall.</p></li>
+</ul>
+</li>
+<li><p><strong>Problemas con Datos Persistentes</strong>:</p>
+<ul class="simple">
+<li><p>Si los datos de Docker no persisten, verifique los permisos del volumen <cite>./volumes/dind-data</cite>.</p></li>
+<li><p>Solución: <cite>sudo chown -R $USER:$USER ./volumes/dind-data</cite></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="logs-y-depuracion">
+<h2>Logs y Depuración<a class="headerlink" href="#logs-y-depuracion" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Ver logs del contenedor: <cite>docker-compose logs -f dind</cite></p></li>
+<li><p>Acceder al shell del contenedor: <cite>docker exec -it dind sh</cite></p></li>
+<li><p>Verificar estado del daemon Docker dentro: <cite>docker info</cite></p></li>
+</ul>
+</section>
+<section id="comandos-utiles">
+<h2>Comandos Útiles<a class="headerlink" href="#comandos-utiles" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Reiniciar servicios: <cite>docker-compose restart</cite></p></li>
+<li><p>Reconstruir imagen: <cite>docker-compose build –no-cache</cite></p></li>
+<li><p>Limpiar sistema: <cite>docker system prune -a</cite></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="mejores-practicas.html" class="btn btn-neutral float-left" title="Mejores Prácticas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="seguridad.html" class="btn btn-neutral float-right" title="Consideraciones de Seguridad" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

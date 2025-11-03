@@ -1,0 +1,149 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "DinD Logs & Alerts",
+    "tags": ["dind", "logs", "alerts"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Log Volume by Service",
+        "type": "bargauge",
+        "targets": [
+          {
+            "expr": "sum(rate(promtail_entries_total[5m])) by (job)",
+            "legendFormat": "{{job}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Alert History",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "ALERTS",
+            "legendFormat": "{{alertname}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "firing": {
+                    "text": "FIRING",
+                    "color": "red"
+                  },
+                  "resolved": {
+                    "text": "RESOLVED",
+                    "color": "green"
+                  }
+                },
+                "type": "value",
+                "values": ["firing", "resolved"]
+              }
+            ]
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Error Logs Timeline",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate({job=\"promtail\", level=\"error\"}[5m]))",
+            "legendFormat": "Errors"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Container Restarts",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "increase(container_last_seen{name=~\".+\"}[5m])",
+            "legendFormat": "{{name}} restarts"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        }
+      },
+      {
+        "id": 5,
+        "title": "Health Check Status",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "up",
+            "legendFormat": "{{job}} - {{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "UNHEALTHY",
+                    "color": "red"
+                  },
+                  "1": {
+                    "text": "HEALTHY",
+                    "color": "green"
+                  }
+                },
+                "type": "value"
+              }
+            ]
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "templating": {
+      "list": []
+    },
+    "annotations": {
+      "list": []
+    },
+    "refresh": "30s",
+    "schemaVersion": 27,
+    "version": 0,
+    "links": []
+  }
+}
