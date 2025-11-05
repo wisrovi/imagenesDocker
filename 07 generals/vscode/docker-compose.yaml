@@ -1,0 +1,17 @@
+services:
+  code-server:
+    image: codercom/code-server:4.16.1-ubuntu
+    container_name: code-server
+    environment:
+      - DOCKER_USER=$USER
+      - PASSWORD=Password #Replace this with your login password
+    volumes:
+      - ./config:/config
+      - $PWD:/home/coder/workspace
+      - /mnt/serverstorage_docker_2:/NAS
+      - /media/ecapture/E/intercambio_ia:/intercambio_ia
+    ports:
+      - 30423:8080
+    restart: unless-stopped
+    #networks:
+    #- code-server
