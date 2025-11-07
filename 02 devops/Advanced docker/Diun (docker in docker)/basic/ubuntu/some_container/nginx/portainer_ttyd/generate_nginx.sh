@@ -18,7 +18,7 @@ for i in $(seq 1 $SCALE); do
         *) IP="some_container-worker-$i" ;;
     esac
     cat >> /etc/nginx/conf.d/default.conf <<EOF
-    location /worker$i/ {
+    location /portainer$i/ {
         proxy_redirect http://127.0.0.1:9000/ /;
         proxy_pass http://$IP:9000/;
         proxy_set_header Host \$host;
@@ -46,13 +46,69 @@ for i in $(seq 1 $SCALE); do
         *) IP="some_container-worker-$i" ;;
     esac
     cat >> /etc/nginx/conf.d/default.conf <<EOF
-    location /worker$i/ {
+    location /ttyd$i/ {
         proxy_redirect http://127.0.0.1:7681/ /;
         proxy_pass http://$IP:7681/;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto http;
+    }
+
+EOF
+done
+
+cat >> /etc/nginx/conf.d/default.conf <<EOF
+}
+
+server {
+    listen 80;
+
+EOF
+
+for i in $(seq 1 $SCALE); do
+    case $i in
+        1) IP="172.19.0.4" ;;
+        2) IP="172.19.0.5" ;;
+        3) IP="172.19.0.6" ;;
+        *) IP="some_container-worker-$i" ;;
+    esac
+    cat >> /etc/nginx/conf.d/default.conf <<EOF
+    location /worker$i/ {
+        proxy_pass http://$IP:80/;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto http;
+    }
+
+EOF
+done
+
+cat >> /etc/nginx/conf.d/default.conf <<EOF
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+EOF
+
+for i in $(seq 1 $SCALE); do
+    case $i in
+        1) IP="172.19.0.4" ;;
+        2) IP="172.19.0.5" ;;
+        3) IP="172.19.0.6" ;;
+        *) IP="some_container-worker-$i" ;;
+    esac
+    cat >> /etc/nginx/conf.d/default.conf <<EOF
+    location /worker$i/ {
+        proxy_pass http://$IP:80/;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
     }
 
 EOF

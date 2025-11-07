@@ -8,8 +8,10 @@ services:
     ports:
       - "50421:9000"
       - "50423:7681"
+      - "50424:80"
+      - "50425:443"
     environment:
-      - SCALE=5
+      - SCALE=1
     restart: unless-stopped
 
 networks:

@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     docker.io \
     ttyd \
+    iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create SSH directory
@@ -26,7 +27,7 @@ sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd
 EXPOSE 50422 9000 7681
 
 # Copy start script
-COPY start.sh /usr/local/bin/start.sh
+COPY scripts/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 # Set entrypoint

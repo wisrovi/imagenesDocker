@@ -22,7 +22,7 @@ with open(OUTPUT_FILE, 'w', newline='') as f:
         worker_name = f"worker{i}"
         
         # Comando SSH
-        cmd = f"sshpass -p {PASSWORD} ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 {worker_name}@{BASE_IP} -p {PORT} 'ifconfig eth0 | grep \"inet addr\" | awk \"{{print \\$2}}\" | cut -d: -f2' 2>/dev/null | head -n 2 | tail -n 1"
+        cmd = f"sshpass -p {PASSWORD} ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 {worker_name}@{BASE_IP} -p {PORT} \"ip addr show eth0 | grep inet | awk '{{print \$2}}' | cut -d/ -f1\" 2>/dev/null"
         
         # Ejecuta el comando
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)

@@ -6,9 +6,10 @@ if [[ $replica_num =~ ^[0-9]+$ ]] && [ $replica_num -ge 1 ]; then
 
   IP="some_container-worker-$replica_num"
   if [ -z "$SSH_ORIGINAL_COMMAND" ]; then
-    exec ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/$USER/.ssh/id_rsa -p 50422 root@$IP
+    ssh -i /home/worker$replica_num/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$IP -p 50422
   else
-    exec ssh -t -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/$USER/.ssh/id_rsa -p 50422 root@$IP sh -c "$SSH_ORIGINAL_COMMAND"
+    echo "Running: eval \"$SSH_ORIGINAL_COMMAND\"" >&2
+    ssh -i /home/worker$replica_num/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$IP -p 50422 eval "$SSH_ORIGINAL_COMMAND"
   fi
 
 else

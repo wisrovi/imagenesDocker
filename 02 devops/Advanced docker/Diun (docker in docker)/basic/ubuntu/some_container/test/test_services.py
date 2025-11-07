@@ -1,8 +1,10 @@
 import pytest
 import requests
 
-BASE_URL_HTTP = "http://localhost:50424"
-BASE_URL_HTTPS = "https://localhost:50425"
+BASE_URL_HTTP = "http://192.168.1.84:50424"
+BASE_URL_HTTPS = "https://192.168.1.84:50425"
+BASE_URL_PORTAINER = "http://192.168.1.84:50421"
+BASE_URL_TTYD = "http://192.168.1.84:50423"
 
 @pytest.mark.parametrize("worker,path", [
     ("portainer1", "/portainer1/"),
@@ -27,7 +29,14 @@ BASE_URL_HTTPS = "https://localhost:50425"
     ("worker5_https", "/worker5/"),
 ])
 def test_service_access(worker, path):
-    base_url = BASE_URL_HTTPS if 'https' in worker or worker.startswith('portainer') or worker.startswith('ttyd') else BASE_URL_HTTP
+    if worker.startswith('portainer'):
+        base_url = BASE_URL_PORTAINER
+    elif worker.startswith('ttyd'):
+        base_url = BASE_URL_TTYD
+    elif 'https' in worker:
+        base_url = BASE_URL_HTTPS
+    else:
+        base_url = BASE_URL_HTTP
     url = f"{base_url}{path}"
     try:
         response = requests.get(url, verify=False, timeout=10)
