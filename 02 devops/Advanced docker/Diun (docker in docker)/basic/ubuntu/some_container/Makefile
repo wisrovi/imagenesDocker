@@ -1,11 +1,11 @@
 # Makefile for Docker-in-Docker Basic Setup
 
-.PHONY: docs-build docs-serve docs-clean
+.PHONY: docs-build docs-serve docs-clean up
 
 # Define the Docker network name as a constant.
 NETWORK_NAME := diun
 create_network:
-	docker network create $(NETWORK_NAME)
+	docker network create $(NETWORK_NAME) || true
 
 # Build the Sphinx documentation
 docs-build:
@@ -26,3 +26,11 @@ help:
 	@echo "  docs-serve   - Build and serve the documentation on localhost:8000"
 	@echo "  docs-clean   - Clean the built documentation"
 	@echo "  help         - Show this help message"
+
+# Bring up the containers with scale (default SCALE=5)
+SCALE ?= 5
+up:
+	make create_network
+	docker-compose up -d dispatcher
+	docker-compose up -d --scale worker=$(SCALE)
+	python test/read_ips.py

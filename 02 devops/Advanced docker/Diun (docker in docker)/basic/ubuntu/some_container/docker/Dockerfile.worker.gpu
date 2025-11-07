@@ -1,5 +1,4 @@
 FROM ubuntu:22.04
-# FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -35,9 +34,11 @@ RUN apt-get update && apt-get install -y \
     htop \
     make \
     iputils-ping \
+    iproute2 \
     openssl \
     figlet \
     && rm -rf /var/lib/apt/lists/*
+# Force rebuild
 
 
 
@@ -54,17 +55,16 @@ RUN chmod +x /usr/bin/docker-compose
 
 
 
-# # ------------------- CONFIGURACIÓN DEL PYTHON ----------------------
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends \
-#     python3-pip \
-#     python3-dev \
-#     git \
-#     wget && \
-#     rm -rf /var/lib/apt/lists/*
-
+# ------------------- CONFIGURACIÓN DEL PYTHON ----------------------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3-pip \
+    python3-dev \
+    git \
+    wget && \
+    rm -rf /var/lib/apt/lists/*
 # # Ensure that 'python' points to python3
-# RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 # ------------------- CONFIGURACIÓN DEL pyenv ----------------------
 # Define la variable de entorno para la raíz de pyenv
 RUN curl -fsSL https://pyenv.run | bash
@@ -85,7 +85,13 @@ RUN mkdir -p /run/sshd && \
     echo "root:password" | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
-    sed -i 's/#Port 22/Port 50422/' /etc/ssh/sshd_config    
+    sed -i 's/#Port 22/Port 50422/' /etc/ssh/sshd_config && \
+    sed -i 's/^#*UsePrivilegeSeparation.*/UsePrivilegeSeparation no/' /etc/ssh/sshd_config && \
+    mkdir -p /root/.ssh && \
+    echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2pqnEf24yz8phyw8fVZG4QZEWZF5vfbiBfbZmuzbhiN4IVBiak/XXUvtqe16PUWazT/oFLAF/sLiAKQoltLxGJRWpFb7KlXFc5A2lrOk3KvOijKMgcpjfnMoo65vPoNyzjjph2WxYibOOAa5OtVHpvWfYjdq7AnjB2jlxiwdQBydZOYX6tgfSlbDKTrFxi+eQQSiaoY8g//DOcuYJpRRFXF6SCR3bgkzZeh9dJisswBpyYQqlDdqR9JUbmEjNAyQptfYorsjvrfaO6iqWmyL3KcZV635zxyH6D+SjsSdoAQlkd+lRMTQvoUb7LbZikrr37MLudiq3r/LUfGUdM1H5Q==' >> /root/.ssh/authorized_keys && \
+    chmod 600 /root/.ssh/authorized_keys && \
+    chmod 700 /root/.ssh && \
+    sed -i 's/^#*UsePrivilegeSeparation.*/UsePrivilegeSeparation no/' /etc/ssh/sshd_config    
 
 
 # Expose ports

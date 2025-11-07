@@ -57,6 +57,7 @@ echo "root:$SSH_PASSWORD" | chpasswd
 
 # Start SSH
 echo "Starting SSH server..."
+mkdir -p /run/sshd
 /usr/sbin/sshd -D -p 50422 &
 SSH_PID=$!
 

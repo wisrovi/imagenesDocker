@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y openssh-server socat openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openssh-server socat openssl sshpass && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd /root/.ssh
 

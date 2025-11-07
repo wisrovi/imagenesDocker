@@ -1,4 +1,4 @@
-x-resurces-build: &resources_build
+x-resources-build: &resources_build
   build:
     context: .
     dockerfile: docker/Dockerfile.worker.gpu
@@ -10,12 +10,6 @@ x-resources: &resources_cpu
     - /tmp
     - /run
   restart: always
-  healthcheck:
-    test: ["CMD", "docker", "info"]
-    interval: 30s
-    timeout: 10s
-    retries: 3
-    start_period: 40s  
   privileged: true
   hostname: wisrovi
   cgroup: host
@@ -25,36 +19,34 @@ x-resources: &resources_cpu
     - TZ=Europe/Madrid
 
 x-resources-gpu: &resources_gpu
-  <<: *resources_cpu
-  deploy:
-    resources:
-      reservations:
-        devices:
-          - driver: nvidia # use the GPU of the host
-            device_ids: [ "0" ] # use the GPU 0
-            capabilities: [ gpu ] # use the GPU
+   <<: *resources_cpu
+   deploy:
+     resources:
+       reservations:
+         devices:
+           - driver: nvidia # use the GPU of the host
+             device_ids: [ "0" ] # use the GPU 0
+             capabilities: [ gpu ] # use the GPU
 
 services:
   dispatcher:
     build:
       context: .
       dockerfile: docker/Dockerfile.dispatcher_ssh
-    depends_on:
-      - worker
-    # ports:
-    #   - "50422:22"
+    ports:
+      - "50422:22"
     restart: always
 
   worker:
     <<: *resources_gpu
-    ports:
-      - "50420:9000"  # Portainer
-      - "50421:9001"  # Portainer agent
-      - "50422:50422"  # SSH
-      - "50423:7681"  # Web Terminal (ttyd)
-      - "50424:80"  # 80
-      - "50425:443"  # 443
-      - "50426:4443" # File browser
+    # ports:
+    #   - "50420:9000"  # Portainer
+    #   - "50421:9001"  # Portainer agent
+    #   - "50422:50422"  # SSH
+    #   - "50423:7681"  # Web Terminal (ttyd)
+    #   - "50424:80"  # 80
+    #   - "50425:443"  # 443
+    #   - "50426:4443" # File browser
     volumes:
       - worker_docker:/var/lib/docker
       - worker_data:/data
