@@ -1,0 +1,187 @@
+FROM ubuntu:22.04
+# FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
+
+# Set environment variables to avoid interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+ENV LANG=C.UTF-8
+# ENV PYTHONUNBUFFERED=1
+# ENV PYTHONDONTWRITEBYTECODE 1
+# ENV TERM xterm
+ENV HOME=/root
+
+
+RUN apt-get update && apt-get install -y \
+    openssh-server \
+    tmux \
+    curl \
+    docker.io \
+    docker-compose-v2 \
+    ttyd \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libncurses5-dev \
+    libncursesw5-dev \
+    libreadline-dev \ 
+    libsqlite3-dev \
+    libgdbm-dev \
+    libdb5.3-dev \
+    libbz2-dev \
+    libexpat1-dev \
+    liblzma-dev \
+    libffi-dev \
+    tk-dev \
+    htop \
+    make \
+    iputils-ping \
+    openssl \
+    figlet \
+    && rm -rf /var/lib/apt/lists/*
+
+
+
+
+
+# ------------------- CONFIGURACIÓN DEL DAEMON ----------------------
+RUN mkdir -p /etc/docker && \
+    echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"] }' > /etc/docker/daemon.json
+# -------------------------------------------------------------------
+RUN echo "#! /bin/bash\ndocker compose \$@" > /usr/bin/docker-compose
+RUN chmod +x /usr/bin/docker-compose    
+
+
+
+
+
+# # ------------------- CONFIGURACIÓN DEL PYTHON ----------------------
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#     python3-pip \
+#     python3-dev \
+#     git \
+#     wget && \
+#     rm -rf /var/lib/apt/lists/*
+
+# # Ensure that 'python' points to python3
+# RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+# ------------------- CONFIGURACIÓN DEL pyenv ----------------------
+# Define la variable de entorno para la raíz de pyenv
+RUN curl -fsSL https://pyenv.run | bash
+ENV PYENV_ROOT="${HOME}/.pyenv"
+# Añade los directorios shims y bin de pyenv al PATH
+ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
+
+
+
+
+
+
+
+
+# Create SSH directory
+RUN mkdir -p /run/sshd && \
+    ssh-keygen -A && \
+    echo "root:password" | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#Port 22/Port 50422/' /etc/ssh/sshd_config    
+
+
+# Expose ports
+# SSH
+EXPOSE 50422 
+# http
+EXPOSE 80 443
+# Web Terminal (ttyd)
+EXPOSE 7681
+# portainer
+EXPOSE 9001 9000
+# File browser
+EXPOSE 4443
+
+
+# Create welcome script
+# RUN echo "" > /etc/motd
+
+# SSL
+WORKDIR /http
+COPY docker/http /http
+
+# ENV DOMAIN_NAME=www.ssl.wisrovi.com
+# RUN openssl req -x509 -nodes -days 825 -newkey rsa:4096 \
+#       -keyout /http/ssl_conf/privkey.pem \
+#       -out /http/ssl_conf/fullchain.pem \
+#       -config /http/ssl_conf/openssl.cnf \
+#       -extensions v3_req
+
+
+# # ------------------- CONFIGURACIÓN DEL lazydocker ----------------------
+
+WORKDIR /programs/lazydocker
+ENV VERSION="0.24.1"
+ENV ARCH="x86_64"
+ENV DOWNLOAD_URL="https://github.com/jesseduffield/lazydocker/releases/download/v${VERSION}/lazydocker_${VERSION}_Linux_${ARCH}.tar.gz"
+RUN echo $DOWNLOAD_URL
+RUN curl -Lo lazydocker.tar.gz "$DOWNLOAD_URL"
+RUN tar xzvf lazydocker.tar.gz
+RUN mv lazydocker /usr/local/bin/
+RUN rm lazydocker.tar.gz
+RUN lazydocker --version
+
+# # ------------------- CONFIGURACIÓN DEL ZSH ----------------------
+RUN apt-get update && apt-get install -y zsh
+RUN apt-get install -y wget
+# Uses "robbyrussell" theme (original Oh My Zsh theme), with no plugins
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" -- \
+    -t aussiegeek
+# oh-my-zsh
+# ENV ZSH_THEME aussiegeek
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+RUN echo "alias wisrovi='echo 'https://es.linkedin.com/in/wisrovi-rodriguez'" >> ~/.zshrc
+# pluggin install
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+RUN git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
+# RUN git clone https://github.com/ohmyzsh/ohmyzsh.git/custom/plugins/alias-finder ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-finder
+# pluggin activate
+RUN sed -i '/^plugins=/s/)/ zsh-autosuggestions)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ zsh-syntax-highlighting)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ zsh-completions)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ z)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ docker docker-compose)/' ~/.zshrc
+# RUN sed -i '/^plugins=/s/)/ alias-tips)/' ~/.zshrc
+# RUN sed -i '/^plugins=/s/)/ alias-finder)/' ~/.zshrc
+
+# theme
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="jonathan"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="agnoster"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="gnzh"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="kphoen"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="bira"/' ~/.zshrc
+# RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="aussiegeek"/' /root/.zshrc
+
+RUN echo /bin/zsh >> /etc/shells
+
+# remove cache of OS
+RUN rm -rf /var/cache/apk/*
+RUN rm -rf /tmp/*
+
+
+
+
+# Copy start script
+COPY docker/scripts/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+
+# SHELL ["/bin/bash", "--login", "-c"]
+RUN echo "figlet 'DinD Worker'" >> ~/.zshrc
+RUN echo "figlet 'DinD Worker'" >> ~/.bashrc
+
+
+WORKDIR /app
+
+# Set entrypoint
+ENTRYPOINT ["/usr/local/bin/start.sh"]
