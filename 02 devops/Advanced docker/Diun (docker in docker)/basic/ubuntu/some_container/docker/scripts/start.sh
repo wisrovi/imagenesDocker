@@ -5,7 +5,7 @@ echo "Starting Docker-in-Docker with SSH and Portainer..."
 # Get replica number from IP
 IP=$(ip addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 TASK_SLOT=$(( $(echo $IP | cut -d. -f4) - 1 ))
-hostname wisrovi-$TASK_SLOT
+hostname some_container-worker-$TASK_SLOT
 # Generate welcome message in /etc/motd
 IP=$(ip addr show eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 WORKER_NUM=$(( $(echo $IP | cut -d. -f4) - 1 ))
@@ -43,9 +43,7 @@ dockerd --host=unix:///var/run/docker.sock &
 # dockerd --host=unix:///var/run/docker.sock --host tcp://0.0.0.0:2376 --tls=false --exec-opt native.cgroupdriver=cgroupfs &
 echo "Docker daemon started"
 # Wait for Docker to be ready
-sleep 5
-# Wait for Docker to be ready
-until docker info > /dev/null 2>&1; do sleep 1; done
+sleep 10
 
 
 

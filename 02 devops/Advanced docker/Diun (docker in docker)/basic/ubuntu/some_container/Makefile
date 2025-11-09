@@ -33,4 +33,4 @@ up:
 	make create_network
 	docker-compose up -d dispatcher
 	docker-compose up -d --scale worker=$(SCALE)
-	python test/read_ips.py
+	python test/generate_report.py
