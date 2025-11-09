@@ -38,12 +38,21 @@ apt-get update && apt-get install -y nvidia-container-toolkit
 echo "NVIDIA Docker Toolkit installed successfully."
 # ------------------------------------------------------------------------------
 
+# Clean up potential locks
+rm -f /var/lib/docker/boltdb/bolt.db.lock || true
+
 # Iniciar el servicio Docker
 dockerd --host=unix:///var/run/docker.sock &
 # dockerd --host=unix:///var/run/docker.sock --host tcp://0.0.0.0:2376 --tls=false --exec-opt native.cgroupdriver=cgroupfs &
 echo "Docker daemon started"
 # Wait for Docker to be ready
-sleep 10
+sleep 5
+for i in {1..30}; do
+  if docker info > /dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
 
 
 
@@ -83,7 +92,24 @@ docker run -d --name portainer \
     --no-analytics 
 echo "Portainer started."
 
+# Pull images
+docker pull portainer/portainer-ce:latest || true
+docker pull hurlenko/filebrowser || true
+docker pull nginx || true
+docker pull nvidia/cuda:12.2.0-base-ubuntu22.04 || true
+
+# Portainer
+docker rm -f portainer || true
+docker run -d --name portainer \
+    -p 9000:9000 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /tmp/portainer_password.txt:/tmp/portainer_password.txt:ro \
+    portainer/portainer-ce:latest \
+    --admin-password-file /tmp/portainer_password.txt \
+    --no-analytics
+
 # File browser
+docker rm -f filebrowser || true
 docker run -d \
   --name filebrowser \
   -p 4443:8080 \
@@ -99,18 +125,21 @@ docker run -d \
   --restart always \
   hurlenko/filebrowser
 
-
 sleep 1
 
 # http
+docker rm -f nginx80 nginx443 || true
 docker run -d --name nginx80 -p 80:80 -v "/http/http_80/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
 docker run -d --name nginx443 -p 443:80 -v "/http/http_443/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
-
 
 sleep 4
 
 # NVIDIA
+docker rm -f NVIDIA || true
 docker run -d --name NVIDIA --gpus all --health-cmd="nvidia-smi || exit 1" --health-interval=30s --health-retries=3 --health-timeout=5s nvidia/cuda:12.2.0-base-ubuntu22.04 bash -c "while true; do nvidia-smi || break; sleep 30; done; tail -f /dev/null"
+
+docker run --gpus all --rm nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
+
 
 # Welcome
 figlet "Welcome $hostname"

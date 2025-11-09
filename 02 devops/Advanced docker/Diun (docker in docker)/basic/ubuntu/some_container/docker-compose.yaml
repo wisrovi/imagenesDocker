@@ -48,10 +48,10 @@ services:
     #   - "50425:443"  # 443
     #   - "50426:4443" # File browser
     volumes:
-      - worker_docker:/var/lib/docker
       - worker_data:/data
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - ${SSH_AUTH_SOCK}:/ssh-agent # <- Permitir usar credenciales GH del host
+      - /var/lib/docker
     
 networks:
   default:
@@ -60,4 +60,3 @@ networks:
 
 volumes:
   worker_data:
-  worker_docker:

@@ -33,4 +33,5 @@ up:
 	make create_network
 	docker-compose up -d dispatcher
 	docker-compose up -d --scale worker=$(SCALE)
+	sleep 60
 	python test/generate_report.py

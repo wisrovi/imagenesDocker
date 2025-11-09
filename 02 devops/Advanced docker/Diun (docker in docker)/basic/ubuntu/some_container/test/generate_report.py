@@ -27,35 +27,20 @@ def get_container_statuses(worker_name):
     
     statuses = {"Docker_Status": "Running"}
     
-    cmd = f"docker exec {container_name} docker ps -a"
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    if result.returncode != 0:
-        statuses.update({cont: "Error" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]})
-        return statuses
-    
-    lines = result.stdout.strip().split('\n')
-    if len(lines) < 2:
-        statuses.update({cont: "No containers" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]})
-        return statuses
-    
-    # Parse containers
-    containers = {}
-    for line in lines[1:]:
-        parts = line.split()
-        if len(parts) >= 7:
-            name = parts[-1]
-            status = ' '.join(parts[4:-1])  # STATUS column
-            containers[name] = status
-    
     required = ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]
     for cont in required:
-        if cont in containers:
-            if 'Up' in containers[cont]:
+        cmd = f"docker exec {container_name} docker ps -a --filter name={cont} --format '{{{{.Status}}}}'"
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if result.returncode != 0 or not result.stdout.strip():
+            statuses[cont] = "Not Found"
+        else:
+            status = result.stdout.strip()
+            if 'Up' in status:
                 statuses[cont] = "Running"
+            elif 'Created' in status:
+                statuses[cont] = "Created"
             else:
                 statuses[cont] = "Stopped"
-        else:
-            statuses[cont] = "Not Found"
     
     return statuses
 
