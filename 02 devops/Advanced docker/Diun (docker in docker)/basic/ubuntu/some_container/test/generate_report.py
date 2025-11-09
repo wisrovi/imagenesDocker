@@ -18,14 +18,25 @@ def get_ip(worker_name):
 
 def get_container_statuses(worker_name):
     container_name = f"some_container-{worker_name.replace('worker', 'worker-')}"
+    
+    # Check if Docker daemon is running
+    cmd_info = f"docker exec {container_name} docker info"
+    result_info = subprocess.run(cmd_info, shell=True, capture_output=True, text=True)
+    if result_info.returncode != 0:
+        return {"Docker_Status": "Not Running", "portainer": "N/A", "filebrowser": "N/A", "nginx80": "N/A", "nginx443": "N/A", "NVIDIA": "N/A"}
+    
+    statuses = {"Docker_Status": "Running"}
+    
     cmd = f"docker exec {container_name} docker ps -a"
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     if result.returncode != 0:
-        return {cont: "Error" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]}
+        statuses.update({cont: "Error" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]})
+        return statuses
     
     lines = result.stdout.strip().split('\n')
     if len(lines) < 2:
-        return {cont: "No containers" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]}
+        statuses.update({cont: "No containers" for cont in ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]})
+        return statuses
     
     # Parse containers
     containers = {}
@@ -37,7 +48,6 @@ def get_container_statuses(worker_name):
             containers[name] = status
     
     required = ["portainer", "filebrowser", "nginx80", "nginx443", "NVIDIA"]
-    statuses = {}
     for cont in required:
         if cont in containers:
             if 'Up' in containers[cont]:
