@@ -1,6 +1,6 @@
 # Makefile for Docker-in-Docker Basic Setup
 
-.PHONY: docs-build docs-serve docs-clean up
+.PHONY: docs-build docs-serve docs-clean up prepare_images
 
 # Define the Docker network name as a constant.
 NETWORK_NAME := diun
@@ -27,11 +27,16 @@ help:
 	@echo "  docs-clean   - Clean the built documentation"
 	@echo "  help         - Show this help message"
 
+# Prepare images for shared loading
+prepare_images:
+	./docker/scripts/prepare_images.sh
+
 # Bring up the containers with scale (default SCALE=5)
 SCALE ?= 5
 up:
 	make create_network
 	docker-compose up -d dispatcher
 	docker-compose up -d --scale worker=$(SCALE)
-	sleep 60
+
+report:
 	python test/generate_report.py

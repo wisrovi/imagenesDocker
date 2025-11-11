@@ -1,8 +1,8 @@
 Worker,IP_Address,Docker_Status,portainer,filebrowser,nginx80,nginx443,NVIDIA
-worker1,172.21.0.4,Running,Running,Running,Running,Running,Not Found
-worker2,172.21.0.3,Running,Running,Running,Running,Running,Not Found
-worker3,No_Disponible,Not Running,N/A,N/A,N/A,N/A,N/A
-worker4,No_Disponible,Not Running,N/A,N/A,N/A,N/A,N/A
+worker1,172.21.0.4,Running,Not Found,Not Found,Not Found,Not Found,Not Found
+worker2,172.21.0.5,Running,Not Found,Not Found,Not Found,Not Found,Not Found
+worker3,172.21.0.3,Running,Not Found,Not Found,Not Found,Not Found,Not Found
+worker4,172.21.0.6,Running,Not Found,Not Found,Not Found,Not Found,Not Found
 worker5,No_Disponible,Not Running,N/A,N/A,N/A,N/A,N/A
 worker6,No_Disponible,Not Running,N/A,N/A,N/A,N/A,N/A
 worker7,No_Disponible,Not Running,N/A,N/A,N/A,N/A,N/A

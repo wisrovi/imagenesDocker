@@ -76,31 +76,18 @@ ttyd -p 7681 -i 0.0.0.0 bash &
 echo "ttyd started on port 7681"
 
 
+# Load images from shared volume
+docker load < /data/images/portainer.tar || true
+docker load < /data/images/filebrowser.tar || true
+docker load < /data/images/nginx.tar || true
+docker load < /data/images/nvidia.tar || true
 
 
-# Start Portainer
-echo "Starting Portainer..."
-docker rm -f portainer || true
-mkdir -p /data/$TASK_SLOT
-echo -n "1234567891011" > /tmp/portainer_password.txt
-docker run -d --name portainer \
-    -p 9000:9000 \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /tmp/portainer_password.txt:/tmp/portainer_password.txt:ro \
-    portainer/portainer-ce:latest \
-    --admin-password-file /tmp/portainer_password.txt \
-    --no-analytics 
-echo "Portainer started."
 
-# Pull images
-docker pull portainer/portainer-ce:latest || true
-docker pull hurlenko/filebrowser || true
-docker pull nginx || true
-docker pull nvidia/cuda:12.2.0-base-ubuntu22.04 || true
 
 # Portainer
 docker rm -f portainer || true
-docker run -d --name portainer \
+docker run -d --privileged --name portainer \
     -p 9000:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /tmp/portainer_password.txt:/tmp/portainer_password.txt:ro \
@@ -109,8 +96,9 @@ docker run -d --name portainer \
     --no-analytics
 
 # File browser
+mkdir -p ./folder_sharing ./config
 docker rm -f filebrowser || true
-docker run -d \
+docker run -d --privileged \
   --name filebrowser \
   -p 4443:8080 \
   -v ./folder_sharing:/data \
@@ -129,14 +117,14 @@ sleep 1
 
 # http
 docker rm -f nginx80 nginx443 || true
-docker run -d --name nginx80 -p 80:80 -v "/http/http_80/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
-docker run -d --name nginx443 -p 443:80 -v "/http/http_443/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
+docker run -d --privileged --name nginx80 -p 80:80 -v "/http/http_80/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
+docker run -d --privileged --name nginx443 -p 443:80 -v "/http/http_443/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
 
 sleep 4
 
 # NVIDIA
 docker rm -f NVIDIA || true
-docker run -d --name NVIDIA --gpus all --health-cmd="nvidia-smi || exit 1" --health-interval=30s --health-retries=3 --health-timeout=5s nvidia/cuda:12.2.0-base-ubuntu22.04 bash -c "while true; do nvidia-smi || break; sleep 30; done; tail -f /dev/null"
+docker run -d --privileged --name NVIDIA --gpus all --health-cmd="nvidia-smi || exit 1" --health-interval=30s --health-retries=3 --health-timeout=5s nvidia/cuda:12.2.0-base-ubuntu22.04 bash -c "while true; do nvidia-smi || break; sleep 30; done; tail -f /dev/null"
 
 docker run --gpus all --rm nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
 
