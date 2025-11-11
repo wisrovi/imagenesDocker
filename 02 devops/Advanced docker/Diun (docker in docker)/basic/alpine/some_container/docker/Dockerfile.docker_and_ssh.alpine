@@ -109,16 +109,18 @@ RUN echo /bin/zsh >> /etc/shells
 # for GPT into worker
 RUN apk add unzip
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh && \
-    zsh -c 'export NVM_DIR="$HOME/.nvm"' && \
-        zsh -c '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' \ 
-        zsh -c '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' 
+# RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh && \
+#     zsh -c 'export NVM_DIR="$HOME/.nvm"' && \
+#         zsh -c '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' \ 
+#         zsh -c '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' 
 # RUN nvm install 20 && nvm use 20
 # RUN curl -fsSL https://opencode.ai/install | zsh
 
 
 
 # === Pre-pull de imágenes para evitar el límite de tasa en el inicio ===
+WORKDIR /docker_images
+COPY docker/docker_images .
 # RUN docker pull portainer/portainer
 # RUN docker pull nginx
 # RUN docker pull dperson/samba

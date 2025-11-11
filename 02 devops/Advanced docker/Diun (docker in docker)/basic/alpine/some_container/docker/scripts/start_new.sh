@@ -55,8 +55,12 @@ ttyd -p 7681 bash &
 # Welcome
 figlet "Welcome $hostname"
 
-# Wait for all processes
-wait
+
+
+docker load < /docker_images/file_browser.tar
+docker load < /docker_images/nginx.tar
+docker load < /docker_images/portainer.tar
+
 
 
 
@@ -67,24 +71,31 @@ docker run -d --name portainer \
     -p 9000:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /tmp/portainer_password.txt:/tmp/portainer_password.txt:ro \
-    portainer/portainer \
+    portainer/portainer-ce:latest \
     --admin-password-file /tmp/portainer_password.txt \
     --no-analytics 
 
 
-# samba
+# file browser
 docker run -d \
-    --name data_samba \
+    --name filebrowser \
+    -p 4443:8080 \
+    -v ./folder_sharing:/data \
+    -v ./config:/config \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e FB_BASEURL=/ \
+    -e VIRTUAL_HOST=wisrovi.com \
+    -e VIRTUAL_PORT=8080 \
+    -e LETSENCRYPT_HOST=wisrovi.com \
+    -e LETSENCRYPT_EMAIL=wisrovi.rodriguez@gmail.com \
     --restart always \
-    -p 445:445/tcp \
-    -v "$(pwd)/shared:/data" \
-    -e TZ="Europe/Madrid" \
-    -e USERID="1000" \
-    -e GROUPID="1000" \
-    -e SAMBA_USERS="user1;password1" \
-    dperson/samba \
-    -u "admin_deployd;qoyaJYuFVsGvLOlz45Ad" \
-    -s "shared;/data;yes;no;yes;all"
+    hurlenko/filebrowser:latest
 
 docker run -d --name nginx80 -p 80:80 -v "/http/http_80/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
 docker run -d --name nginx443 -p 443:80 -v "/http/http_443/index.html:/usr/share/nginx/html/index.html:ro" --restart always nginx
+
+
+
+# Wait for all processes
+wait
