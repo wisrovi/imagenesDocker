@@ -1,0 +1,11 @@
+# Copy nvidia-smi to workers
+docker cp /usr/bin/nvidia-smi kind-worker:/usr/bin/nvidia-smi
+docker cp /usr/bin/nvidia-smi kind-worker2:/usr/bin/nvidia-smi
+docker cp /usr/bin/nvidia-smi kind-worker3:/usr/bin/nvidia-smi
+docker cp /usr/bin/nvidia-smi kind-worker4:/usr/bin/nvidia-smi
+
+# Test GPU on each worker
+docker exec kind-worker nvidia-smi
+docker exec kind-worker2 nvidia-smi
+docker exec kind-worker3 nvidia-smi
+docker exec kind-worker4 nvidia-smi
