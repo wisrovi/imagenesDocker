@@ -1,0 +1,6 @@
+                    nvidia.com/gpu:     1
+                    nvidia.com/gpu.present:  true
+Capacity:
+  nvidia.com/gpu:     1
+Allocatable:
+  nvidia.com/gpu:     1
