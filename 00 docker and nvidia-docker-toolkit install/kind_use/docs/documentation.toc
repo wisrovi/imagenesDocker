@@ -1,0 +1,96 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Prólogo}{2}{section.1}%
+\contentsline {section}{\numberline {2}Acerca del Autor}{10}{section.2}%
+\contentsline {section}{\numberline {3}Introducción}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}¿Qué es Kind?}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Beneficios de Usar Kind con GPUs}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Glosario}{11}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Instalación de Dependencias}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Instalar Docker}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Instalar NVIDIA Container Toolkit}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Instalar Docker Compose}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Instalar kubectl}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Instalar containerd}{17}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Instalar etcd}{18}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Instalar kubelet}{19}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Objetivos del Proyecto}{21}{section.5}%
+\contentsline {section}{\numberline {6}Requisitos del Sistema}{22}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Hardware}{22}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Software}{22}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Red}{23}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Permisos}{23}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Verificación de Prerrequisitos}{23}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Instalación de Herramientas}{24}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Instalar Kind}{24}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Arquitectura del Clúster}{25}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Componentes}{25}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Nodos}{25}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}Redes}{25}{subsubsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.3}Acceso a GPU}{25}{subsubsection.8.1.3}%
+\contentsline {subsubsection}{\numberline {8.1.4}Almacenamiento}{26}{subsubsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.2}Seguridad}{26}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Limitaciones}{26}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Creación y Configuración del Clúster}{27}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Creación del Clúster}{27}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Eliminación del Clúster}{27}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Verificación de Creación}{27}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Consideraciones Adicionales}{27}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Configuracion de GPU}{28}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Montajes de Dispositivos}{28}{subsection.9.6}%
+\contentsline {subsection}{\numberline {9.7}Programación de GPU en Kubernetes}{28}{subsection.9.7}%
+\contentsline {section}{\numberline {10}Verificación y Pruebas}{29}{section.10}%
+\contentsline {section}{\numberline {11}Pruebas}{30}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Validacion de Acceso a GPU}{30}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Prueba Automatizada}{31}{subsection.11.2}%
+\contentsline {section}{\numberline {12}Solución de Problemas}{32}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Creación del Clúster Falla}{32}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Nodos No Listos}{32}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}GPU No Detectada}{32}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Problemas de Exposición de Puertos}{32}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Errores del Plugin de Dispositivo}{32}{subsection.12.5}%
+\contentsline {subsection}{\numberline {12.6}Recrear Clúster}{32}{subsection.12.6}%
+\contentsline {section}{\numberline {13}Limpieza y Mantenimiento}{33}{section.13}%
+\contentsline {section}{\numberline {14}Preguntas Frecuentes}{34}{section.14}%
+\contentsline {subsection}{\numberline {14.1}General}{34}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Configuracion}{34}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}GPU}{34}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Uso}{34}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Solucion de Problemas}{35}{subsection.14.5}%
+\contentsline {section}{\numberline {15}Ejemplos de Uso}{36}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Ejecutar Pod GPU}{36}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Ejemplo de Despliegue de una Aplicación Simple}{37}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Ejemplo de Uso de GPU para Computación Científica}{37}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Ejemplo de Escalado de Pods}{37}{subsection.15.4}%
+\contentsline {subsection}{\numberline {15.5}Ejemplo de Monitoreo con k9s}{38}{subsection.15.5}%
+\contentsline {subsection}{\numberline {15.6}Ejemplo de Despliegue con ArgoCD}{38}{subsection.15.6}%
+\contentsline {subsection}{\numberline {15.7}Ejemplo de Configuración de Recursos GPU Avanzada}{38}{subsection.15.7}%
+\contentsline {subsection}{\numberline {15.8}Ejemplo de Debugging de Pods con GPU}{39}{subsection.15.8}%
+\contentsline {subsection}{\numberline {15.9}Ejemplo de Backup y Restauración de Configuración}{39}{subsection.15.9}%
+\contentsline {section}{\numberline {16}Herramientas Adicionales}{40}{section.16}%
+\contentsline {subsubsection}{\numberline {16.0.1}Instalacion de ArgoCD}{40}{subsubsection.16.0.1}%
+\contentsline {subsubsection}{\numberline {16.0.2}Instalacion de k9s}{40}{subsubsection.16.0.2}%
+\contentsline {subsubsection}{\numberline {16.0.3}Integración con Lens}{43}{subsubsection.16.0.3}%
+\contentsline {section}{\numberline {17}Registro de Cambios}{45}{section.17}%
+\contentsline {subsection}{\numberline {17.1}[1.1.0] - 2025-11-13}{45}{subsection.17.1}%
+\contentsline {subsubsection}{\numberline {17.1.1}Agregado}{45}{subsubsection.17.1.1}%
+\contentsline {subsubsection}{\numberline {17.1.2}Características}{45}{subsubsection.17.1.2}%
+\contentsline {subsection}{\numberline {17.2}[1.0.0] - 2025-11-12}{45}{subsection.17.2}%
+\contentsline {subsubsection}{\numberline {17.2.1}Agregado}{45}{subsubsection.17.2.1}%
+\contentsline {subsubsection}{\numberline {17.2.2}Características}{45}{subsubsection.17.2.2}%
+\contentsline {section}{\numberline {18}Licencia}{46}{section.18}%
+\contentsline {section}{\numberline {19}Apéndices}{47}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Versión de Componentes}{47}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Estructura del Proyecto}{47}{subsection.19.2}%
+\contentsline {section}{\numberline {20}Anexos}{49}{section.20}%
+\contentsline {subsection}{\numberline {20.1}16.1: Script setup.sh}{49}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}16.2: Script validate.sh}{50}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}16.3: Script cleanup.sh}{50}{subsection.20.3}%
+\contentsline {subsection}{\numberline {20.4}16.4: Script monitoring.sh}{51}{subsection.20.4}%
+\contentsline {subsection}{\numberline {20.5}16.5: Script set\_path.sh}{51}{subsection.20.5}%
+\contentsline {subsection}{\numberline {20.6}16.6: Archivo kind-config.yaml}{52}{subsection.20.6}%
+\contentsline {subsection}{\numberline {20.7}16.8: Script mega\_setup.sh}{55}{subsection.20.7}%
+\contentsline {subsection}{\numberline {20.8}16.7: Archivo kubeconfig.yaml}{62}{subsection.20.8}%
+\contentsline {subsection}{\numberline {20.9}16.9: Script cluster\_manager.py}{62}{subsection.20.9}%
+\contentsline {subsection}{\numberline {20.10}16.10: Script gpu\_monitor.py}{62}{subsection.20.10}%
+\contentsline {subsection}{\numberline {20.11}16.11: Archivo argocd-app.yaml}{62}{subsection.20.11}%
+\contentsline {section}{\numberline {21}Bibliografía}{64}{section.21}%

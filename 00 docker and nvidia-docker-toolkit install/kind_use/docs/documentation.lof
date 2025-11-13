@@ -1,0 +1,27 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Logo de Kind}}{11}{figure.1}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Arquitectura de Docker}}{13}{figure.2}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Salida del comando docker --version}}{14}{figure.3}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Logo de NVIDIA}}{14}{figure.4}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Logo de Docker Compose}}{16}{figure.5}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Logo de kubectl}}{16}{figure.6}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Salida del comando kubectl version --client}}{17}{figure.7}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Salida del comando kubectl version --client}}{17}{figure.8}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Logo de containerd}}{17}{figure.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Salida del comando containerd --version}}{18}{figure.10}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Logo de etcd}}{18}{figure.11}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Salida del comando etcd --version}}{19}{figure.12}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Salida del comando kubelet --version}}{19}{figure.13}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Guía de inicio rápido de Kind}}{24}{figure.14}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Salida del comando kind --version}}{24}{figure.15}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Arquitectura de Kubernetes}}{25}{figure.16}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Diagrama del clúster Kind}}{26}{figure.17}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Operador GPU: Host a Kubernetes}}{28}{figure.18}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Salida de nvidia-smi en worker}}{30}{figure.19}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Diagrama de un Pod en Kubernetes}}{36}{figure.20}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Logo de ArgoCD}}{40}{figure.21}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Arquitectura de ArgoCD}}{41}{figure.22}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Interfaz de usuario de ArgoCD}}{42}{figure.23}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Logo de k9s}}{42}{figure.24}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Captura de pantalla de k9s}}{43}{figure.25}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Captura de pantalla de Lens}}{44}{figure.26}%
