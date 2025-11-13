@@ -1,0 +1,7 @@
+# Versions Used
+
+- Kind: v0.30.0
+- Kubernetes: v1.34.0 (kindest/node)
+- NVIDIA Driver: 575.64.03
+- CUDA: 12.9
+- NVIDIA Device Plugin: v0.17.0
