@@ -1,0 +1,6 @@
+# Install NVIDIA device plugin (optional)
+kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.17.0/deployments/static/nvidia-device-plugin.yml
+
+# Add GPU labels (if not in config)
+kubectl label node kind-control-plane nvidia.com/gpu.present=true
+kubectl label node kind-worker kind-worker2 kind-worker3 kind-worker4 nvidia.com/gpu.present=true
