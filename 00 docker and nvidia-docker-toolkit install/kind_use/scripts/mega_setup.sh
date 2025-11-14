@@ -73,7 +73,7 @@ check_command() {
 print_status $YELLOW "Realizando verificaciones iniciales..."
 
 # Check internet connection
-if ! ping -c 1 google.com &> /dev/null; then
+if ! curl -s --connect-timeout 5 google.com > /dev/null; then
     print_status $RED "❌ No hay conexión a internet. Requerida para descargas."
     exit 1
 fi
@@ -205,9 +205,18 @@ CLUSTER_EXISTS=false
 if kind get clusters 2>/dev/null | grep -q "^kind$"; then
     CLUSTER_EXISTS=true
     print_status $GREEN "✅ El clúster Kind ya existe"
-else
+    # Verify cluster is healthy before proceeding
+    print_status $YELLOW "Verificando salud del clúster existente..."
+    if ! kubectl get nodes > /dev/null 2>&1; then
+        print_status $YELLOW "Clúster existente no responde, recreando..."
+        kind delete cluster
+        CLUSTER_EXISTS=false
+    fi
+fi
+
+if [ "$CLUSTER_EXISTS" = false ]; then
     print_status $YELLOW "Creando clúster Kind con configuración GPU..."
-    kind create cluster --config config/kind-config.yaml
+    kind create cluster --config config/kind-config.yaml --wait 300s
     check_command "Creación del clúster"
     # Install NVIDIA device plugin for GPU scheduling
     print_status $YELLOW "Instalando NVIDIA device plugin para scheduling GPU..."
@@ -235,25 +244,73 @@ fi
 print_step "Probar funcionalidad del clúster"
 print_status $YELLOW "Verificando nodos del clúster..."
 
-kubectl get nodes > /dev/null 2>&1
-check_command "Verificación de nodos del clúster"
+# Wait for nodes to be ready
+print_status $YELLOW "Esperando que los nodos estén Ready..."
+NODES_READY=false
+for i in {1..30}; do
+    if kubectl get nodes --no-headers | awk '{print $2}' | grep -q "Ready"; then
+        NODES_READY=true
+        break
+    fi
+    sleep 2
+done
+
+if [ "$NODES_READY" = true ]; then
+    print_status $GREEN "✅ Verificación de nodos del clúster"
+else
+    print_status $RED "❌ Verificación de nodos del clúster failed"
+    SUCCESS=false
+fi
 
 print_status $YELLOW "Verificando etiquetas GPU en nodos..."
-kubectl get nodes --show-labels | grep -q "nvidia.com/gpu.present=true"
-check_command "Verificación de etiquetas GPU"
+GPU_LABELS_OK=true
+for node in kind-control-plane kind-worker kind-worker2 kind-worker3 kind-worker4; do
+    if kubectl get node "$node" --show-labels 2>/dev/null | grep -q "nvidia.com/gpu.present=true"; then
+        print_status $GREEN "✅ Nodo $node tiene etiqueta GPU"
+    else
+        print_status $RED "❌ Nodo $node no tiene etiqueta GPU"
+        GPU_LABELS_OK=false
+    fi
+done
+if [ "$GPU_LABELS_OK" = true ]; then
+    print_status $GREEN "✅ Verificación de etiquetas GPU"
+else
+    print_status $RED "❌ Verificación de etiquetas GPU failed"
+    SUCCESS=false
+fi
 
 print_status $YELLOW "Verificando NVIDIA device plugin..."
-kubectl get pods -n kube-system | grep -q nvidia-device-plugin
-check_command "Verificación del device plugin NVIDIA"
+# Wait for device plugin pods to be ready
+PLUGIN_READY=false
+for i in {1..30}; do
+    if kubectl get pods -n kube-system -l name=nvidia-device-plugin-ds -o jsonpath='{.items[*].status.phase}' 2>/dev/null | grep -q "Running"; then
+        PLUGIN_READY=true
+        break
+    fi
+    sleep 2
+done
+
+if [ "$PLUGIN_READY" = true ]; then
+    print_status $GREEN "✅ Verificación del device plugin NVIDIA"
+else
+    print_status $RED "❌ Verificación del device plugin NVIDIA failed"
+    SUCCESS=false
+fi
 
 print_status $YELLOW "Probando acceso GPU en nodos worker..."
 GPU_TEST_PASSED=true
-for worker in kind-worker kind-worker2 kind-worker3 kind-worker4; do
-    if docker ps | grep -q "$worker"; then
+for worker in kind-control-plane kind-worker kind-worker2 kind-worker3 kind-worker4; do
+    if docker ps --format "table {{.Names}}" | grep -q "^$worker$"; then
         if ! docker exec "$worker" nvidia-smi > /dev/null 2>&1; then
+            print_status $RED "❌ Worker $worker no puede acceder a GPU"
             GPU_TEST_PASSED=false
-            break
+        else
+            GPU_INFO=$(docker exec "$worker" nvidia-smi --query-gpu=name,memory.total --format=csv,noheader,nounits 2>/dev/null | head -1)
+            print_status $BLUE "   GPU $worker: $GPU_INFO"
         fi
+    else
+        print_status $RED "❌ Worker $worker no está corriendo"
+        GPU_TEST_PASSED=false
     fi
 done
 if [ "$GPU_TEST_PASSED" = true ]; then
@@ -275,12 +332,22 @@ if [ "$SUCCESS" = true ]; then
     echo "  - docker-compose instalado"
     echo "  - Kind y kubectl instalados"
     echo "  - Clúster Kind creado con 1 control-plane y 4 workers"
-    echo "  - GPUs montadas en todos los nodos"
-    echo "  - NVIDIA device plugin instalado"
-    echo "  - Todas las pruebas pasaron"
+    echo "  - GPUs montadas en todos los nodos (nvidia-smi disponible)"
+    echo "  - NVIDIA device plugin instalado y corriendo"
+    echo "  - Etiquetas GPU configuradas en todos los nodos"
+    echo "  - Validación de acceso GPU exitosa en todos los nodos"
+    echo ""
+    echo "🚀 El clúster está listo para workloads con GPU!"
+    echo "   Puedes ejecutar: ./validate_cluster.sh para verificar en cualquier momento"
     echo ""
     echo "Log guardado en: $LOG_FILE"
 else
     print_status $RED "❌ Algunos pasos fallaron. Revisa la salida anterior para detalles."
+    echo ""
+    echo "💡 Para solucionar problemas comunes:"
+    echo "   - Verifica que los drivers NVIDIA estén funcionando: nvidia-smi"
+    echo "   - Revisa el estado del clúster: kubectl get nodes"
+    echo "   - Ejecuta validación completa: ./validate_cluster.sh"
+    echo ""
     echo "Log guardado en: $LOG_FILE"
 fi
