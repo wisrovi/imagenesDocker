@@ -42,7 +42,7 @@ echo "Portainer is running on http://localhost:9000"
 
 # --- Test NVIDIA GPU Integration ---
 echo "Testing NVIDIA GPU integration with Docker..."
-sudo docker run --gpus all --rm nvidia/cuda:9.0-base nvidia-smi
+sudo docker run --gpus all --rm nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
 sudo docker run -d --name NVIDIA --gpus all --health-cmd="nvidia-smi || exit 1" --health-interval=30s --health-retries=3 --health-timeout=5s nvidia/cuda:12.2.0-base-ubuntu22.04 bash -c "while true; do nvidia-smi || break; sleep 30; done; tail -f /dev/null"
 echo "NVIDIA GPU integration test complete."
 
