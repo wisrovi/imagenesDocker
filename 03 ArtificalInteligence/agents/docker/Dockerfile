@@ -51,11 +51,11 @@ RUN apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install nvtop from source to avoid dependency issues
-RUN apt-get update && apt-get install -y cmake libncurses5-dev libncursesw5-dev git \
+RUN apt-get update && apt-get install -y cmake libncurses5-dev libncursesw5-dev git libudev-dev libdrm-dev \
     && git clone https://github.com/Syllo/nvtop.git /tmp/nvtop \
     && cd /tmp/nvtop \
     && mkdir build && cd build \
-    && cmake .. -DNVIDIA_SUPPORT=ON \
+    && cmake .. -DNVIDIA_SUPPORT=ON -DAMDGPU_SUPPORT=OFF -DINTEL_SUPPORT=OFF -DV3D_SUPPORT=OFF \
     && make -j$(nproc) \
     && make install \
     && cd / && rm -rf /tmp/nvtop \
@@ -84,11 +84,7 @@ RUN curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scrip
     && mv /root/bin/lazydocker /usr/local/bin/lazydocker 2>/dev/null || true \
     && find /root -name "lazydocker" -exec mv {} /usr/local/bin/ \; 2>/dev/null || true
 
-# Skip Microsoft Edit installation (release not found)
-# RUN wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz \
-#     && tar -xzf edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz \
-#     && mv edit /usr/local/bin/edit \
-#     && rm edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz
+
 
 # ------------------- CONFIGURACIÓN DEL ZSH ----------------------
 # Uses "aussiegeek" theme (original Oh My Zsh theme), with no plugins
@@ -142,4 +138,10 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     npm cache clean --force
 
-CMD ["zsh"]
+# Skip Microsoft Edit installation (release not found)
+RUN wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz \
+    && tar -xzf edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz \
+    && mv edit /usr/local/bin/edit \
+    && rm edit-1.2.1-x86_64-unknown-linux-gnu.tar.gz
+
+CMD ["tail", "-f", "/dev/null"]
