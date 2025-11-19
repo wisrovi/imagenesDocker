@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  agents:
+    build: .
+    image: wisrovi/agents:latest
+    container_name: agents
+    hostname: wAgents
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.ssh:/root/.ssh:ro
+    stdin_open: true
+    tty: true
+    command: zsh
