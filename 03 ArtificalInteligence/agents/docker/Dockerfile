@@ -23,6 +23,12 @@ RUN apt-get install -y ca-certificates curl gnupg \
     tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && apt-get update
 
+# Add NVIDIA CUDA repository
+RUN apt-get install -y software-properties-common \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/cuda-keyring_1.1-1_all.deb \
+    && dpkg -i cuda-keyring_1.1-1_all.deb \
+    && apt-get update
+
 # Install required packages
 RUN apt-get install -y \
     curl \
@@ -41,7 +47,19 @@ RUN apt-get install -y \
     net-tools \
     iputils-ping \
     docker-ce-cli \
+    cuda-toolkit-12-3 \
     && rm -rf /var/lib/apt/lists/*
+
+# Install nvtop from source to avoid dependency issues
+RUN apt-get update && apt-get install -y cmake libncurses5-dev libncursesw5-dev git \
+    && git clone https://github.com/Syllo/nvtop.git /tmp/nvtop \
+    && cd /tmp/nvtop \
+    && mkdir build && cd build \
+    && cmake .. -DNVIDIA_SUPPORT=ON \
+    && make -j$(nproc) \
+    && make install \
+    && cd / && rm -rf /tmp/nvtop \
+    && apt-get remove -y cmake git && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 # Configure timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

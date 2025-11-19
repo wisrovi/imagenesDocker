@@ -3,7 +3,7 @@ version: '3.8'
 services:
   agents:
     build: .
-    image: wisrovi/agents:latest
+    image: wisrovi/agents:gpu
     container_name: agents
     hostname: wAgents
     working_dir: /app
@@ -11,6 +11,13 @@ services:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.ssh:/root/.ssh:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     stdin_open: true
     tty: true
     command: zsh
