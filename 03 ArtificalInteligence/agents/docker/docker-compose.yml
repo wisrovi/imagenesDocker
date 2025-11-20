@@ -3,10 +3,8 @@ version: '3.8'
 services:
   agents:
     build: .
-    image: wisrovi/agents:gpu
+    image: wisrovi/agents:gpu2
     container_name: agents
-    hostname: wAgents
-    working_dir: /app
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock

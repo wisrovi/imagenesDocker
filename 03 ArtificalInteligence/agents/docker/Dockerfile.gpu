@@ -1,0 +1,79 @@
+FROM node:22
+
+ENV DEBIAN_FRONTEND=noninteractive TZ=Europe/Madrid LANG=C.UTF-8 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 TERM=xterm HOME=/root
+
+# ============= SYSTEM SETUP =============
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y ca-certificates curl gnupg software-properties-common && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+    rm -rf /var/lib/apt/lists/*
+
+# ============= DOCKER REPO =============
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+
+# ============= PYTHON & SYSTEM PACKAGES =============
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    build-essential \
+    git \
+    curl \
+    wget \
+    zsh \
+    docker-ce-cli \
+    docker-compose-plugin && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir --break-system-packages \
+    watchdog \
+    ipython
+
+
+
+WORKDIR /scripts
+COPY scripts /scripts
+
+
+WORKDIR /app
+
+
+
+# ============= NODE.JS TOOLS =============
+RUN curl -fsSL https://opencode.ai/install | bash && \
+    npm install -g @github/copilot && \
+    npm install -g @google/gemini-cli
+
+
+
+# ============= ZSH CONFIGURATION =============
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" -- -t aussiegeek && \
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true && \
+    git config --global user.name "wisrovi" && git config --global user.email "wisrovi.rodriguez@gmail.com" && \
+    echo "alias wisrovi='echo \"https://es.linkedin.com/in/wisrovi-rodriguez\"'\nalias ll='ls -la'\nalias la='ls -A'\nalias l='ls -CF'\nalias ..='cd ..'\nalias ...='cd ../..'" >> ~/.zshrc && \
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions && \
+    sed -i '/^plugins=/s/)/ zsh-autosuggestions zsh-syntax-highlighting zsh-completions z docker docker-compose)/' ~/.zshrc && \
+    sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="aussiegeek"/' /root/.zshrc && \
+    echo /bin/zsh >> /etc/shells
+
+# ============= MICROSOFT EDIT =============
+RUN apt-get update && apt-get install -y zstd && \
+    wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.0-x86_64-linux-gnu.tar.zst && \
+    tar -I zstd -xf edit-1.2.0-x86_64-linux-gnu.tar.zst && \
+    mv edit /usr/local/bin/edit && \
+    rm edit-1.2.0-x86_64-linux-gnu.tar.zst && \
+    rm -rf /var/lib/apt/lists/*
+
+# ============= FINAL CONFIGURATION =============
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && npm cache clean --force && \
+    echo "wAgents" > /etc/hostname && node -v && npm -v
+
+ENV PATH="/root/.opencode/bin:/usr/local/bin:$PATH"
+
+CMD ["tail", "-f", "/dev/null"]
