@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  agents:
+    build: 
+      context: .
+      dockerfile: Dockerfile.gpu
+    image: wisrovi/agents:gpu2
+    container_name: agents
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.ssh:/root/.ssh:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true
+    command: zsh
