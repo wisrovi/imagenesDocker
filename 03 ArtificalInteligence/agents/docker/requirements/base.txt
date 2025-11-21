@@ -1,0 +1,5 @@
+nvitop
+watchdog
+ipython
+ruff
+pre-commit
