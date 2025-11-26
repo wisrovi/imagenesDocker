@@ -27,6 +27,58 @@ templates:
     description: "Memoriza esto en tus Reglas base: - Hablar en español. - No mostrar texto de pensamiento; respuestas simples y directas (a menos que solicites detalles). - No borrar nada sin autorización. - No realizar acciones distintas a lectura sin tu autorización. - Si la respuesta puede darse en una tabla, usar tabla simple cuando sea posible. - Si ejecuto comandos, al final de la respuesta incluiré la lista de comandos usados. - En cada carpeta principal trabajada se crea un opencode_history.md con historial incremental (comandos, acciones, etc.).  - Tu nombre para referencias: William Rodríguez - wisrovi. Notas sobre instalación: - Si se necesita instalar algo, indicar el comando; tú decides ejecutar (salvo librerías Python, que puedo instalar). - No se almacenan credenciales sensibles en este historial. "
 
   - name: LATEX_PDF
-    description: "mira el proyecto, entiende cada cosa, entiende la idea completa, mira de que va, luego en la carpeta docs crea una documentacion en latex, con apartados (abstract, introduccion, objetivos, glosario, tabla de contenido, tabla de figuras, tabla de codigos, desarrollo del contenido, ejemplos, pruebas, resultados esperados, conclusiones, bibliografia, anexos, etc), que sea completa, profesional, en perfecto ingles, bien detallado, con estilos modernos, tipo de letra "Arial", si es necesario pon pies de pagina que guien a una bibliografia, anexo, ejemplo, resultado, nota relacionada, etc, baja con curl, algunas imagenes necesarias (las pondras en docs/sources en caso de descargar algunas), en el documento principal pondras las imagenes de forma que enriquezcan al documento, considera que cada capitulo debe iniciar en su propia pagina, luego convierte el documento a pdf, el pdf ponlo en la ruta raiz del proyecto, finalmente ese pdf conviertelo a word (docx)"
-
-    
+    description: """Based on the existing documentation, here's an improved prompt that will generate comprehensive, professional LaTeX documentation:
+Analyze the entire project structure comprehensively to understand the complete architecture, purpose, and implementation details. Create a professional LaTeX documentation in the docs folder with the following specifications:
+DOCUMENT STRUCTURE:
+- Abstract (executive summary)
+- Introduction with background and problem statement
+- Table of Contents, List of Figures, List of Tables, List of Code Listings
+- Glossary of technical terms
+- Objectives and scope
+- Detailed technical architecture with diagrams
+- Implementation guide with step-by-step instructions
+- Code examples and practical use cases
+- Testing methodology and validation procedures
+- Performance metrics and expected results
+- Best practices and optimization strategies
+- Security considerations
+- Troubleshooting guide
+- Conclusions and future work
+- Bibliography with proper citations
+- Appendices with additional resources
+TECHNICAL REQUIREMENTS:
+- Use Arial font family (Helvetica in LaTeX)
+- Modern color scheme with primary/secondary/accent colors
+- Professional layout with proper margins (2.5cm all sides)
+- Each chapter must start on a new page
+- Include headers/footers with navigation
+- Code listings with syntax highlighting
+- Tables with professional formatting
+- Figure captions and cross-references
+CONTENT ENHANCEMENT:
+- Download relevant images using curl to docs/sources/
+- Include architectural diagrams, logos, and technical illustrations
+- Add footnotes linking to bibliography, examples, and related sections
+- Provide real-world examples and practical implementations
+- Include performance benchmarks and metrics
+- Add troubleshooting scenarios with solutions
+PDF GENERATION:
+- Compile LaTeX to PDF using pdflatex or xelatex
+- Place final PDF in project root directory
+- Ensure all references, citations, and cross-references work correctly
+- Validate PDF generation without errors
+QUALITY STANDARDS:
+- Professional academic writing style
+- Perfect English grammar and technical terminology
+- Consistent formatting throughout
+- Proper citation format (IEEE or APA)
+- Modern, clean design aesthetic
+- Comprehensive coverage of all technical aspects
+This improved prompt adds:
+- Specific technical requirements for LaTeX compilation
+- Enhanced content structure with more sections
+- Clear instructions for image handling and sourcing
+- Quality standards for professional documentation
+- Detailed PDF generation requirements
+- Better organization and flow of technical content
+"""
