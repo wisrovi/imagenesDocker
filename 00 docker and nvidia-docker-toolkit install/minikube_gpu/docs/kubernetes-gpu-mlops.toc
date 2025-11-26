@@ -1,0 +1,76 @@
+\contentsline {chapter}{Contents}{1}{chapter*.1}%
+\contentsline {chapter}{List of Figures}{3}{chapter*.2}%
+\contentsline {chapter}{List of Tables}{4}{chapter*.3}%
+\contentsline {chapter}{Listings}{5}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Abstract}{6}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Introduction}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Background and Motivation}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Problem Statement}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Solution Overview}{8}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Objectives}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Primary Objectives}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Secondary Objectives}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Success Criteria}{9}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Glossary}{10}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Content Development}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Architecture Overview}{11}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Infrastructure Layer}{11}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Orchestration Layer}{12}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Implementation Components}{12}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Cluster Creation Script}{12}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}GPU Validation Script}{12}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}GPU Job Manifest}{13}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Test Execution Script}{13}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Result Validation Script}{13}{subsection.5.2.5}%
+\contentsline {chapter}{\numberline {6}Examples}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Basic GPU Job Example}{15}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Machine Learning Training Job}{15}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Multi-GPU Deployment}{16}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Tests}{17}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Test Methodology}{17}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Test Scenarios}{17}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}GPU Detection Test}{17}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Job Execution Test}{17}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Resource Allocation Test}{18}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Test Automation}{18}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Expected Results}{19}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Cluster Creation Results}{19}{section.8.1}%
+\contentsline {section}{\numberline {8.2}GPU Validation Results}{19}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Job Execution Results}{19}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Performance Metrics}{20}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Conclusions}{21}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Summary of Achievements}{21}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Technical Contributions}{21}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Future Enhancements}{21}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Multi-Node Support}{21}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Advanced Scheduling}{21}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Monitoring Integration}{22}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Cloud Provider Support}{22}{subsection.9.3.4}%
+\contentsline {section}{\numberline {9.4}Impact Assessment}{22}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Final Remarks}{22}{section.9.5}%
+\contentsline {chapter}{\numberline {10}Bibliography}{23}{chapter.10}%
+\contentsline {chapter}{Bibliography}{24}{chapter*.10}%
+\contentsline {chapter}{\numberline {11}Appendices}{25}{chapter.11}%
+\contentsline {section}{\numberline {11.1}GPU Specifications}{25}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}NVIDIA GPU Requirements}{25}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Supported GPU Models}{25}{subsection.11.1.2}%
+\contentsline {section}{\numberline {11.2}Installation Prerequisites}{25}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}System Requirements}{25}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Software Dependencies}{26}{subsection.11.2.2}%
+\contentsline {section}{\numberline {11.3}Troubleshooting Guide}{26}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Common Issues}{26}{subsection.11.3.1}%
+\contentsline {subsubsection}{GPU Not Detected}{26}{subsection.11.3.1}%
+\contentsline {subsubsection}{Job Fails to Start}{26}{Item.22}%
+\contentsline {subsubsection}{Performance Issues}{26}{Item.25}%
+\contentsline {section}{\numberline {11.4}Configuration Reference}{27}{section.11.4}%
+\contentsline {subsection}{\numberline {11.4.1}Minikube Configuration}{27}{subsection.11.4.1}%
+\contentsline {subsection}{\numberline {11.4.2}Kubernetes GPU Resource Limits}{27}{subsection.11.4.2}%
+\contentsline {section}{\numberline {11.5}Security Considerations}{27}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}GPU Access Control}{27}{subsection.11.5.1}%
+\contentsline {subsection}{\numberline {11.5.2}Container Security}{27}{subsection.11.5.2}%
+\contentsline {section}{\numberline {11.6}GPU Market Analysis}{28}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Multi-Node Examples}{28}{section.11.7}%
+\contentsline {section}{\numberline {11.8}Monitoring Setup}{28}{section.11.8}%
+\contentsline {section}{\numberline {11.9}Cloud Provider Configurations}{28}{section.11.9}%
+\contentsline {subsection}{\numberline {11.9.1}AWS EKS GPU Configuration}{28}{subsection.11.9.1}%
+\contentsline {subsection}{\numberline {11.9.2}Google GKE GPU Configuration}{29}{subsection.11.9.2}%

@@ -1,0 +1,1 @@
+minikube start --gpus all --driver=docker --addons=ingress
