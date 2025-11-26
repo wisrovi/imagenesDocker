@@ -27,58 +27,82 @@ templates:
     description: "Memoriza esto en tus Reglas base: - Hablar en español. - No mostrar texto de pensamiento; respuestas simples y directas (a menos que solicites detalles). - No borrar nada sin autorización. - No realizar acciones distintas a lectura sin tu autorización. - Si la respuesta puede darse en una tabla, usar tabla simple cuando sea posible. - Si ejecuto comandos, al final de la respuesta incluiré la lista de comandos usados. - En cada carpeta principal trabajada se crea un opencode_history.md con historial incremental (comandos, acciones, etc.).  - Tu nombre para referencias: William Rodríguez - wisrovi. Notas sobre instalación: - Si se necesita instalar algo, indicar el comando; tú decides ejecutar (salvo librerías Python, que puedo instalar). - No se almacenan credenciales sensibles en este historial. "
 
   - name: LATEX_PDF
-    description: """Based on the existing documentation, here's an improved prompt that will generate comprehensive, professional LaTeX documentation:
-Analyze the entire project structure comprehensively to understand the complete architecture, purpose, and implementation details. Create a professional LaTeX documentation in the docs folder with the following specifications:
-DOCUMENT STRUCTURE:
-- Abstract (executive summary)
-- Introduction with background and problem statement
-- Table of Contents, List of Figures, List of Tables, List of Code Listings
-- Glossary of technical terms
-- Objectives and scope
-- Detailed technical architecture with diagrams
-- Implementation guide with step-by-step instructions
-- Code examples and practical use cases
-- Testing methodology and validation procedures
-- Performance metrics and expected results
-- Best practices and optimization strategies
-- Security considerations
-- Troubleshooting guide
-- Conclusions and future work
-- Bibliography with proper citations
-- Appendices with additional resources
-TECHNICAL REQUIREMENTS:
-- Use Arial font family (Helvetica in LaTeX)
-- Modern color scheme with primary/secondary/accent colors
-- Professional layout with proper margins (2.5cm all sides)
-- Each chapter must start on a new page
-- Include headers/footers with navigation
-- Code listings with syntax highlighting
-- Tables with professional formatting
-- Figure captions and cross-references
-CONTENT ENHANCEMENT:
-- Download relevant images using curl to docs/sources/
-- Include architectural diagrams, logos, and technical illustrations
-- Add footnotes linking to bibliography, examples, and related sections
-- Provide real-world examples and practical implementations
-- Include performance benchmarks and metrics
-- Add troubleshooting scenarios with solutions
-PDF GENERATION:
-- Compile LaTeX to PDF using pdflatex or xelatex
-- Place final PDF in project root directory
-- Ensure all references, citations, and cross-references work correctly
-- Validate PDF generation without errors
-QUALITY STANDARDS:
-- Professional academic writing style
-- Perfect English grammar and technical terminology
-- Consistent formatting throughout
-- Proper citation format (IEEE or APA)
-- Modern, clean design aesthetic
-- Comprehensive coverage of all technical aspects
-This improved prompt adds:
-- Specific technical requirements for LaTeX compilation
-- Enhanced content structure with more sections
-- Clear instructions for image handling and sourcing
-- Quality standards for professional documentation
-- Detailed PDF generation requirements
-- Better organization and flow of technical content
+    description: """Analice la estructura completa del proyecto para comprender su arquitectura, propósito y detalles de implementación. Examine todos los archivos fuente, archivos de configuración, scripts y documentación para comprender su alcance y profundidad técnica. Cree una documentación LaTeX completa y profesional en la carpeta docs/ con las siguientes especificaciones:
+**ESTRUCTURA Y REQUISITOS DEL DOCUMENTO:**
+1. **Secciones completas del documento:**
+- Página de título con imagen profesional
+- autor, toma mi linkedin para tener informacion de mi: https://es.linkedin.com/in/wisrovi-rodriguez
+- Resumen (150-200 palabras que resuma el proyecto)
+- Índice, Lista de figuras, Lista de tablas, Lista de códigos
+- Introducción con antecedentes, planteamiento del problema y objetivos
+- Glosario detallado de términos técnicos
+- Objetivos y alcance
+- Arquitectura técnica detallada con diagramas
+- Descripción general completa de la arquitectura técnica
+- Guía de implementación con instrucciones paso a paso
+- Ejemplos de código con resaltado de sintaxis
+- Metodología de pruebas y procedimientos de validación
+- Métricas de rendimiento y resultados esperados
+- Casos de uso y aplicaciones reales
+- Mejores prácticas y estrategias de optimización
+-  Consideraciones de seguridad
+- Guía de resolución de problemas comunes
+- Conclusiones y trabajo futuro
+- Bibliografía completa con citas apropiadas
+- Apéndices con detalles técnicos adicionales
+2. **Formato LaTeX profesional:**
+- Fuente: Arial/Helvetica Familia en todo el texto (use \usepackage{helvet})
+- Esquema de colores moderno con imagen de marca consistente
+- Cada capítulo DEBE comenzar en una página nueva (\cleardoublepage)
+- Encabezados y pies de página profesionales con numeración de página
+- Formato consistente de secciones y subsecciones
+- Numeración y referencias cruzadas correctas de figuras/tablas
+- Listados de código con resaltado de sintaxis y números de línea
+3. **Requisitos de mejora visual:**
+- Descargar imágenes relevantes de alta calidad con curl y guardarlas en docs/sources/
+- Incluir diagramas, ilustraciones de arquitectura y logotipos tecnológicos
+- Crear tablas profesionales con el formato adecuado
+- Usar recuadros de color para resaltar información importante
+- Incluir diagramas de flujo y diagramas técnicos cuando corresponda
+4. **Estándares de calidad del contenido:**
+- Estilo de escritura académica profesional
+- Gramática inglesa y terminología técnica impecables
+- Formato uniforme en todo el documento
+- Formato de cita adecuado (IEEE o APA)
+- Diseño moderno y limpio
+- Inglés profesional perfecto en todo el texto
+- Precisión y profundidad técnica adecuadas para el público objetivo
+- Explicaciones claras y concisas con ejemplos prácticos
+- Citas y referencias a recursos externos adecuadas
+- Terminología y estilo consistentes
+- Estructura de contenido mejorada con más secciones
+5. **Funciones avanzadas de LaTeX:**
+- Hipervínculos para la navegación (usar el paquete hyperref)
+- Estilos profesionales de listado de código
+- Fórmulas matemáticas cuando sea necesario
+- Bibliografía con el formato adecuado
+- Índice para referencia rápida
+- Diseño de página profesional con márgenes adecuados
+6. **Requisitos del resultado final:**
+- Generar el PDF con pdflatex o xelatex
+- Colocar el PDF final en el directorio raíz del proyecto
+- Asegurarse de que todas las referencias cruzadas y citas funcionen correctamente
+- Verificar que todas las imágenes y tablas se visualicen correctamente
+- Verificar que no haya errores ni advertencias de compilación
+
+**PASOS DE EJECUCIÓN:**
+1. Primero, analizar la estructura del proyecto y comprender su propósito
+2. Descargar las imágenes necesarias a docs/sources/ usando curl
+3. Crear el documento principal de LaTeX con todas las secciones requeridas
+4. Compilar el documento a formato PDF
+5. Colocar el PDF en el directorio raíz del proyecto
+6. Verificar que el resultado final cumpla con todos los estándares de calidad
+La documentación debe estar lista para producción, ser completa y adecuada para profesionales técnicos, desarrolladores y partes interesadas que necesiten comprender e implementar el proyecto. Esta propuesta mejorada incluye:
+- Requisitos técnicos más específicos
+- Pasos de ejecución claros
+- Mejor estructura y organización
+- Estándares de calidad mejorados
+- Recomendaciones específicas de paquetes LaTeX
+- Requisitos de formato detallados
+- Pautas de contenido profesional
 """
