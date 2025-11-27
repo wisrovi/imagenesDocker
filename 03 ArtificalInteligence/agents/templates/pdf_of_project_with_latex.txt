@@ -1,34 +1,4 @@
-templates:
-  - name: CREAR_README
-    description: "mira todo lo que hay en este folder, de que se trata, entiende todo,luego modifica el archivo readme.md que esta en el proyecto y crea una documentacion profesional, en ingles, explciativo, detallado, completa y actualiza el archivo"
-
-  - name: README_AVANZADO
-    description: "crea un Readme.md en la carpeta principal, que explique esto que has entendido, mostrando el arbol de archivos, donde ubicar cada cosa, que readme rellenar para cada dato a incluir en el proyecto, etc...... haz tambien un grafico System Workflow y otro grafico Diagram Walkthrough, que el readme sea claro, profesional, explicado y con ejemplos si lo ves necesario"
-    
-  - name: CREAR_DOCS_SPHINX
-    description: "mira todo lo que hay en este folder, entiendelo todo, luego crea una carpeta docs (si ya esta creada no crees una nueva sino usa esa), luego crea toda la documentacion del proyecto en esa carpeta usando sphinx, no olvides poner el apartado del autor, para los datos del autor puedes usar la url: https://es.linkedin.com/in/wisrovi-rodriguez, finalmente actualiza ( o crea sino existe) el makefile con los comandos para construir y levantar esata documentacion"
-  
-  - name: CREAR_MAKEFILE
-    description: "crea (o actualiza si ya existe) el makefile con los comandos necesarios para ejecutar los puntos importantes del proyecto"
-
-  - name: SUBE_SPHINX_NUEVO_NIVEL
-    description: "toma esa doc de sphinx, llevala a un nuevo nivel profesional, usabilidad y explicativo, todo en ingles, con muchas pestañas, ejemplos de python, bibliografia, recursos fuente, etc, que sea usable, funcional, perfecto, moderno y muy intuitivo"
-
-  - name:  mapper_files_git
-    description: "mira todos los cambios de git que ha tenido esta carpeta, necesito que por cada archivo, archivo dentro de una carpeta, y cada archivo dentro de cualqueir subcarpeta, todo archivo debe ser mapeado en un commit diferente, no puede haber una carpeta en el git add, pero todos los archivos deben ser mapeados en un git add, con su propio git commit, texto en ingles perfecto, explicando que hace el archivo, el commit debe iniciar o con [FEATURE], [DOC], [REFACTOR], [FIX], , etcc....... un add se considera un FEATURE, crea un script llamado mapper_files.sh con los comandos que hacen el git add y el git commit a cada archivo william.rodriguez (01:59 PM)"      
-    
-  - name: PRIMERA_CONFIG_AGENTE
-    description: "memoriza esto, soy william rodriguez, mi linkedin es: https://es.linkedin.com/in/wisrovi-rodriguez, siempre me hablaras en español, pero los codigos, readme, docstrings, comentarios, codigos, metodos de funciones, clases, variables y todo codigo sera en un ingles perfecto, siempre evaluaras si hay un readme en los proyectos en los que hablemos, si no lo hay lo debes crear, si lo hay, ante cualqueir cambio que te pida deberas actualziar el readme, te presente mi linkedin, con el fin de que siempre en los readme y documentacion de sphinx que te pida, pongas un apartado de autor con la informacino que peudas encontrar de mi"
-
-  - name: CREAR_CLUSTER_KIND
-    description: "deten el cluster actual, luego modifica el config para crear un nuevo cluster, 1 control-plane y 5 worker...... 3 de esos worker veran la gpu y 1 worker que solo vea la cpu, con su etiqueta alusiva (GPU y CPU) a cada worker, igualmente en el config crea una etiqueta a cada worker para poder diferenciarlos a cada uno (ejemplo: worker1, worker2, etc), de forma que cada worker tenga 2 etiquetas......... adicional crea una carpeta llamada shared-workers (usa mkdir) y haz que todos los worker puedan ver esa carpeta......., no valides que ve la gpu con docker exec, sino que monta un servicio, por ejemplo: crea un pop de uso con la imagen nvidia/cuda:12.2.0-base-ubuntu22.04 y el comando nvidia-smi, mandalo a cada worker de forma controlada usando el label worker1, worker2, etc...... luego mira el log, si funciono el comando (nvidia-smi), con el servicio montado, es que la gpu se ve en el worker, sino es que funciona con cpu...... crea archivos de prueba, cada uno para enviar a un worker concreto........... luego crea un nuevo archivo de prueba que envie a cualquier worker que tenga la etiqueta GPU y otro archivo de prueba que envie a un worker con la etiqueta CPU, finalmente dame nuevamente la tabla de resultados con las 5 columnas que has definido (pon tambien la tabla en un worker_results.md), las columnas son: worker_name, labels, available_gpu, result_by_pop, notes"
-
-  - name: SERVER_CONFIG
-    description: "Memoriza esto en tus Reglas base: - Hablar en español. - No mostrar texto de pensamiento; respuestas simples y directas (a menos que solicites detalles). - No borrar nada sin autorización. - No realizar acciones distintas a lectura sin tu autorización. - Si la respuesta puede darse en una tabla, usar tabla simple cuando sea posible. - Si ejecuto comandos, al final de la respuesta incluiré la lista de comandos usados. - En cada carpeta principal trabajada se crea un opencode_history.md con historial incremental (comandos, acciones, etc.).  - Tu nombre para referencias: William Rodríguez - wisrovi. Notas sobre instalación: - Si se necesita instalar algo, indicar el comando; tú decides ejecutar (salvo librerías Python, que puedo instalar). - No se almacenan credenciales sensibles en este historial. "
-
-  - name: LATEX_PDF
-    description: """
-    Analice la estructura completa del proyecto para comprender su arquitectura, propósito y detalles de implementación. Examine todos los archivos fuente, archivos de configuración, scripts y documentación para comprender su alcance y profundidad técnica. Cree una documentación LaTeX completa y profesional en la carpeta docs/ con las siguientes especificaciones:
+Analice la estructura completa del proyecto para comprender su arquitectura, propósito y detalles de implementación. Examine todos los archivos fuente, archivos de configuración, scripts y documentación para comprender su alcance y profundidad técnica. Cree una documentación LaTeX completa y profesional en la carpeta docs/ con las siguientes especificaciones:
 
 **ESTRUCTURA Y REQUISITOS DEL DOCUMENTO:**
 
@@ -272,4 +242,3 @@ PDF profesional de 30-35 páginas, 100% compatible con conversión a Microsoft W
 
 **ADVERTENCIA CRÍTICA:**
 Cualquier desviación de la configuración de fuentes especificada causará problemas en la conversión a Word. Use EXACTAMENTE la configuración proporcionada.
-"""

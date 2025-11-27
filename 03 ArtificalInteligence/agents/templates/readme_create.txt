@@ -1,0 +1,3 @@
+mira todo lo que hay en este folder, de que se trata, entiende todo,luego modifica el archivo readme.md que esta en el proyecto y crea una documentacion profesional, en ingles, explciativo, detallado, completa y actualiza el archivo
+
+crea un Readme.md en la carpeta principal, que explique esto que has entendido, mostrando el arbol de archivos, donde ubicar cada cosa, que readme rellenar para cada dato a incluir en el proyecto, etc...... haz tambien un grafico System Workflow y otro grafico Diagram Walkthrough, que el readme sea claro, profesional, explicado y con ejemplos si lo ves necesario

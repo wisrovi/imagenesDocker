@@ -1,0 +1,3 @@
+mira todo lo que hay en este folder, entiendelo todo, luego crea una carpeta docs (si ya esta creada no crees una nueva sino usa esa), luego crea toda la documentacion del proyecto en esa carpeta usando sphinx, no olvides poner el apartado del autor, para los datos del autor puedes usar la url: https://es.linkedin.com/in/wisrovi-rodriguez, finalmente actualiza ( o crea sino existe) el makefile con los comandos para construir y levantar esata documentacion
+
+toma esa doc de sphinx, llevala a un nuevo nivel profesional, usabilidad y explicativo, todo en ingles, con muchas pestañas, ejemplos de python, bibliografia, recursos fuente, etc, que sea usable, funcional, perfecto, moderno y muy intuitivo
