@@ -1,4 +1,4 @@
-Convierte el documento de Word [nombre-del-archivo.docx] a formato Markdown manteniendo toda la estructura original. Sigue estos pasos:
+Convierte el documento de Word a formato Markdown manteniendo toda la estructura original. Sigue estos pasos:
 
 1. VERIFICACIÓN INICIAL:
    - Lista los archivos en el directorio actual para confirmar el documento existe
