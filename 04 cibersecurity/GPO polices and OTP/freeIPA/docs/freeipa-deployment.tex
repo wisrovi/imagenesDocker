@@ -1,0 +1,862 @@
+% PREÁMBULO EXACTO - COPIAR LITERALMENTE:
+\documentclass[12pt,a4paper]{report}
+
+% Fuentes CRÍTICAS para compatibilidad Word
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet} % Helvetica para texto principal
+\usepackage{courier} % Courier para código
+\renewcommand{\familydefault}{\sfdefault} % Helvetica como default
+
+% Paquetes esenciales
+\usepackage{tocbibind}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=15pt
+}
+
+% Configuración listings EXACTA para código
+\lstset{
+    basicstyle=\ttfamily\footnotesize\fontfamily{pcr}\selectfont,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{gray!50},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=2,
+    captionpos=b,
+    xleftmargin=2em,
+    framexleftmargin=1.5em,
+    belowskip=1em,
+    aboveskip=1em
+}
+
+% Headers y footers con sans-serif
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\color{blue!70!black}\textbf{\sffamily\leftmark}}
+\fancyhead[R]{\color{blue!70!black}\textbf{\sffamily\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[C]{\color{gray}\small\sffamily FreeIPA Docker Deployment for Enterprise Identity Management}
+
+% Estilos de capítulos y secciones con sans-serif
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\sffamily\color{blue!70!black}}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries\sffamily\color{blue!70!black}}
+{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{15pt}{10pt}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\sffamily\color{orange!80!black}}
+{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{5pt}
+
+% Configuración hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    filecolor=blue!70!black,
+    urlcolor=blue!70!black,
+    citecolor=orange!80!black,
+    pdftitle={FreeIPA Docker Deployment for Enterprise Identity Management},
+    pdfauthor={William Rodriguez},
+    pdfsubject={Identity Management, Docker, FreeIPA, Enterprise Security},
+    pdfkeywords={FreeIPA, Docker, Identity Management, LDAP, Kerberos, Enterprise Security}
+}
+
+\begin{document}
+
+% Página de título SIMPLE
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    % \includegraphics[width=0.25\textwidth]{sources/freeipa-logo.png}
+    \vspace{1cm}
+    {\color{blue!70!black}\Huge\textbf{FreeIPA Docker Deployment}}\\[0.5cm]
+    {\color{orange!80!black}\Large\textbf{for Enterprise Identity Management}}\\[1cm]
+    {\large\textit{A Comprehensive Implementation Guide for}}\\[0.3cm]
+    {\Large\textbf{Production-Ready Identity Management Infrastructure}}\\[1.5cm]
+    {\large\textbf{\today}}
+    \vfill
+    \colorbox{blue!70!black}{
+        \color{white}\textbf{Docker + FreeIPA + LDAP + Kerberos + DNS}
+    }
+\end{titlepage}
+
+% Página de autor SEPARADA
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\color{blue!70!black}\Large\textbf{Author}}\\[1cm]
+    {\Large\textbf{William Rodriguez}}\\[0.5cm]
+    \textit{Identity Management and Linux Systems Specialist}\\[0.3cm]
+    \textit{eCaptureDtech}\\[0.2cm]
+    \textit{Badajoz, Extremadura, Spain}\\[1cm]
+    \begin{tabular}{c}
+        \textbf{Contact Information:}\\[0.5cm]
+        LinkedIn: es.linkedin.com/in/wisrovi-rodriguez\\[0.2cm]
+        Email: william.rodriguez@ecapturedtech.com\\[0.2cm]
+        GitHub: github.com/wisrovi
+    \end{tabular}
+    \vfill
+    \colorbox{orange!80!black}{
+        \color{white}\textbf{Expert in Identity Management and Enterprise Authentication}
+    }
+\end{titlepage}
+
+% Tabla de contenidos
+\tableofcontents
+\cleardoublepage
+
+% Listas
+\listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
+\lstlistoflistings
+\cleardoublepage
+
+\chapter{Executive Summary}
+
+This document provides a comprehensive guide for implementing FreeIPA (Identity, Policy, and Audit) in Docker containerized environments for enterprise identity management. FreeIPA represents an open-source solution that delivers centralized authentication, authorization, and account information management for Linux/Unix networks, combining LDAP directory services, Kerberos authentication, DNS services, and certificate management into a unified platform.
+
+The deployment methodology presented leverages Docker containerization to achieve rapid, isolated, and reproducible installations across diverse infrastructure environments. This approach addresses critical enterprise requirements including scalability, maintainability, security compliance, and operational efficiency. The integration of container technology with identity management services enables organizations to establish robust authentication frameworks while maintaining flexibility for cloud-native and hybrid deployment scenarios.
+
+Key implementation aspects covered include automated deployment scripts, persistent data management, network configuration, security hardening, client enrollment procedures, and comprehensive troubleshooting methodologies. The solution demonstrates production-ready capabilities through multi-protocol support (LDAP, Kerberos, HTTP/HTTPS, DNS), TLS/SSL encryption enforcement, and seamless integration with existing enterprise directory services.
+
+This guide serves as both a technical reference and operational manual for system administrators, DevOps engineers, and security professionals responsible for implementing and maintaining enterprise identity management infrastructure. The documented approach has been validated through extensive testing and real-world deployment scenarios, ensuring reliability and operational excellence in production environments.
+
+\chapter{Introduction}
+
+\section{Background}
+
+Identity management represents a critical component of modern enterprise IT infrastructure, serving as the foundation for security, compliance, and operational efficiency. Traditional approaches to user authentication and authorization often involve fragmented systems, inconsistent policies, and significant administrative overhead. FreeIPA addresses these challenges by providing an integrated open-source solution that combines essential identity services into a cohesive platform.
+
+The evolution of containerization technologies, particularly Docker, has transformed application deployment and management practices. Container-based deployments offer numerous advantages including environment consistency, resource isolation, rapid scaling, and simplified maintenance. The convergence of identity management and containerization presents opportunities to create more resilient, scalable, and manageable authentication infrastructures.
+
+\section{Objectives}
+
+This document aims to achieve several primary objectives:
+
+\begin{itemize}
+    \item Provide a comprehensive technical guide for FreeIPA deployment in Docker environments
+    \item Document best practices for enterprise identity management implementation
+    \item Present automated deployment methodologies for operational efficiency
+    \item Establish troubleshooting frameworks for common implementation challenges
+    \item Demonstrate integration patterns with existing enterprise systems
+    \item Enable rapid deployment capabilities for development and production environments
+\end{itemize}
+
+\section{Scope}
+
+The scope of this document encompasses the complete lifecycle of FreeIPA deployment in Docker environments, from initial planning and prerequisites through production implementation and ongoing maintenance. Technical coverage includes container architecture, network configuration, security considerations, client enrollment, performance optimization, and disaster recovery procedures.
+
+\section{Target Audience}
+
+This guide is intended for IT professionals including system administrators, DevOps engineers, security specialists, and enterprise architects responsible for identity management infrastructure. Readers should possess fundamental knowledge of Linux systems administration, Docker containerization, networking concepts, and enterprise security principles.
+
+\chapter{Technical Architecture}
+
+\section{FreeIPA Overview}
+
+FreeIPA integrates multiple identity management services into a unified platform, providing comprehensive authentication and authorization capabilities for enterprise environments. The architecture combines LDAP directory services, Kerberos authentication, DNS resolution, certificate management, and policy enforcement into a cohesive system.
+
+\subsection{Core Components}
+
+\begin{itemize}
+    \item \textbf{389 Directory Server}: LDAP directory service for user and group management
+    \item \textbf{Kerberos KDC}: Authentication service for secure ticket-based authentication
+    \item \textbf{Apache HTTP Server}: Web interface and REST API for administrative access
+    \item \textbf{BIND DNS Server}: Domain name resolution and service discovery
+    \item \textbf{Certificate Authority}: X.509 certificate management for SSL/TLS services
+\end{itemize}
+
+\section{Container Architecture}
+
+The Docker-based deployment architecture encapsulates all FreeIPA services within a single container while maintaining service isolation and proper resource management. Persistent data volumes ensure data preservation across container lifecycle events, while network port mapping enables external service access.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{sources/identity-management.png}
+    \caption{FreeIPA Container Architecture Overview}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{Service Ports}
+
+\begin{table}[H]
+    \centering
+    \caption{FreeIPA Service Port Configuration}
+    \label{tab:ports}
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Port} & \textbf{Protocol} & \textbf{Service} \\
+        \midrule
+        80 & TCP & HTTP \\
+        443 & TCP & HTTPS \\
+        389 & TCP & LDAP \\
+        636 & TCP & LDAPS \\
+        88 & TCP/UDP & Kerberos \\
+        464 & TCP/UDP & Kerberos Password Change \\
+        53 & TCP/UDP & DNS \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Data Persistence}
+
+Data persistence is achieved through Docker volume management, ensuring that all configuration data, user information, certificates, and operational logs are preserved across container restarts and updates. The volume mount point `/data` serves as the primary storage location for all FreeIPA data.
+
+\chapter{Installation Guide}
+
+\section{Prerequisites}
+
+\subsection{System Requirements}
+
+\begin{itemize}
+    \item Docker Engine version 20.10 or later
+    \item Minimum 2GB RAM, 4GB recommended for production
+    \item 20GB available disk space for data volume
+    \item Root or sudo privileges for system configuration
+    \item Properly configured FQDN (Fully Qualified Domain Name)
+\end{itemize}
+
+\subsection{Network Configuration}
+
+The FreeIPA server requires proper DNS configuration and hostname resolution. The server hostname must be configured as a Fully Qualified Domain Name (FQDN) and must be resolvable through DNS or hosts file entries.
+
+\section{Installation Process}
+
+\subsection{Step 1: Docker Image Acquisition}
+
+\begin{lstlisting}[language=bash,caption=Pull FreeIPA Docker Image]
+docker pull freeipa/freeipa-server:rocky-9
+\end{lstlisting}
+
+\subsection{Step 2: Volume Creation}
+
+\begin{lstlisting}[language=bash,caption=Create Persistent Data Volume]
+docker volume create freeipa-data
+\end{lstlisting}
+
+\subsection{Step 3: Container Deployment}
+
+\begin{lstlisting}[language=bash,caption=Deploy FreeIPA Container]
+docker run -d --name freeipa-server-container \
+  -h ipa.yourdomain.com \
+  -v freeipa-data:/data:Z \
+  -p 80:80 -p 443:443 -p 389:389 -p 636:636 \
+  -p 88:88 -p 88:88/udp -p 464:464 -p 464:464/udp \
+  -p 53:53 -p 53:53/udp \
+  freeipa/freeipa-server:rocky-9 \
+  ipa-server-install --unattended \
+    --realm=YOURDOMAIN.COM \
+    --domain=yourdomain.com \
+    --ds-password=YourSecurePassword \
+    --admin-password=YourSecurePassword \
+    --setup-dns --auto-forwarders --no-ntp
+\end{lstlisting}
+
+\section{Configuration Parameters}
+
+\begin{table}[H]
+    \centering
+    \caption{Essential Configuration Parameters}
+    \label{tab:config}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Parameter} & \textbf{Description} \\
+        \midrule
+        hostname & FQDN of the FreeIPA server \\
+        realm & Kerberos realm (uppercase) \\
+        domain & DNS domain name \\
+        ds-password & Directory Manager password \\
+        admin-password & Administrator account password \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\chapter{Client Configuration}
+
+\section{Linux Client Enrollment}
+
+\subsection{Prerequisites}
+
+\begin{itemize}
+    \item FreeIPA server operational and accessible
+    \item Network connectivity to FreeIPA server
+    \item Administrative credentials for domain join
+    \item Proper hostname configuration with domain suffix
+\end{itemize}
+
+\subsection{Installation Steps}
+
+\begin{lstlisting}[language=bash,caption=Linux Client Enrollment]
+# Update system packages
+sudo apt update
+sudo apt install -y freeipa-client sssd chrony curl
+
+# Configure hostname resolution
+echo "192.168.1.100 ipa.yourdomain.com" | sudo tee -a /etc/hosts
+
+# Download CA certificate
+sudo mkdir -p /etc/ipa
+curl -o ca.crt http://ipa.yourdomain.com/ipa/config/ca.crt
+sudo mv ca.crt /etc/ipa/ca.crt
+
+# Enroll client in FreeIPA domain
+sudo ipa-client-install \
+  --hostname=$(hostname -f) \
+  --realm=YOURDOMAIN.COM \
+  --domain=yourdomain.com \
+  --server=ipa.yourdomain.com \
+  --mkhomedir \
+  --principal=admin \
+  --ca-cert-file=/etc/ipa/ca.crt
+\end{lstlisting}
+
+\section{Verification}
+
+\begin{lstlisting}[language=bash,caption=Verify Client Enrollment]
+# Test authentication
+kinit admin@YOURDOMAIN.COM
+
+# Verify user information
+ipa user-find admin
+
+# Check service status
+sudo systemctl status sssd
+\end{lstlisting}
+
+\chapter{Usage Examples}
+
+\section{User Management}
+
+\subsection{User Creation}
+
+\begin{lstlisting}[language=bash,caption=Create New User]
+# Add user with complete information
+ipa user-add jsmith \
+  --first=John \
+  --last=Smith \
+  --email=jsmith@yourdomain.com \
+  --phone=+1234567890
+
+# Set user password
+ipa user-mod jsmith --password
+\end{lstlisting}
+
+\subsection{Group Management}
+
+\begin{lstlisting}[language=bash,caption=Group Operations]
+# Create group
+ipa group-add developers --desc="Development Team"
+
+# Add users to group
+ipa group-add-member developers --users=jsmith,adoe
+
+# Remove user from group
+ipa group-remove-member developers --users=jsmith
+\end{lstlisting}
+
+\section{Service Principals}
+
+\begin{lstlisting}[language=bash,caption=Service Principal Management]
+# Create service principal
+ipa service-add HTTP/webapp.yourdomain.com
+
+# Generate keytab
+ipa-getkeytab -s ipa.yourdomain.com \
+  -k /etc/httpd/conf/httpd.keytab \
+  -p HTTP/webapp.yourdomain.com
+\end{lstlisting}
+
+\section{Access Control}
+
+\begin{lstlisting}[language=bash,caption=Permission Configuration]
+# Create permission
+ipa permission-add "Manage Users" \
+  --right=add --right=delete \
+  --type=user
+
+# Create privilege
+ipa privilege-add "User Administrators" \
+  --desc="Can manage user accounts"
+
+# Add permission to privilege
+ipa privilege-add-permission "User Administrators" \
+  --permissions="Manage Users"
+
+# Create role and assign privilege
+ipa role-add "User Manager"
+ipa role-add-privilege "User Manager" \
+  --privileges="User Administrators"
+\end{lstlisting}
+
+\chapter{Performance and Metrics}
+
+\section{Resource Requirements}
+
+\subsection{Memory Usage}
+
+FreeIPA memory requirements vary based on user count and authentication load:
+
+\begin{table}[H]
+    \centering
+    \caption{Memory Requirements by User Count}
+    \label{tab:memory}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{User Count} & \textbf{Minimum RAM} \\
+        \midrule
+        0-100 & 2GB \\
+        100-500 & 4GB \\
+        500-2000 & 8GB \\
+        2000+ & 16GB+ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Storage Requirements}
+
+Storage requirements depend on user data, certificates, and log retention policies:
+
+\begin{itemize}
+    \item Base installation: 2GB
+    \item Per user: 10-50KB
+    \item Certificate storage: 100-500KB per certificate
+    \item Log retention: Variable based on retention period
+\end{itemize}
+
+\section{Performance Optimization}
+
+\subsection{Database Tuning}
+
+\begin{lstlisting}[language=bash,caption=Database Performance Tuning]
+# Configure database cache size
+dsconf localhost backend set \
+  --suffix="dc=yourdomain,dc=com" \
+  --cache-size=2000000000
+
+# Enable database indexing
+dsconf localhost backend index add \
+  --suffix="dc=yourdomain,dc=com" \
+  --attr=uid --attr=cn --attr=mail
+\end{lstlisting}
+
+\subsection{Connection Pooling}
+
+Configure appropriate connection limits for LDAP services:
+
+\begin{lstlisting}[language=bash,caption=LDAP Connection Configuration]
+# Set maximum connections
+dsconf localhost config replace \
+  nsslapd-maxdescriptors=4096
+
+# Configure idle timeout
+dsconf localhost config replace \
+  nsslapd-idletimeout=3600
+\end{lstlisting}
+
+\chapter{Best Practices}
+
+\section{Security Considerations}
+
+\subsection{Password Policies}
+
+\begin{lstlisting}[language=bash,caption=Configure Password Policies]
+# Set global password policy
+ipa pwpolicy-mod global_policy \
+  --minlife=1 \
+  --maxlife=90 \
+  --history=5 \
+  --minclasses=3 \
+  --minlength=8
+\end{lstlisting}
+
+\subsection{Certificate Management}
+
+\begin{itemize}
+    \item Regular certificate renewal before expiration
+    \item Secure storage of private keys
+    \item Implementation of certificate revocation procedures
+    \item Monitoring of certificate expiration dates
+\end{itemize}
+
+\section{Backup and Recovery}
+
+\subsection{Backup Procedures}
+
+\begin{lstlisting}[language=bash,caption=FreeIPA Backup]
+# Create backup directory
+mkdir -p /backup/freeipa
+
+# Export LDAP data
+ipa-backup --data --online \
+  --dir=/backup/freeipa/$(date +%Y%m%d)
+\end{lstlisting}
+
+\subsection{Recovery Procedures}
+
+\begin{lstlisting}[language=bash,caption=FreeIPA Recovery]
+# Stop FreeIPA services
+docker stop freeipa-server-container
+
+# Restore from backup
+ipa-restore --data \
+  /backup/freeipa/20231201/freeipa-backup-20231201.tar
+
+# Start services
+docker start freeipa-server-container
+\end{lstlisting}
+
+\section{Monitoring}
+
+\subsection{Health Checks}
+
+\begin{lstlisting}[language=bash,caption=Service Health Monitoring]
+# Check container status
+docker ps | grep freeipa
+
+# Monitor service logs
+docker logs freeipa-server-container
+
+# Test LDAP connectivity
+ldapsearch -x -H ldap://ipa.yourdomain.com \
+  -b "dc=yourdomain,dc=com" -s base
+
+# Test Kerberos authentication
+kinit admin@YOURDOMAIN.COM
+\end{lstlisting}
+
+\chapter{Troubleshooting}
+
+\section{Common Issues}
+
+\subsection{Container Startup Problems}
+
+\textbf{Issue:} Container fails to start with cgroup errors
+
+\textbf{Solution:} Configure Docker daemon for proper cgroup handling:
+
+\begin{lstlisting}[language=bash,caption=Docker Cgroup Configuration]
+# Create Docker daemon configuration
+sudo mkdir -p /etc/docker
+cat << EOF | sudo tee /etc/docker/daemon.json
+{
+  "userns-remap": "default"
+}
+EOF
+
+# Restart Docker service
+sudo systemctl restart docker
+\end{lstlisting}
+
+\subsection{Network Port Conflicts}
+
+\textbf{Issue:} Port 53 conflict with systemd-resolved
+
+\textbf{Solution:} Disable conflicting service:
+
+\begin{lstlisting}[language=bash,caption=Resolve Port Conflicts]
+# Stop systemd-resolved
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+
+# Configure static DNS
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+\end{lstlisting}
+
+\subsection{DNS Resolution Issues}
+
+\textbf{Issue:} Clients cannot resolve FreeIPA server hostname
+
+\textbf{Solution:} Configure proper hostname resolution:
+
+\begin{lstlisting}[language=bash,caption=Configure DNS Resolution]
+# Add server to hosts file
+echo "192.168.1.100 ipa.yourdomain.com" | \
+  sudo tee -a /etc/hosts
+
+# Verify DNS resolution
+nslookup ipa.yourdomain.com
+dig ipa.yourdomain.com
+\end{lstlisting}
+
+\section{Debugging Tools}
+
+\subsection{Log Analysis}
+
+\begin{lstlisting}[language=bash,caption=Log Analysis Commands]
+# View container logs
+docker logs freeipa-server-container
+
+# Monitor real-time logs
+docker logs -f freeipa-server-container
+
+# Check system logs
+sudo journalctl -u docker.service
+\end{lstlisting}
+
+\subsection{Network Diagnostics}
+
+\begin{lstlisting}[language=bash,caption=Network Diagnostic Commands]
+# Check port availability
+netstat -tlnp | grep -E ':(80|443|389|88|53)'
+
+# Test connectivity
+telnet ipa.yourdomain.com 443
+nc -zv ipa.yourdomain.com 389
+
+# Trace network path
+traceroute ipa.yourdomain.com
+\end{lstlisting}
+
+\chapter{Conclusions and Future Work}
+
+\section{Summary}
+
+This document has presented a comprehensive approach to FreeIPA deployment in Docker environments, addressing the complete lifecycle from planning through implementation and maintenance. The container-based deployment methodology offers significant advantages in terms of consistency, scalability, and operational efficiency for enterprise identity management.
+
+The integration of FreeIPA with Docker technology enables organizations to establish robust authentication infrastructures while maintaining flexibility for modern deployment scenarios. The automated deployment scripts and configuration templates provided facilitate rapid implementation across diverse environments, reducing deployment time and minimizing configuration errors.
+
+\section{Future Enhancements}
+
+\subsection{High Availability}
+
+Future implementations should explore high availability configurations using container orchestration platforms such as Kubernetes. This would provide automatic failover capabilities and load balancing for improved service reliability.
+
+\subsection{Multi-Master Replication}
+
+Implementation of multi-master replication scenarios would enable geographic distribution of identity services, improving performance for distributed organizations and providing disaster recovery capabilities.
+
+\subsection{Cloud Integration}
+
+Enhanced integration with cloud identity providers and hybrid cloud scenarios would enable seamless authentication across on-premises and cloud resources, supporting modern IT infrastructure strategies.
+
+\section{Recommendations}
+
+Organizations implementing FreeIPA should consider the following recommendations:
+
+\begin{itemize}
+    \item Establish comprehensive backup and recovery procedures
+    \item Implement regular security audits and compliance checks
+    \item Develop monitoring and alerting systems for service health
+    \item Provide regular training for system administrators
+    \item Maintain documentation for configuration and procedures
+    \item Plan for scalability and future growth requirements
+\end{itemize}
+
+\begin{thebibliography}{9}
+
+\bibitem{freeipa-doc}
+FreeIPA Project. (2024). \textit{FreeIPA Identity Management System}. Retrieved from https://www.freeipa.org/
+
+\bibitem{freeipa-container}
+FreeIPA Developers. (2024). \textit{freeipa/freeipa-container}. GitHub Repository. Retrieved from https://github.com/freeipa/freeipa-container
+
+\bibitem{docker-doc}
+Docker Inc. (2024). \textit{Docker Documentation}. Retrieved from https://docs.docker.com/
+
+\bibitem{ldap-rfc}
+RFC 4511. (2006). \textit{Lightweight Directory Access Protocol (LDAP): The Protocol}. IETF.
+
+\bibitem{kerberos-rfc}
+RFC 4120. (2005). \textit{The Kerberos Network Authentication Service (V5)}. IETF.
+
+\bibitem{redhat-ipa}
+Red Hat Inc. (2024). \textit{Red Hat Identity Management Documentation}. Retrieved from \url{https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/}
+
+\bibitem{opensuse-ipa}
+openSUSE Project. (2024). \textit{OpenLDAP and FreeIPA Administration Guide}. Retrieved from https://documentation.suse.com/
+
+\bibitem{ubuntu-ipa}
+Canonical Ltd. (2024). \textit{Ubuntu Server Guide - FreeIPA Integration}. Retrieved from https://ubuntu.com/server/docs
+
+\end{thebibliography}
+
+\begin{appendices}
+
+\chapter{Advanced Configuration}
+
+\section{Custom SSL Certificates}
+
+\begin{lstlisting}[language=bash,caption=Install Custom SSL Certificate]
+# Convert certificate to required format
+openssl pkcs12 -export \
+  -in certificate.crt \
+  -inkey private.key \
+  -certfile ca_bundle.crt \
+  -out freeipa.p12
+
+# Import into FreeIPA
+ipa-cacert-manage install ca_bundle.crt
+ipa-server-certinstall --http --dirsrv \
+  --pin "" freeipa.p12
+\end{lstlisting}
+
+\section{Custom DNS Configuration}
+
+\begin{lstlisting}[language=bash,caption=Configure Custom DNS Zones]
+# Add forward zone
+ipa dnszone-add example.com \
+  --name-server=ipa.yourdomain.com. \
+  --admin-email=admin.example.com
+
+# Add reverse zone
+ipa dnszone-add 1.168.192.in-addr.arpa \
+  --name-server=ipa.yourdomain.com.
+
+# Add DNS records
+ipa dnsrecord-add example.com www \
+  --a-rec=192.168.1.100
+\end{lstlisting}
+
+\section{HBAC Rules Configuration}
+
+\begin{lstlisting}[language=bash,caption=Host-Based Access Control]
+# Create HBAC service
+ipa hbacsvc-add ssh
+
+# Create HBAC rule
+ipa hbacrule-add "Allow SSH Access" \
+  --desc="Permit SSH access for developers"
+
+# Add users to rule
+ipa hbacrule-add-user "Allow SSH Access" \
+  --groups=developers
+
+# Add hosts to rule
+ipa hbacrule-add-host "Allow SSH Access" \
+  --hostgroups=web-servers
+
+# Add services to rule
+ipa hbacrule-add-service "Allow SSH Access" \
+  --hbacsvcs=ssh
+\end{lstlisting}
+
+\chapter{Migration Procedures}
+
+\section{Migration from OpenLDAP}
+
+\begin{lstlisting}[language=bash,caption=OpenLDAP to FreeIPA Migration]
+# Export LDAP data
+slapcat -l /backup/ldap-backup.ldif
+
+# Convert LDIF format
+python3 /usr/share/ipa/ipa migrate-ds \
+  --ds-bind-dn="cn=Directory Manager" \
+  --ds-bind-password="password" \
+  --ds-base-dn="dc=oldomain,dc=com" \
+  --schema="RFC2307bis" \
+  --container-users="ou=People" \
+  --container-groups="ou=Groups" \
+  ldap://old-server.example.com
+\end{lstlisting}
+
+\section{Migration from Active Directory}
+
+\begin{lstlisting}[language=bash,caption=Active Directory Trust Configuration]
+# Establish trust relationship
+ipa trust-add --type=ad ad.example.com \
+  --admin="Administrator" \
+  --password="AD_password"
+
+# Verify trust
+ipa trust-show ad.example.com
+
+# Test cross-realm authentication
+kinit user@AD.EXAMPLE.COM
+\end{lstlisting}
+
+\chapter{Performance Tuning}
+
+\section{Database Optimization}
+
+\begin{lstlisting}[language=bash,caption=Advanced Database Tuning]
+# Configure database cache
+dsconf localhost backend set \
+  --suffix="dc=yourdomain,dc=com" \
+  --dbcachesize=1000000000
+
+# Optimize transaction logs
+dsconf localhost config replace \
+  nsslapd-db-logbuf-size=1048576
+
+# Configure checkpoint intervals
+dsconf localhost config replace \
+  nsslapd-db-checkpoint-interval=60
+\end{lstlisting}
+
+\section{Connection Pool Optimization}
+
+\begin{lstlisting}[language=bash,caption=Connection Pool Configuration]
+# Set maximum file descriptors
+echo "* soft nofile 65536" >> /etc/security/limits.conf
+echo "* hard nofile 65536" >> /etc/security/limits.conf
+
+# Configure thread pool
+dsconf localhost config replace \
+  nsslapd-threadnumber=64
+
+# Set connection timeout
+dsconf localhost config replace \
+  nsslapd-connection-buffer=65536
+\end{lstlisting}
+
+\end{appendices}
+
+\begin{titlepage}
+    \centering
+    \vspace*{5cm}
+    {\color{blue!70!black}\Huge\textbf{Acknowledgments}}\\[1cm]
+    {\Large\textit{Special thanks to the FreeIPA development team}}\\[0.5cm]
+    {\large\textit{for creating and maintaining this exceptional}}\\[0.3cm]
+    {\large\textit{open-source identity management solution}}\\[2cm]
+    {\large\textit{Additional appreciation to the Docker community}}\\[0.3cm]
+    {\large\textit{for revolutionizing application deployment and}}\\[0.3cm]
+    {\large\textit{enabling modern infrastructure practices}}\\[2cm]
+    {\large\textit{This documentation is dedicated to all system administrators}}\\[0.3cm]
+    {\large\textit{working to secure and manage enterprise IT infrastructure}}\\[2cm]
+    \colorbox{orange!80!black}{
+        \color{white}\textbf{Building Secure Identity Infrastructure for the Future}
+    }
+\end{titlepage}
+
+\end{document}
