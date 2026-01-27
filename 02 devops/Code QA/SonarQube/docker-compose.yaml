@@ -36,14 +36,6 @@ services:
     #  - "9000:9000"
     networks:
       - ${NETWORK_TYPE:-ipv4}
-  sonarqube:
-    image: sonarqube:community
-    # ports:
-    #   - "9001:9000"
-    volumes:
-      - ./data/data:/opt/sonarqube/data
-      - ./data/logs:/opt/sonarqube/logs
-      - ./data/extensions:/opt/sonarqube/extensions  
   db:
     image: postgres:17
     healthcheck:
