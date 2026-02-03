@@ -1,0 +1,4 @@
+wredis
+redis
+loguru
+rich

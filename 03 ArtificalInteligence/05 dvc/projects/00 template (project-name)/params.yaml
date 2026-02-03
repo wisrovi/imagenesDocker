@@ -1,0 +1,27 @@
+# Hyperparameters for model training
+# These values can be overridden from the command line or tuned with experiment tracking tools.
+
+# Training settings
+epochs: 100
+batch_size: 16
+learning_rate: 0.001
+
+# Model architecture
+model_type: 'YOLOv8' # Example: could be 'YOLOv8n', 'YOLOv8s', etc.
+pretrained: True # Whether to use a model pre-trained on COCO
+
+# Data settings
+img_size: 640 # Target image size for training
+augmentation:
+  hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
+  hsv_s: 0.7    # image HSV-Saturation augmentation (fraction)
+  hsv_v: 0.4    # image HSV-Value augmentation (fraction)
+  degrees: 0.0  # image rotation (+/- deg)
+  translate: 0.1 # image translation (+/- fraction)
+  scale: 0.5    # image scale (+/- gain)
+  shear: 0.0    # image shear (+/- deg)
+  perspective: 0.0 # image perspective (+/- fraction), range 0-0.001
+  flipud: 0.0   # image flip up-down (probability)
+  fliplr: 0.5   # image flip left-right (probability)
+  mosaic: 1.0   # image mosaic (probability)
+  mixup: 0.0    # image mixup (probability)

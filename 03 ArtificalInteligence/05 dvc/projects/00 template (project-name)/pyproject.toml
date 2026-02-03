@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "ml-project-template"
+version = "0.1.0"
+description = "A professional template for MLOps projects."
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+torch = "^1.13.1"
+torchvision = "^0.14.1"
+pandas = "^1.5.2"
+scikit-learn = "^1.2.0"
+pyyaml = "^6.0"
+dvc = {extras = ["s3"], version = "^2.34.2"} # Example with S3 remote, add others like [gcs], [azure], [ssh] as needed
+ultralytics = "^8.0.0" # For YOLO models
+tqdm = "^4.64.1"
+ipykernel = "^6.20.2" # For Jupyter notebooks
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
+mypy = "^0.991"
+flake8 = "^6.0.0"
+black = {version = "^22.12.0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
