@@ -374,29 +374,32 @@ Steps to fix the Harbor (PostgreSQL) permissions and mount problem:
 
 2. **Ensure the local folder exists**:
 
-``bash
+```bash
 sudo mkdir -p /mnt/local/harbor_db
 
-``
+```
 
 3. **Clean the database folder (Caution: this deletes previous data!)**:
 
-``bash
+```bash
 sudo rm -rf /mnt/local/harbor_db/*
 
-``
+```
 
 4. **Set the correct PROPERTY** (UID 999 for the container's `postgres` user):
 
-``bash
+```bash
 sudo chown -R 999:999 /mnt/local/harbor_db
+```
 
 5. **Set the correct PERMISSIONS** (0700: only the owner has access):
 
+```
 sudo chmod -R 700 /mnt/local/harbor_db
+```
 
 6. **Start the Harbor containers**:
 
+```
 docker-compose up -d
-
-``
+```
