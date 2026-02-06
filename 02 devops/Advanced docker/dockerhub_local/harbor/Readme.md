@@ -349,3 +349,54 @@ This project is licensed under the Apache License 2.0. See the LICENSE file for 
 
 For the latest releases and changelogs, visit:
 https://github.com/goharbor/harbor/releases
+
+
+# Extras
+
+**Problem Explanation and Solution:**
+
+The main problem we faced was that the PostgreSQL container (harbor-db) refused to start due to "invalid permissions" or "incorrect ownership" on its data directory. This is due to two key reasons:
+
+1. **PostgreSQL is extremely strict with permissions:** To ensure data security and integrity, PostgreSQL requires that its data directory be exclusively owned by the user running the database (UID 999, GID 999 for 'postgres' within the Harbor container) and have very restrictive permissions (0700 or 0750). Any other configuration is considered a security risk, and PostgreSQL refuses to start.
+
+
+2. **Limitations of CIFS (SMB) Mounts with POSIX Permissions**: CIFS/SMB file systems (commonly used for sharing files with Windows servers or NAS devices) have a different permissions model than native Linux (POSIX) file systems. Although options like `uid`, `gid`, `file_mode`, and `dir_mode` can be used in the `mount.cifs` command to attempt to map ownership and permissions, the CIFS implementation often cannot fully satisfy the strict granularity and permission control that PostgreSQL requires. This resulted in the PostgreSQL container still detecting that the permissions were incorrect, despite our efforts.
+
+
+**Why is a local folder the solution?**
+
+By moving the PostgreSQL data directory to a folder on your Linux server's local file system (for example, `/mnt/local/harbor_db` on an `ext4` file system), we eliminate CIFS incompatibilities. A local Linux file system fully supports the POSIX permissions model. This allows us to accurately and effectively set ownership (`sudo chown -R 999:999 ...`) and permissions (`sudo chmod -R 700 ...`), satisfying PostgreSQL's strict requirements and enabling it to initialize and operate correctly. Other Harbor services can continue using the CIFS mount for less critical data if they don't experience similar issues.
+
+Steps to fix the Harbor (PostgreSQL) permissions and mount problem:
+
+1. **Ensure that the `docker-compose.yml` file is modified** so that the `postgresql` service uses a local bind mount. 
+(Previously executed command: `sudo perl -pi -e 's|- /mnt/harbor/data/harbor2/database:/var/lib/postgresql/data:z|- /mnt/local/harbor_db:/var/lib/postgresql/data|g' /home/sentry/harbor_install_online/harbor/docker-compose.yml`)
+
+2. **Ensure the local folder exists**:
+
+``bash
+sudo mkdir -p /mnt/local/harbor_db
+
+``
+
+3. **Clean the database folder (Caution: this deletes previous data!)**:
+
+``bash
+sudo rm -rf /mnt/local/harbor_db/*
+
+``
+
+4. **Set the correct PROPERTY** (UID 999 for the container's `postgres` user):
+
+``bash
+sudo chown -R 999:999 /mnt/local/harbor_db
+
+5. **Set the correct PERMISSIONS** (0700: only the owner has access):
+
+sudo chmod -R 700 /mnt/local/harbor_db
+
+6. **Start the Harbor containers**:
+
+docker-compose up -d
+
+``
