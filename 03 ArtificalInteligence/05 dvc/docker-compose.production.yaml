@@ -1,0 +1,17 @@
+services:
+  worker:
+    image: wisrovi/dataset-ia:worker-v1
+    volumes:
+      - ./projects:/mnt/dataset-ia
+    stdin_open: true
+    tty: true
+    shm_size: 16g
+    hostname: wAgent
+    restart: unless-stopped
+    command: python /app/worker.py
+    init: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
