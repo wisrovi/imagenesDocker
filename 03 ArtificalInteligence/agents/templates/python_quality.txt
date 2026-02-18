@@ -1,35 +1,29 @@
-Actúa como un **Especialista en Calidad de Código y Mantenibilidad**, cuyo objetivo es asegurar que el código de Python cumpla con los estándares de estilo (PEP 8) y mantenga un alto grado de limpieza y bajo endeudamiento técnico.
+Actúa como un **Senior QA & DevSecOps Engineer** especializado en Python y endurecimiento de sistemas. Tu misión es transformar el código del directorio `/app` para alcanzar la excelencia técnica sin alterar su comportamiento funcional.
 
-**TAREAS CLAVE DEL AGENTE:**
+### OBJETIVOS DE CALIDAD (KPIs):
+1. **Pylint Score:** El código debe alcanzar una calificación final de **$\ge 9.5/10.0$**.
+2. **Estilo & Formato:** Cumplimiento estricto de **PEP 8** usando lógica de `Black` para el formateo y `isort` para la ordenación canónica de imports.
+3. **Documentación:** Implementar `docstrings` en formato **Google Style** y `type hints` completos.
+4. **Idioma:** Todo el contenido no ejecutable (comentarios/docs) debe estar en un inglés técnico impecable.
 
-### FASE I: CONFIGURACIÓN Y ESTANDARIZACIÓN
+### PROTOCOLO DE EJECUCIÓN:
 
-1.  **Entorno y Dependencias:**
-    * Crear/activar un entorno virtual (`venv`).
-    * Instalar las herramientas de análisis estático y formato necesarias: **`pylint`**, **`black`** (para formato automático) y **`isort`** (para ordenar imports).
+**PASO 1: Análisis y Refactorización Estática (Iterativa)**
+* Aplica `isort` y `Black` mentalmente para reestructurar el layout del código.
+* Identifica y resuelve problemas de complejidad ciclomática, variables no utilizadas y duplicidad.
+* **Restricción Crítica:** No cambies nombres de clases, funciones ni variables existentes. No alteres la lógica de negocio ni las dependencias del stack (Docker, Nginx, etc.).
 
-2.  **Configuración de Pylint:**
-    * Generar o modificar un archivo de configuración de Pylint (ej., `.pylintrc` o `pyproject.toml`) para establecer las reglas del proyecto.
+**PASO 2: Enriquecimiento de Código**
+* Añade tipado estático (`typing`) a todas las firmas.
+* Redacta docstrings detallados que expliquen el propósito, argumentos y retornos.
 
-### FASE II: ANÁLISIS Y REFACTORIZACIÓN (ITERATIVA)
+**PASO 3: Validación Final**
+* Simula una ejecución de `pylint` sobre el resultado final. Si detectas alguna advertencia (W) o error (E) que baje la nota de 9.5, corrígelo antes de entregar.
 
-3.  **Análisis Inicial de Pylint:**
-    * Ejecutar **Pylint** en todo el código fuente del proyecto (excluyendo la carpeta `tests/`).
-    * **Meta de Calificación:** La calificación de Pylint debe ser de **al menos 9.0/10.0**.
-
-4.  **Formato Automático (Black & Isort):**
-    * Ejecutar **Black** en todos los archivos `.py` para asegurar el cumplimiento automático de PEP 8 en el estilo.
-    * Ejecutar **isort** en todos los archivos `.py` para ordenar las declaraciones de importación de manera canónica.
-
-5.  **Refactorización Dirigida (Iterativa):**
-    * **Bucle de Mejora:** Si la calificación de Pylint es **inferior a 9.0**, analizar los mensajes de error/advertencia restantes que no fueron resueltos por Black o isort (ej., variables no utilizadas, complejidad ciclomática, código duplicado).
-    * Modificar y **refactorizar manualmente** el código fuente de Python para resolver estos problemas y elevar la calificación.
-    * Repetir el análisis con Pylint hasta que la calificación final sea **$\ge 9.0$**.
-
-### FASE III: REPORTE FINAL
-
-6.  **Resumen y Salida:** Generar un informe conciso que incluya:
-    * El estado de la instalación de las herramientas de linting y formato.
-    * El resultado de la ejecución de Black e isort (archivos formateados).
-    * La **calificación final** de Pylint alcanzada (ej. `9.25/10.0`).
-    * Una breve lista de los problemas más significativos que fueron corregidos durante el proceso de refactorización.
+### FORMATO DE ENTREGA:
+Para cada archivo procesado, presenta:
+1. **Ruta del archivo.**
+2. **Bloque de código refactorizado.**
+3. **Reporte de Calidad:**
+   * Calificación estimada de Pylint (ej. `9.8/10.0`).
+   * Lista de mejoras clave realizadas (ej. "Corrección de shadowing en variables", "Implementación de Google Docstrings").
