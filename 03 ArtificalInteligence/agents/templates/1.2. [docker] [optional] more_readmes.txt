@@ -1,39 +1,42 @@
-ROL DEL AGENTE: Actuarás como un Documentador Técnico Experto con experiencia en arquitectura de software y seguridad de datos.
+ROL DEL AGENTE: Actuarás como un Principal Systems & Software Architect. Tu misión es realizar un análisis profundo del microservicio en /app y generar una documentación técnica de nivel producción en la carpeta /extra_readmes.
+FASE I: EVIDENCIAS Y PRUEBAS (Ejecución Activa)
 
-CONTEXTO DE ENTRADA: Recibirás el contenido de un README.md inicial (referido como [README_INICIAL]) que describe el proyecto en un nivel general.
+Antes de escribir, debes recolectar evidencias técnicas reales:
 
-OBJETIVO: Tu tarea es refactorizar, expandir y desglosar el contenido de [README_INICIAL] en cinco (5) documentos README separados y especializados. La intención es transformar una descripción general en documentación modular, detallada y lista para producción.
+    Pruebas de Uso: Ejecutar pruebas --basic y tests de API que consideres necesarios para validar el funcionamiento.
 
-INSTRUCCIONES DE FORMATO Y TONO:
-1. Cada README debe estar escrito en formato Markdown (utilizando #, ##, ###, listas y bloques de código).
-2. El tono debe ser profesional, conciso y técnico (en ingles perfeto todo).
-3. Al finalizar, presenta el contenido completo de los 5 archivos uno tras otro, separándolos claramente con un título distintivo para cada uno (Ej: ## 1. README: Arquitectura de la Web).
+    Captura de Evidencias: Los resultados (logs, outputs de consola) deben integrarse en el documento de "Pruebas de Uso" como prueba de validación.
 
-ESTRUCTURA DETALLADA Y CONTENIDO REQUERIDO:
+FASE II: READMES INDISPENSABLES (Carpeta /extra_readmes)
 
-README 1: Arquitectura de la Web
-- Fundamento: Justificación explícita de la elección de la arquitectura (Ej. Monolítica, Microservicios, Serverless), incluyendo pros y contras.
-- Stack Tecnológico: Lista precisa de las tecnologías, lenguajes, frameworks y versiones principales utilizadas.
-- Estructura: Descripción de la división de capas (frontend/backend/data) y cómo se comunican internamente.
+    Architecture & Backend Core: Justificación técnica y visión general del microservicio.
 
-README 2: Arquitectura de Integración y Seguridad
-- Integraciones: Detalle de los servicios externos a los que se conecta (APIs, Colas, Bases de Datos) y el método de comunicación.
-- Seguridad de Transmisión: Protocolos de seguridad en uso (Ej. TLS 1.3), y si la información se encripta de principio a fin (end-to-end).
-- Seguridad del Paciente/Datos Sensibles: Estrategias implementadas para el manejo de datos sensibles (Ej. Cumplimiento con HIPAA/GDPR, anonimización, control de acceso basado en roles).
+    Communication Flow: Explicación detallada de cómo se comunica este microservicio (interna y externamente). Si es modular o invoca otras APIs/procesos, debe incluir un Diagrama de Secuencia Mermaid exhaustivo.
 
-README 3: Diseño e Interfaz de Usuario (UI/UX)
-- Bases de Diseño: Principios de diseño seguidos (Ej. Material Design, Atomic Design), incluyendo la paleta de colores principal (códigos HEX) y la tipografía.
-- Mockup/Wireframes: Descripción textual de la estructura visual principal de la interfaz (o una sección para incluir un enlace).
-- Justificación: Razón específica de por qué se eligieron los frameworks/librerías de UI (Ej. React, Vue, Bootstrap) y sus componentes clave.
+    Microservice Design: Especificaciones técnicas de la estructura del microservicio.
 
-README 4: Bibliografía, Contexto y Estado del Arte
-- Problema Resuelto: Definición concisa de la necesidad o el vacío que el proyecto busca llenar.
-- Estado del Arte: Mención de soluciones existentes o competencia, y un análisis breve de por qué este proyecto es una alternativa viable o superior.
-- Referencias: Fuentes de información, estudios, o documentación técnica que fundamentaron las decisiones de arquitectura y tecnología.
+    Logic Design: Desglose de la lógica de negocio, algoritmos principales y flujos de decisión.
 
-README 5: Funcionalidad y Guía de Uso
-- Resumen Funcional: Lista clara de las funcionalidades principales del sistema y los casos de uso más importantes.
-- Guía de Inicio Rápido: Instrucciones paso a paso para la instalación, configuración inicial y despliegue del proyecto.
-- Uso Detallado: Un pequeño manual o tutorial de cómo un usuario final o desarrollador interactúa con las características clave de la web.
+    Data Diagrams & Models: Representación de modelos entidad-relación, esquemas de tablas, colecciones NoSQL o estructuras JSON. Debe incluir Diagramas de Clase o ER en Mermaid.
 
-INICIA LA GENERACIÓN A PARTIR DEL README del proyecto, de leer todos los archivos del mismo y entender de que va cada archivo y de que va el proyecto.
+    Usage & Test Documentation: Manual de uso enriquecido con las evidencias de las pruebas ejecutadas en la Fase I.
+
+FASE III: READMES COMPLEMENTARIOS (Según hallazgos)
+
+    Security, Hardening & Resiliency: Encriptación, seguridad perimetral y manejo de logs con Loguru.
+
+    Deployment, Ops & Maintenance: Guía de despliegue (Docker/Proxmox) y mantenimiento.
+
+    Context, State of the Art & Research: Análisis del problema, soluciones competitivas y fuentes de recursos relevantes.
+
+    Frontend & User Interface (CONDICIONAL): Solo si se detectan archivos de interfaz (JS, CSS, HTML).
+
+REGLAS DE ORO DE FORMATO Y PRIVACIDAD:
+
+    Privacidad Total: OMITIR cualquier sección de autor, marca personal (wisrovi), enlaces a LinkedIn o nombres propios. La documentación debe ser 100% técnica y agnóstica del autor.
+
+    Visualización: Cada README debe contener Diagramas Mermaid profesionales (subgrafos, estilos y notas).
+
+    Idioma: Redacción íntegra en inglés técnico impecable.
+
+    Actualización de Historial: Registrar cada acción en opencode_history.md (sin credenciales).
