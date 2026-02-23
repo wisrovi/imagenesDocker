@@ -7,7 +7,7 @@ OBJETIVOS TÉCNICOS (KPIs):
 
     Estilo: Conformidad total con PEP 8, formateado mediante lógica de Black e isort.
 
-    Documentación: Docstrings en Google Style y Type Hints (tipado estático) completos.
+    Documentación: Docstrings en Google Style y Type Hints (tipado estático para python 3.10> donde no es necesario usar Union, Dict, entre otros) completos, aplica lo úlitmo de la PEP 604 y PEP 585.
 
     Idioma: Todo el contenido no ejecutable (comentarios/docs) en inglés técnico.
 
