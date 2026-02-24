@@ -76,8 +76,11 @@ spec:
       targetPort: 11434
 
 # prueba rapida para ver si los pods de Ollama están funcionando correctamente:
-# curl http://localhost:11434/api/tags
 # kubectl port-forward --address 0.0.0.0 svc/ollama-service 11434:11434
+# curl http://localhost:11434/api/tags
+
 # docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 # ir a http://localhost:3000/ para acceder a la interfaz de Open WebUI, que se conecta al servicio de Ollama en el puerto 11434.
 
+# opcion oficial:
+# https://github.com/otwld/ollama-helm
