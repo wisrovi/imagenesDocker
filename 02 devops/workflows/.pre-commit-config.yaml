@@ -32,8 +32,9 @@ repos:
     rev: v1.8.0
     hooks:
       - id: mypy
+        args: [--ignore-missing-imports] # <--- CLAVE: No falla si falta FastAPI/Pydantic
         # Instala dependencias necesarias para que mypy entienda librerías externas
-        additional_dependencies: [pydantic, fastapi, types-requests]
+        additional_dependencies: [pydantic, fastapi, types-requests, types-requests, types-setuptools]  
 
   # --- MODERNIZACIÓN DE CÓDIGO (REFURB) ---
   # Sugiere mejoras para escribir un Python más moderno y eficiente (estilo "Clean Code")
@@ -50,3 +51,37 @@ repos:
     hooks:
       - id: mdformat
         args: ["--wrap", "120"]      # Ajusta el texto automáticamente para que no exceda los 120 caracteres de ancho
+
+  # --- SEGURIDAD ---
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ["-lll", "-v"] # Solo reporta errores de severidad media/alta
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+
+  # --- INFRAESTRUCTURA (DOCKER): Linter de Dockerfile ---
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint
+
+  # --- SCRIPTS BASH ---
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.9.0
+    hooks:
+      - id: shellcheck
+
+  # --- DOCUMENTACIÓN: Ortografía en el código ---
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        args: ["-L", "wisrovi"] # Ignora tu alias para que no lo marque como error
+
+  
