@@ -1,0 +1,23 @@
+name: Semantic Release
+
+on:
+  push:
+    branches: [003-PRODUCTION]
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      contents: write # Necesario para crear tags y subir el changelog
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # CRÍTICO: Necesita todo el historial para calcular la versión
+
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@v9.12.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
