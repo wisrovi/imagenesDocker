@@ -1,0 +1,23 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace      # Elimina espacios al final de línea
+      - id: end-of-file-fixer        # Asegura línea vacía al final del archivo
+      - id: check-yaml               # Valida sintaxis de archivos YAML
+      - id: check-added-large-files  # Evita subir archivos >500KB (modelos .pt por error)
+        args: ['--maxkb=500']
+
+  - repo: https://github.com
+    rev: v0.1.9
+    hooks:
+      - id: ruff                     # Linter ultra rápido
+        args: [ --fix, --exit-non-zero-on-fix ]
+      - id: ruff-format              # Formateador de código (estilo Black)
+
+  - repo: https://github.com
+    rev: v1.8.0
+    hooks:
+      - id: mypy                     # Verificación estática de tipos
+        additional_dependencies: [pydantic, fastapi, types-requests]
