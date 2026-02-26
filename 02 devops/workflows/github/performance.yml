@@ -1,0 +1,17 @@
+name: Performance Check
+
+on:
+  pull_request:
+    branches:
+      - 002-TEST
+  workflow_dispatch:
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Locust Headless
+        run: |
+          pip install locust
+          locust -f locustfile.py --headless -u 10 -r 1 -t 30s --expect-workers 1 --stop-timeout 10
