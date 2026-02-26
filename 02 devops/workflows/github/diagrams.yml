@@ -1,0 +1,34 @@
+# .github/workflows/diagrams.yml
+name: Generate Architecture Diagrams
+on:
+  push:
+    branches:
+      - 001-DEVELOPMENT
+      - 002-TEST
+      - 003-PRODUCTION
+  pull_request:
+    branches:
+      - 001-DEVELOPMENT
+      - 002-TEST
+      - 003-PRODUCTION
+  workflow_dispatch:
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Graphviz & Pylint
+        run: |
+          sudo apt-get install -y graphviz
+          pip install pylint
+      - name: Run Pyreverse
+        run: |
+          # Genera diagramas de tus paquetes de python
+          # Ajusta '.' al nombre de tu carpeta principal si es necesario
+          pyreverse . -o png -p my_project_diagram
+      - name: Upload Diagrams
+        uses: actions/upload-artifact@v4
+        with:
+          name: uml-diagrams
+          path: "*.png"
