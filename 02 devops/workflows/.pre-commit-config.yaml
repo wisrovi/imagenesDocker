@@ -89,3 +89,31 @@ repos:
     rev: 0.6.1
     hooks:
       - id: nbstripout               # Limpia outputs de Jupyter Notebooks antes del commit
+
+  # --- SEGURIDAD AVANZADA EN DEPENDENCIAS ---
+  - repo: https://github.com/pyupio/safety
+    rev: v2.3.5
+    hooks:
+      - id: safety
+
+  # --- CONFIGURACIÓN DE NGINX (SEGURIDAD) ---
+  - repo: https://github.com/yandex/gixy
+    rev: v0.1.20
+    hooks:
+      - id: gixy
+        args: ["--level", "high"] # Solo errores críticos de seguridad
+
+  # --- VALIDACIÓN DE INFRAESTRUCTURA (DOCKER COMPOSE) ---
+  - repo: https://github.com/jonas-schievink/pre-commit-docker-compose
+    rev: v1.0.0
+    hooks:
+      - id: docker-compose-check
+
+  # --- VALIDACIÓN DE ARCHIVOS ENV (SEGURIDAD) ---
+  # Asegura que los archivos .env.example tengan las mismas llaves que tus .env
+  - repo: https://github.com/clintmod/pre-commit-hooks
+    rev: v1.1.10
+    hooks:
+      - id: dotenv-checker
+
+  
