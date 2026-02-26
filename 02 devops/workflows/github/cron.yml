@@ -1,0 +1,8 @@
+on:
+  schedule:
+    - cron: '0 0 * * *' # Corre todos los días a medianoche
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python mi_script_diario.py
