@@ -1,0 +1,30 @@
+name: Gradio Smoke Test
+
+on:
+  push:
+    branches:
+      - 001-DEVELOPMENT
+      - 002-TEST
+      - 003-PRODUCTION
+  pull_request:
+    branches:
+      - 001-DEVELOPMENT
+      - 002-TEST
+      - 003-PRODUCTION
+  workflow_dispatch:
+
+jobs:
+  test-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Verify Gradio Launch
+        run: |
+          # Este comando intenta importar la app. Si falla la sintaxis, el CI muere.
+          python -c "from app import demo; print('Gradio UI loaded successfully')"
