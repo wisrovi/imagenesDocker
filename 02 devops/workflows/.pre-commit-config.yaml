@@ -158,3 +158,27 @@ repos:
     hooks:
       - id: xenon
         args: ["--max-absolute B", "--max-modules A", "--max-average A"]
+
+
+  # --- DOCUMENTACIÓN TÉCNICA ---
+  - repo: https://github.com/econchick/interrogate
+    rev: 1.7.0
+    hooks:
+      - id: interrogate
+        args: ["-vv", "--fail-under=80"] # Falla si menos del 80% del código está documentado
+
+  # --- VALIDACIÓN DE ESQUEMAS DE INFRAESTRUCTURA ---
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.27.3
+    hooks:
+      - id: check-github-workflows  # Valida tus archivos de GitHub Actions
+      - id: check-dependabot        # Valida la config de actualización de dependencias
+
+  # --- SEGURIDAD DE SISTEMA DE ARCHIVOS ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: destroyed-symlinks # Detecta symlinks rotos que podrían causar DoS o errores
+
