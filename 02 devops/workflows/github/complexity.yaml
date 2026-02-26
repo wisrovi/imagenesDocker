@@ -1,0 +1,21 @@
+# .github/workflows/complexity.yml
+name: Code Complexity (Radon)
+on: [pull_request]
+
+jobs:
+  radon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Radon
+        run: pip install radon
+      - name: Check Complexity (Grade B or better)
+        # Falla si hay funciones con grado C o inferior (complejidad > 10)
+        run: radon cc . -nc B -a
+      - name: Check Maintainability
+        # Falla si el índice de mantenibilidad es bajo
+        run: radon mi . -nc B
