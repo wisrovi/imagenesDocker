@@ -1,23 +1,52 @@
-# .pre-commit-config.yaml
+# Define la versión global de Python para ejecutar los hooks
+default_language_version:
+  python: python3
+
 repos:
-  - repo: https://github.com
+  # --- HOOKS BÁSICOS Y DE LIMPIEZA ---
+  # Repositorio oficial de pre-commit con utilidades esenciales
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      - id: trailing-whitespace      # Elimina espacios al final de línea
-      - id: end-of-file-fixer        # Asegura línea vacía al final del archivo
-      - id: check-yaml               # Valida sintaxis de archivos YAML
-      - id: check-added-large-files  # Evita subir archivos >500KB (modelos .pt por error)
-        args: ['--maxkb=500']
+      - id: trailing-whitespace      # Elimina espacios innecesarios al final de cada línea
+      - id: end-of-file-fixer        # Asegura que el archivo termine con una única línea vacía
+      - id: check-yaml               # Verifica que la sintaxis de archivos .yaml/.yml sea válida
+      - id: check-json               # Verifica que la sintaxis de archivos .json sea válida
+      - id: check-toml               # Verifica que la sintaxis de archivos .toml sea válida
+      - id: check-ast                # Comprueba si el código Python es sintácticamente válido (Abstract Syntax Tree)
+      - id: check-added-large-files  # Bloquea archivos que pesen más de lo permitido (útil para no subir modelos o datasets)
+        args: ['--maxkb=500']        # Límite configurado a 500KB
 
-  - repo: https://github.com
+  # --- LINTING Y FORMATEO RÁPIDO (RUFF) ---
+  # Sustituye a Flake8, Isort y Black en una sola herramienta escrita en Rust
+  - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.9
     hooks:
-      - id: ruff                     # Linter ultra rápido
-        args: [ --fix, --exit-non-zero-on-fix ]
-      - id: ruff-format              # Formateador de código (estilo Black)
+      - id: ruff                     # Ejecuta el linter (busca errores de lógica y estilo)
+        args: [--fix, --exit-non-zero-on-fix] # --fix intenta arreglar errores automáticamente
+      - id: ruff-format              # Formatea el código para que siempre se vea igual (estilo Black)
 
-  - repo: https://github.com
+  # --- VERIFICACIÓN DE TIPOS (MYPY) ---
+  # Análisis estático para asegurar que el uso de tipos en Python sea correcto
+  - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
-      - id: mypy                     # Verificación estática de tipos
+      - id: mypy
+        # Instala dependencias necesarias para que mypy entienda librerías externas
         additional_dependencies: [pydantic, fastapi, types-requests]
+
+  # --- MODERNIZACIÓN DE CÓDIGO (REFURB) ---
+  # Sugiere mejoras para escribir un Python más moderno y eficiente (estilo "Clean Code")
+  - repo: https://github.com/dosisod/refurb
+    rev: v1.25.0
+    hooks:
+      - id: refurb
+        exclude: ^template/          # Ignora la carpeta 'template' para evitar falsos positivos
+
+  # --- FORMATEO DE DOCUMENTACIÓN (MDFORMAT) ---
+  # Mantiene tus archivos Markdown (README, guías) con un formato profesional
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        args: ["--wrap", "120"]      # Ajusta el texto automáticamente para que no exceda los 120 caracteres de ancho
