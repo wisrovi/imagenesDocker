@@ -1,0 +1,13 @@
+name: YOLO Inference Check
+on: [pull_request]
+jobs:
+  check-inference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Ultralytics & Deps
+        run: pip install ultralytics opencv-python-headless
+      - name: Dry Run Inference
+        run: |
+          # Prueba que el pipeline de python puro no rompa
+          python detect.py --source data/sample.jpg --weights yolov8n.pt --device cpu
