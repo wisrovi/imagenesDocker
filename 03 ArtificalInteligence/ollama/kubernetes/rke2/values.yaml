@@ -1,0 +1,39 @@
+# values.yaml final (sin trucos raros, directo al grano)
+replicaCount: 2
+
+ollama:
+  gpu:
+    enabled: true
+    type: 'nvidia'
+    number: 1
+  models:
+    pull:
+      - "llama3.1:8b"
+      - "deepseek-ocr:latest"
+      - "llama3.1:70b"
+      - "cliu/HuatuoGPT-o1-7B:latest"
+      - "llama2:13b"
+      - "tinyllama:latest"
+
+# En lugar de extraVolumes, configuramos la persistencia base del chart
+# pero le decimos que no use PVC, sino que nosotros le daremos el volumen
+persistentVolume:
+  enabled: true
+  size: 100Gi
+  storageClass: "-" # Esto evita que busque un provisionador dinámico
+
+# Usamos este bloque para inyectar el hostPath al volumen que el chart YA CREA
+volumes:
+  - name: ollama-data
+    hostPath:
+      path: /mnt/ollama_data
+      type: DirectoryOrCreate
+
+nodeSelector:
+  node-role.kubernetes.io/ai-worker: "true"
+
+resources:
+  limits:
+    nvidia.com/gpu: 1
+  requests:
+    nvidia.com/gpu: 1
