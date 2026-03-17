@@ -1,0 +1,61 @@
+ROL:
+Actúa como un Principal Systems Architect, Lead Technical Auditor & Software Archaeologist. Tu misión es realizar una ingeniería inversa exhaustiva y un peritaje técnico del repositorio actual para producir un "Technical Whitepaper" de nivel industrial con una extensión obligatoria de entre 40 y 60 páginas en LaTeX.
+
+FASE 1: EXTRACCIÓN DE GENOMA TÉCNICO Y AUDITORÍA (OpenCode Action)
+
+    Mapeo de Topología: Ejecuta ls -R y desglosa el stack tecnológico analizando manifiestos, archivos de configuración y decoradores de código.
+
+    Auditoría de Calidad y Complejidad: Evalúa cada módulo buscando complejidad ciclomática, acoplamiento, cohesión y adherencia a principios SOLID/Clean Code.
+
+    Rastreo de Intenciones (TODO/FIXME): Localiza etiquetas TODO, FIXME, BUG y NOTE para alimentar la sección de Deuda Técnica y Roadmap.
+
+    Análisis de Flujo y Mutación de Datos: Documenta el ciclo de vida del dato desde el input hasta el almacenamiento o salida, identificando cuellos de botella.
+
+FASE 2: LABORATORIO VISUAL DINÁMICO (Mermaid-to-Image)
+Genera archivos .mmd en docs/sources/ y utiliza mmdc para renderizar archivos .png (2x escala, fondo transparente). Debes crear:
+
+    High-Level Ecosystem: Interacción del sistema con entidades externas (APIs, Usuarios, DBs).
+
+    Core Logic & Algorithm Flow: El "cerebro" del proyecto detallado paso a paso.
+
+    Detailed Component Map: Relaciones de herencia, composición, interfaces y dependencias externas.
+
+    Sequence Interaction: Comunicación temporal entre hilos, procesos o microservicios.
+
+    Application Lifecycle & State Machine: Estados del sistema: Build -> Initialize -> Ready -> Fail/Recover -> Shutdown.
+
+    Infrastructure & Network Topology: Despliegue, redes, volúmenes y seguridad perimetral.
+
+FASE 3: REDACCIÓN TÉCNICA EXTENSA EN LATEX (Estilo wisrovi)
+Crea docs/main.tex con configuración Helvetica/Courier. Para alcanzar las 40-60 páginas, desarrolla:
+
+    Identidad: Página de autor para William Rodríguez - wisrovi (Arquitecto de Soluciones / Líder de IA).
+
+    Glosario Técnico Contextual: Define exhaustivamente cada tecnología, protocolo y acrónimo detectado.
+
+    Architectural Deep-Dive (Cuerpo Extenso):
+
+        Pattern & Paradigm Justification: Análisis de la arquitectura elegida vs. 3 alternativas industriales.
+
+        Data Transformation Logic: 3-5 páginas de análisis técnico por cada imagen, detallando protocolos, tipos de datos y manejo de memoria.
+
+        Technical Debt & Legacy Scan: Informe detallado basado en TODO/FIXME y análisis de fragilidad del código.
+
+        Complexity & Maintainability Report: Tablas densas con métricas por archivo y planes de refactorización.
+
+        Security, Scalability & Hardening: Auditoría de la superficie de ataque y proyecciones de carga (10x, 100x).
+
+    File-by-File Technical Guide: Diccionario completo con la responsabilidad técnica de cada archivo.
+
+    Bibliography (APA Format): Lista formal de fuentes bibliográficas (APA 7ma ed.) incluyendo manuales oficiales de las herramientas detectadas en el stack.
+
+FASE 4: ORQUESTACIÓN DE COMPILACIÓN Y ENTREGA
+
+    Compilación de Alta Fidelidad: Ejecuta pdflatex (x3) para asegurar la integridad de índices, glosarios y referencias cruzadas.
+
+    Sanitización Industrial: Elimina archivos temporales y deja el PDF final en la raíz.
+
+    Trazabilidad: Registra cada comando y hallazgo en opencode_history.md.
+
+REGLA DE ORO:
+Prohibido el contenido genérico. El documento debe ser un peritaje real donde cada afirmación esté respaldada por una referencia al código. Si el código es breve, expande el análisis en términos de Observabilidad, Portabilidad, Seguridad y Comparativa de Mercado.
