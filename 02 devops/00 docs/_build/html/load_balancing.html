@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Load Balancing &#8212; DevOps Docker Configurations 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Code Quality Assurance" href="code_quality.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="load-balancing">
+<h1>Load Balancing<a class="headerlink" href="#load-balancing" title="Link to this heading">¶</a></h1>
+<p>This section covers the Nginx-based load balancing configurations provided in the <code class="docutils literal notranslate"><span class="pre">balanceo_carga_nginx/</span></code> directory.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The load balancing setup uses Nginx as a reverse proxy to distribute incoming traffic across multiple backend servers. It includes SSL/TLS termination, basic authentication, and support for multiple upstream servers.</p>
+</section>
+<section id="directory-structure">
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>balanceo_carga_nginx/
+├── certs/                     # SSL certificates
+│   ├── default.crt
+│   ├── default.key
+│   ├── wisrovi.duckdns.org/
+│   └── dhparam.pem
+├── config/                    # Nginx configuration files
+│   ├── default.conf
+│   ├── nginx-custom.conf
+│   └── default copy.conf
+├── html/                      # Sample HTML pages
+│   ├── index.1.html
+│   ├── index.2.html
+│   └── index.3.html
+├── auth/                      # Authentication files
+│   ├── generar.sh
+│   └── htpasswd
+├── vhost.d/                   # Virtual host configurations
+├── demo.yaml
+└── docker-compose.yaml
+</pre></div>
+</div>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">¶</a></h2>
+<section id="nginx-configuration">
+<h3>Nginx Configuration<a class="headerlink" href="#nginx-configuration" title="Link to this heading">¶</a></h3>
+<p>The main Nginx configuration is in <code class="docutils literal notranslate"><span class="pre">config/default.conf</span></code>. It defines:</p>
+<ul class="simple">
+<li><p>Upstream servers for load balancing</p></li>
+<li><p>SSL settings</p></li>
+<li><p>Proxy settings</p></li>
+<li><p>Authentication</p></li>
+</ul>
+</section>
+<section id="ssl-certificates">
+<h3>SSL Certificates<a class="headerlink" href="#ssl-certificates" title="Link to this heading">¶</a></h3>
+<p>SSL certificates are stored in the <code class="docutils literal notranslate"><span class="pre">certs/</span></code> directory. The setup supports:</p>
+<ul class="simple">
+<li><p>Default self-signed certificates</p></li>
+<li><p>Let’s Encrypt certificates for <code class="docutils literal notranslate"><span class="pre">wisrovi.duckdns.org</span></code></p></li>
+<li><p>Diffie-Hellman parameters for enhanced security</p></li>
+</ul>
+</section>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">¶</a></h3>
+<p>Basic HTTP authentication is configured using files in the <code class="docutils literal notranslate"><span class="pre">auth/</span></code> directory:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">htpasswd</span></code>: Contains user credentials</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generar.sh</span></code>: Script to generate password hashes</p></li>
+</ul>
+</section>
+</section>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h2>
+<p>To deploy the load balancer:</p>
+<ol class="arabic">
+<li><p>Navigate to the directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>balanceo_carga_nginx/
+</pre></div>
+</div>
+</li>
+<li><p>Start the service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</pre></div>
+</div>
+</li>
+<li><p>Access the load balancer at <code class="docutils literal notranslate"><span class="pre">http://localhost</span></code> or <code class="docutils literal notranslate"><span class="pre">https://localhost</span></code> (depending on SSL configuration)</p></li>
+</ol>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">¶</a></h2>
+<section id="upstream-servers">
+<h3>Upstream Servers<a class="headerlink" href="#upstream-servers" title="Link to this heading">¶</a></h3>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">config/default.conf</span></code> file to modify upstream server definitions:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">upstream</span><span class="w"> </span><span class="s">backend</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">backend1.example.com</span><span class="p">:</span><span class="mi">80</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="n">backend2.example.com</span><span class="p">:</span><span class="mi">80</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="ssl-configuration">
+<h3>SSL Configuration<a class="headerlink" href="#ssl-configuration" title="Link to this heading">¶</a></h3>
+<p>To use custom SSL certificates:</p>
+<ol class="arabic simple">
+<li><p>Place your certificate files in the <code class="docutils literal notranslate"><span class="pre">certs/</span></code> directory</p></li>
+<li><p>Update the SSL paths in <code class="docutils literal notranslate"><span class="pre">config/default.conf</span></code></p></li>
+</ol>
+</section>
+<section id="id1">
+<h3>Authentication<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>To add or modify users:</p>
+<ol class="arabic simple">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">auth/generar.sh</span></code> script</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">htpasswd</span></code> file with new credentials</p></li>
+</ol>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h2>
+<p>Common issues and solutions:</p>
+<ul class="simple">
+<li><p><strong>SSL Errors</strong>: Check certificate validity and paths</p></li>
+<li><p><strong>Authentication Failures</strong>: Verify credentials in <code class="docutils literal notranslate"><span class="pre">htpasswd</span></code></p></li>
+<li><p><strong>Backend Connection Issues</strong>: Ensure upstream servers are accessible</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DevOps Docker Configurations</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Load Balancing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code_quality.html">Code Quality Assurance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="message_queues.html">Message Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_sharing.html">File Sharing Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring and Dashboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificates.html">SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_docker.html">Docker-in-Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="introduction.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="code_quality.html" title="next chapter">Code Quality Assurance</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Wisrovi Rodriguez.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/load_balancing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

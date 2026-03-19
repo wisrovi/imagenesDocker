@@ -1,0 +1,13 @@
+# Kubernetes
+kubeconfig
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

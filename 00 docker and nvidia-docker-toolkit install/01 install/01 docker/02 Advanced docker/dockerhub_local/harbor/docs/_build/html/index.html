@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harbor Container Registry Setup Documentation &mdash; Harbor Container Registry Setup 2.14.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=7bb62513"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Harbor Container Registry Setup
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-examples.html">API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">Backup and Restore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Harbor Container Registry Setup</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Harbor Container Registry Setup Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="harbor-container-registry-setup-documentation">
+<h1>Harbor Container Registry Setup Documentation<a class="headerlink" href="#harbor-container-registry-setup-documentation" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites-check">Prerequisites Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#download-and-install">Download and Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#access-harbor">Access Harbor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#push-your-first-image">Push Your First Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-download-harbor">Step 1: Download Harbor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-configure-harbor">Step 2: Configure Harbor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-3-run-installation">Step 3: Run Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-4-access-harbor">Step 4: Access Harbor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#harbor-yml">harbor.yml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#docker-compose">Docker Compose</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-operations">Basic Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#using-the-scripts">Using the Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/push-pull-images.html">Push and Pull Images Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/setup-replication.html">Setup Image Replication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/configure-scanning.html">Configure Vulnerability Scanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/manage-users.html">Manage Users and Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/automate-with-scripts.html">Automate with Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#push-and-pull-images">Push and Pull Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#setup-image-replication">Setup Image Replication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#configure-vulnerability-scanning">Configure Vulnerability Scanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#manage-users-and-projects">Manage Users and Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#automate-with-scripts">Automate with Scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#list-projects">List Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#list-repositories">List Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#list-artifacts">List Artifacts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-examples.html">API Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#list-projects">List Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#list-repositories">List Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#push-image-programmatically">Push Image Programmatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-examples.html#complete-example">Complete Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#common-issues">Common Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#logs-and-debugging">Logs and Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">Backup and Restore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backup-restore.html#backup">Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup-restore.html#restore">Restore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#official-documentation">Official Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#academic-papers">Academic Papers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#standards-and-specifications">Standards and Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#community-resources">Community Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bibliography.html#tools-and-libraries">Tools and Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#official-links">Official Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#community">Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#training-and-tutorials">Training and Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#related-projects">Related Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#security-resources">Security Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#api-references">API References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h2>
+<p><strong>Wisrovi Rodriguez</strong></p>
+<p>LinkedIn: <a class="reference external" href="https://es.linkedin.com/in/wisrovi-rodriguez">https://es.linkedin.com/in/wisrovi-rodriguez</a></p>
+</section>
+</section>
+<section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p>This project provides a complete setup for deploying and managing a Harbor container registry instance. Harbor is an open-source container image registry that secures images with role-based access control, scans images for vulnerabilities, and signs images as trusted. This setup includes Docker Compose configurations, installation scripts, and utility scripts for image management.</p>
+<p>Harbor extends the Docker Distribution by adding functionalities usually required by enterprises such as security, identity, and management. It supports features like vulnerability scanning with Trivy, image replication, and user management.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Container Registry</strong>: Store and distribute container images</p></li>
+<li><p><strong>Security Scanning</strong>: Integrated Trivy vulnerability scanner</p></li>
+<li><p><strong>Role-Based Access Control (RBAC)</strong>: Manage user permissions</p></li>
+<li><p><strong>Image Replication</strong>: Sync images between registries</p></li>
+<li><p><strong>Web UI</strong>: User-friendly interface for management</p></li>
+<li><p><strong>API Support</strong>: RESTful API for automation</p></li>
+<li><p><strong>Multi-architecture Support</strong>: Handle different CPU architectures</p></li>
+<li><p><strong>Audit Logging</strong>: Track user actions and system events</p></li>
+</ul>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The Harbor setup consists of several components running as Docker containers:</p>
+<ul class="simple">
+<li><p><strong>Proxy (Nginx)</strong>: Handles incoming requests and load balancing</p></li>
+<li><p><strong>Core</strong>: Main API server for Harbor</p></li>
+<li><p><strong>Registry</strong>: Docker Distribution registry backend</p></li>
+<li><p><strong>Registry Controller</strong>: Manages registry operations</p></li>
+<li><p><strong>Database (PostgreSQL)</strong>: Stores metadata</p></li>
+<li><p><strong>Redis</strong>: Caching and session storage</p></li>
+<li><p><strong>Job Service</strong>: Handles background tasks</p></li>
+<li><p><strong>Log</strong>: Centralized logging</p></li>
+<li><p><strong>Portal</strong>: Web UI</p></li>
+<li><p><strong>Exporter</strong>: Metrics collection</p></li>
+<li><p><strong>Trivy Adapter</strong>: Vulnerability scanning (optional)</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before installing Harbor, ensure your system meets the following requirements:</p>
+<ul class="simple">
+<li><p><strong>Operating System</strong>: Linux, macOS, or Windows</p></li>
+<li><p><strong>Docker</strong>: Version 20.10.10 or higher</p></li>
+<li><p><strong>Docker Compose</strong>: Version 1.18.0 or higher (or Docker Compose V2)</p></li>
+<li><p><strong>Hardware Requirements</strong>:</p>
+<ul>
+<li><p>CPU: 2 cores minimum, 4 cores recommended</p></li>
+<li><p>Memory: 4GB minimum, 8GB recommended</p></li>
+<li><p>Storage: 40GB minimum for data persistence</p></li>
+</ul>
+</li>
+<li><p><strong>Network</strong>: Accessible hostname (not localhost/127.0.0.1)</p></li>
+</ul>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Wisrovi Rodriguez.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

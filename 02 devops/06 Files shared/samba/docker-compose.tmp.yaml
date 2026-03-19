@@ -1,0 +1,18 @@
+services:
+  data_samba:
+    image: dperson/samba
+    restart: always
+    ports:
+      - "6445:445/tcp" # SMB over TCP
+    volumes:
+      - ./shared:/data
+    environment:
+      - TZ=Europe/Madrid # Time zone
+      - USERID=1000 # User ID (customize based on your system)
+      - GROUPID=1000 # Group ID (customize based on your system)
+      - SAMBA_USERS=user1;password1
+    command: >
+      -u "admin_deployd;qoyaJYuFVsGvLOlz45Ad"
+      -s "shared;/data;yes;no;yes;all"
+      
+      # DOMAIN: WORKGROUP

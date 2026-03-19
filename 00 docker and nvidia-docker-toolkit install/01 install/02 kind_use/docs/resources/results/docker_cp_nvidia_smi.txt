@@ -1,0 +1,1 @@
+Copied nvidia-smi to workers

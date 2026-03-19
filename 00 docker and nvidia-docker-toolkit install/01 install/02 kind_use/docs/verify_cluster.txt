@@ -1,0 +1,8 @@
+# Verify nodes
+kubectl get nodes
+
+# Verify labels
+kubectl get nodes --show-labels
+
+# Export kubeconfig if needed
+kind export kubeconfig

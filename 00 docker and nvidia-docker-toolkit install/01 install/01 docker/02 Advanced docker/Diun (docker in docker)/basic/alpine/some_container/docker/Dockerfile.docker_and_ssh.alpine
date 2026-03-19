@@ -1,0 +1,135 @@
+# Basic Docker-in-Docker with SSH and Portainer
+FROM docker:dind
+
+ENV TERM xterm
+
+# Install additional packages
+RUN apk update && apk add \
+    openssh \
+    tmux \
+    curl \
+    htop \
+    iputils \
+    iproute2 \
+    figlet \
+    python3 \
+    containerd \
+    shadow \
+    git \
+    tar \
+    && rm -rf /var/cache/apk/*
+
+# Install ttyd
+RUN wget -q https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -O /usr/local/bin/ttyd && \
+    chmod +x /usr/local/bin/ttyd
+
+# Create templates file
+RUN echo '[]' > /templates.json
+
+# Create SSH directory
+RUN mkdir -p /run/sshd /root/.ssh && \
+    ssh-keygen -A && \
+    echo "root:password" | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#Port 22/Port 50422/' /etc/ssh/sshd_config && \
+    echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDamqcR/bjLPymHLDx9VkbhBkRZkXm99uIF9tma7NuGI3ghUGJqT9ddS+2p7Xo9RZrNP+gUsAX+wuIApCiW0vEYlFakVvsqVcVzkDaWs6Tcq86KMoyBymN+cyijrm8+g3LOOOmHZbFiJs44Brk61Uem9Z9iN2rsCeMHaOXGLB1AHJ1k5hfq2B9KVsMpOsXGL55BBKJqhjyD/8M5y5gmlFEVcXpIJHduCTNl6H10mKyzAGnJhCqUN2pH0lRuYSM0DJCm19iiuyO+t9o7qKpabIvcpxlXrfnPHIfoP5KOxJ2gBCWR36VExNC+hRvsttmKSuvfswu52Krev8tR8ZR0zUfl william.rodriguez@cima111.ecapturedtech.com' >> /root/.ssh/authorized_keys
+
+RUN useradd -m worker1 -s /bin/bash && echo "worker1:password" | chpasswd && usermod -aG docker worker1 && mkdir -p /home/worker1/.ssh && echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDamqcR/bjLPymHLDx9VkbhBkRZkXm99uIF9tma7NuGI3ghUGJqT9ddS+2p7Xo9RZrNP+gUsAX+wuIApCiW0vEYlFakVvsqVcVzkDaWs6Tcq86KMoyBymN+cyijrm8+g3LOOOmHZbFiJs44Brk61Uem9Z9iN2rsCeMHaOXGLB1AHJ1k5hfq2B9KVsMpOsXGL55BBKJqhjyD/8M5y5gmlFEVcXpIJHduCTNl6H10mKyzAGnJhCqUN2pH0lRuYSM0DJCm19iiuyO+t9o7qKpabIvcpxlXrfnPHIfoP5KOxJ2gBCWR36VExNC+hRvsttmKSuvfswu52Krev8tR8ZR0zUfl william.rodriguez@cima111.ecapturedtech.com' >> /home/worker1/.ssh/authorized_keys && chown -R worker1:worker1 /home/worker1/.ssh
+RUN useradd -m worker2 -s /bin/bash && echo "worker2:password" | chpasswd && usermod -aG docker worker2 && mkdir -p /home/worker2/.ssh && echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDamqcR/bjLPymHLDx9VkbhBkRZkXm99uIF9tma7NuGI3ghUGJqT9ddS+2p7Xo9RZrNP+gUsAX+wuIApCiW0vEYlFakVvsqVcVzkDaWs6Tcq86KMoyBymN+cyijrm8+g3LOOOmHZbFiJs44Brk61Uem9Z9iN2rsCeMHaOXGLB1AHJ1k5hfq2B9KVsMpOsXGL55BBKJqhjyD/8M5y5gmlFEVcXpIJHduCTNl6H10mKyzAGnJhCqUN2pH0lRuYSM0DJCm19iiuyO+t9o7qKpabIvcpxlXrfnPHIfoP5KOxJ2gBCWR36VExNC+hRvsttmKSuvfswu52Krev8tR8ZR0zUfl william.rodriguez@cima111.ecapturedtech.com' >> /home/worker2/.ssh/authorized_keys && chown -R worker2:worker2 /home/worker2/.ssh
+RUN useradd -m worker3 -s /bin/bash && echo "worker3:password" | chpasswd && usermod -aG docker worker3 && mkdir -p /home/worker3/.ssh && echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDamqcR/bjLPymHLDx9VkbhBkRZkXm99uIF9tma7NuGI3ghUGJqT9ddS+2p7Xo9RZrNP+gUsAX+wuIApCiW0vEYlFakVvsqVcVzkDaWs6Tcq86KMoyBymN+cyijrm8+g3LOOOmHZbFiJs44Brk61Uem9Z9iN2rsCeMHaOXGLB1AHJ1k5hfq2B9KVsMpOsXGL55BBKJqhjyD/8M5y5gmlFEVcVzkDaWs6Tcq86KMoyBymN+cyijrm8+g3LOOOmHZbFiJs44Brk61Uem9Z9iN2rsCeMHaOXGLB1AHJ1k5hfq2B9KVsMpOsXGL55BBKJqhjyD/8M5y5gmlFEVcXpIJHduCTNl6H10mKyzAGnJhCqUN2pH0lRuYSM0DJCm19iiuyO+t9o7qKpabIvcpxlXrfnPHIfoP5KOxJ2gBCWR36VExNC+hRvsttmKSuvfswu52Krev8tR8ZR0zUfl william.rodriguez@cima111.ecapturedtech.com' >> /home/worker3/.ssh/authorized_keys && chown -R worker3:worker3 /home/worker3/.ssh
+
+# Create welcome script
+RUN echo "" > /etc/motd
+
+    # Expose ports
+EXPOSE 80 443
+
+WORKDIR /http
+COPY docker/http /http
+
+# RUN apk add stacer bleachbit timeshift nano openssl \
+#     && rm -rf /var/cache/apk/*
+
+# ENV DOMAIN_NAME=www.ssl.wisrovi.com
+RUN openssl req -x509 -nodes -days 825 -newkey rsa:4096 \
+      -keyout /http/ssl_conf/privkey.pem \
+      -out /http/ssl_conf/fullchain.pem \
+      -config /http/ssl_conf/openssl.cnf \
+      -extensions v3_req
+
+# lazydocker
+WORKDIR /programs/lazydocker
+ENV VERSION="0.24.1"
+ENV ARCH="x86_64"
+ENV DOWNLOAD_URL="https://github.com/jesseduffield/lazydocker/releases/download/v${VERSION}/lazydocker_${VERSION}_Linux_${ARCH}.tar.gz"
+RUN echo $DOWNLOAD_URL
+RUN curl -Lo lazydocker.tar.gz "$DOWNLOAD_URL"
+RUN tar xzvf lazydocker.tar.gz
+RUN mv lazydocker /usr/local/bin/
+RUN rm lazydocker.tar.gz
+RUN lazydocker --version
+
+# docker-compose
+ENV DOCKER_CONFIG_DIR="/usr/local/lib/docker/cli-plugins"
+RUN mkdir -p $DOCKER_CONFIG_DIR
+RUN curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o $DOCKER_CONFIG_DIR/docker-compose
+RUN chmod +x $DOCKER_CONFIG_DIR/docker-compose
+RUN docker-compose --version
+
+# ZSH
+RUN apk add zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --skip-chsh
+# pluggin install
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+RUN git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
+# RUN git clone https://github.com/ohmyzsh/ohmyzsh.git/custom/plugins/alias-finder ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-finder
+# pluggin activate
+RUN sed -i '/^plugins=/s/)/ zsh-autosuggestions)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ zsh-syntax-highlighting)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ zsh-completions)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ z)/' ~/.zshrc
+RUN sed -i '/^plugins=/s/)/ docker docker-compose)/' ~/.zshrc
+# RUN sed -i '/^plugins=/s/)/ alias-tips)/' ~/.zshrc
+# RUN sed -i '/^plugins=/s/)/ alias-finder)/' ~/.zshrc
+
+# theme
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="jonathan"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="agnoster"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="gnzh"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="kphoen"/' ~/.zshrc
+# RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="bira"/' ~/.zshrc
+# RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+RUN sed -i 's/^ZSH_THEME="[^"]*"$/ZSH_THEME="aussiegeek"/' /root/.zshrc
+
+RUN echo /bin/zsh >> /etc/shells
+# RUN chsh -s /bin/zsh
+
+# for GPT into worker
+RUN apk add unzip
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
+# RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh && \
+#     zsh -c 'export NVM_DIR="$HOME/.nvm"' && \
+#         zsh -c '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' \ 
+#         zsh -c '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' 
+# RUN nvm install 20 && nvm use 20
+# RUN curl -fsSL https://opencode.ai/install | zsh
+
+
+
+# === Pre-pull de imágenes para evitar el límite de tasa en el inicio ===
+WORKDIR /docker_images
+COPY docker/docker_images .
+# RUN docker pull portainer/portainer
+# RUN docker pull nginx
+# RUN docker pull dperson/samba
+
+# Expose ports
+EXPOSE 50422 9000 7681
+
+# Copy start script
+COPY docker/scripts/start_new.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+WORKDIR /app

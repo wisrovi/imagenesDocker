@@ -1,0 +1,1 @@
+kubectl apply -f gpu-verify.yaml

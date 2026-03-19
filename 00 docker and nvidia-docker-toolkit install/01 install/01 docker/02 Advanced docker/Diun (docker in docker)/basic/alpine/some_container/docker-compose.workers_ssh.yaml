@@ -1,0 +1,70 @@
+
+x-resurces-build: &resources_build
+  build:
+    context: .
+    dockerfile: docker/Dockerfile.docker_and_ssh.alpine
+  entrypoint: /usr/local/bin/start.sh
+
+
+# for to use the CPU of the host and restrict the use of the CPU and memory
+x-resources: &resources_cpu
+  <<: *resources_build
+  tmpfs:
+    - /tmp
+    - /run
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD", "docker", "info"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s  
+  privileged: true
+  cgroup: host
+  environment:
+    - DOCKER_TLS_CERTDIR=/certs
+    - SSH_AUTH_SOCK=/ssh-agent
+    - TZ=Europe/Madrid
+
+# for to use the GPU of the host
+x-resources-gpu: &resources_gpu
+  <<: *resources_cpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia # use the GPU of the host
+            device_ids: ["0"] # use the GPU 0
+            capabilities: [gpu] # use the GPU
+
+
+
+services:
+  dispatcher:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dispatcher_ssh
+    depends_on:
+      - worker
+    ports:
+      - "50422:22"
+    restart: always
+
+  worker:
+    <<: *resources_gpu
+    # <<: *resources_cpu
+    volumes:
+      - worker_data:/data
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    restart: always
+    
+
+networks:
+  default:
+    name: diun
+    external: true
+
+volumes:
+  worker_data:
+  worker_docker:

@@ -1,0 +1,32 @@
+# https://hub.docker.com/_/sonarqube/
+
+version: '3'
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    # ports:
+    #   - "9001:9000"
+    volumes:
+      - ./data/data:/opt/sonarqube/data
+      - ./data/logs:/opt/sonarqube/logs
+      - ./data/extensions:/opt/sonarqube/extensions  
+
+  sonarqube-ssl:
+    image: nginx:latest
+    restart: always
+    ports:
+      # - "80:80"
+      - "9000:443"
+    volumes:
+      - ./certs:/etc/nginx/certs  # Directorio donde están los certificados SSL
+      # - ./nginx/vhost.d:/etc/nginx/vhost.d
+      # - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf  # Configuración personalizada de Nginx
+    depends_on:
+      - sonarqube
+
+
+# The default SonarQube credentials are: 
+#     Username: admin
+#     Password: admin

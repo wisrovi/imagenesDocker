@@ -1,0 +1,121 @@
+version: "3.8"
+
+x-resources: &resources_gpu
+  shm_size: "32g"
+  privileged: true
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia # use the GPU of the host
+            device_ids: ["all"] # use the GPU 0
+            capabilities: [gpu] # use the GPU
+
+services:
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    expose:
+      - 8080/tcp
+    ports:
+      - 11435:8080/tcp
+    environment:
+      # base a un ollama
+      # - OLLAMA_BASE_URL=http://ollama:11434
+
+      # a varios ollama con balanceo de carga (Round Robin)
+      - OLLAMA_BASE_URL=http://loadbalancer:8080
+
+      # otras formas
+      # uncomment the following if you are running ollama on the docker host and remove the ollama service below
+      #- OLLAMA_BASE_URL=http://host.docker.internal:11434
+    volumes:
+      - open-webui:/app/backend/data
+    depends_on:
+      # base a un ollama
+      # - ollama_1
+
+      # a varios ollama con balanceo de carga (Round Robin)
+      - loadbalancer
+
+  ollama_1:
+    <<: *resources_gpu
+    image: wisrovi/ollama/server:v1.0
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    expose:
+      - 11434/tcp
+    ports:
+      - 11434:11434/tcp
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - OLLAMA_MAX_OFFLOAD=7GB # Adjust based on GPU capacity
+      # Enable Flash Attention for better performance (depending on GPU capabilities)
+      - OLLAMA_FLASH_ATTN=1
+      # Batch size setting for inference (adjust based on your GPU's capabilities)
+      - OLLAMA_N_BATCH=8 # Adjust the batch size for inference tasks
+      # Optionally, adjust the number of threads for inference
+      - OLLAMA_N_THREADS=8 # Set to a value matching your machine's number of cores
+      # Ensure GPU is accessible
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    healthcheck:
+      test: ollama --version || exit 1
+    command: serve
+    volumes:
+      # - ollama:/root/.ollama  # path to save models
+      - ./ollama_data/ollama_1:/root/.ollama # path to save models
+
+  ollama_2:
+    <<: *resources_gpu
+    image: wisrovi/ollama/server:v1.0
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    expose:
+      - 11434/tcp
+    # ports:
+    #   - 11434:11434/tcp
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - OLLAMA_MAX_OFFLOAD=7GB # Adjust based on GPU capacity
+      # Enable Flash Attention for better performance (depending on GPU capabilities)
+      - OLLAMA_FLASH_ATTN=1
+      # Batch size setting for inference (adjust based on your GPU's capabilities)
+      - OLLAMA_N_BATCH=8 # Adjust the batch size for inference tasks
+      # Optionally, adjust the number of threads for inference
+      - OLLAMA_N_THREADS=8 # Set to a value matching your machine's number of cores
+      # Ensure GPU is accessible
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    healthcheck:
+      test: ollama --version || exit 1
+    command: serve
+    volumes:
+      # - ollama:/root/.ollama  # path to save models
+      - ./ollama_data/ollama_2:/root/.ollama # path to save models
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    environment:
+      - TUNNEL_URL=http://webui:8080
+    command: tunnel --no-autoupdate
+    depends_on:
+      - webui
+
+  loadbalancer:
+    # configurado a modo Round Robin
+    image: nginx:latest
+    container_name: ollama-loadbalancer
+    # ports:
+    #   - "11436:8080"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - ollama_1
+      - ollama_2
+
+volumes:
+  ollama:
+  open-webui:

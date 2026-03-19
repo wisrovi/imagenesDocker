@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+  alpr:
+    image: wisrovi/open_alpr:1.0
+    ports:
+      - "1037:8000"
+    restart: always
+

@@ -1,0 +1,22 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nginx.portinaer_ttyd
+    ports:
+      - "50421:9000"  # Portainer
+      - "50423:7681"  # Web Terminal (ttyd)
+      - "50424:9001"  # Portainer
+      - "50425:445"  # samba
+    environment:
+      - SCALE=8
+    restart: unless-stopped
+
+networks:
+  default:
+    name: diun
+    external: true
+
+volumes:
+  worker_data:
+  worker_docker:

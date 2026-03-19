@@ -131,3 +131,10 @@ generales/nginxproxymanager/data/mysql/abf67cfa157b.pid
 generales/nginxproxymanager/data/mysql/aria_log.00000001
 generales/nginxproxymanager/data/mysql/aria_log_control
 *.pid
+
+# Excluir archivos .tar grandes de imágenes de Docker
+02 devops/02 Advanced docker/Diun (docker in docker)/basic/ubuntu/some_container/docker/images/nginx.tar
+02 devops/02 Advanced docker/Diun (docker in docker)/basic/ubuntu/some_container/docker/images/nvidia.tar
+02 devops/Advanced docker/Diun (docker in docker)/basic/ubuntu/some_container/docker/images/portainer.tar
+
+*.tar

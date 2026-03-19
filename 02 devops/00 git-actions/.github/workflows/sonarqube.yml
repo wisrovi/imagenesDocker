@@ -1,0 +1,27 @@
+
+# SonarQube analysis workflow
+name: SonarQube Scan
+
+on:
+  push:
+    branches:
+      - 001-DEVELOPMENT #Main branch of the project
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository with full history
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Run SonarQube scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} #Token previously created in SOnarQube and implemented in Github
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_SCANNER_OPTS: "-Dsonar.scanner.skipCertificateCheck=true"
+
+#More info in: https://gofile.me/7fXb9/gVIbt6GLy

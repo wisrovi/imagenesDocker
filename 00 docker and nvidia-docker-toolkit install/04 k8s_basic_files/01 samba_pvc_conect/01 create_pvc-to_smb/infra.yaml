@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: creds-split
+  namespace: proyecto-split   # Namespace where the secret is stored
+type: Opaque
+stringData:
+  username: "user1"
+  password: "password1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-proyecto-split
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - dir_mode=0777     # All created folders grant full permissions to all users
+    - file_mode=0777    # All created files grant full permissions to all users
+    - vers=3.0          
+    - port=17445        
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: vol-proyecto-split-unico  # Unique volume identifier
+    volumeAttributes:
+      source: "//192.168.1.44/shared/proyecto-split" 
+    nodeStageSecretRef:
+      name: creds-split
+      namespace: proyecto-split     # The PV looks for credentials in the defined namespace
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-proyecto-split
+  namespace: proyecto-split
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: pv-proyecto-split
+  storageClassName: ""

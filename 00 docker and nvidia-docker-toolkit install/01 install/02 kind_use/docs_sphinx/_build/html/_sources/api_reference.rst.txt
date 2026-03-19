@@ -1,0 +1,32 @@
+API Reference
+=============
+
+This section provides detailed API documentation for the Python automation scripts.
+
+.. note::
+   The following documentation is generated from the Python source code in the ``scripts/`` directory.
+
+Cluster Manager
+---------------
+
+.. autoclass:: cluster_manager.KindClusterManager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+GPU Monitor
+-----------
+
+.. autoclass:: gpu_monitor.GPUResourceMonitor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Utility Functions
+-----------------
+
+Helper functions used across the project.
+
+.. autofunction:: cluster_manager.KindClusterManager.run_command
+
+.. autofunction:: gpu_monitor.GPUResourceMonitor.run_kubectl_command

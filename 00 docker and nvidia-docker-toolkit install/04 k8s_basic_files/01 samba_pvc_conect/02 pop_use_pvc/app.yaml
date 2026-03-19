@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-proyecto-split
+  namespace: proyecto-split
+spec: 
+  containers:
+  - name: checker
+    image: alpine
+    workingDir: /mnt/nas    # Working directory to avoid using the full mount path for data access
+    resources:        # Resource limits for the container
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "250m"
+        memory: "256Mi"
+    # Keep the pod alive for inspection and create a test file
+    command: ["/bin/sh", "-c", "echo 'NAS connected' > test.txt && tail -f /dev/null"]  
+    volumeMounts:
+    - name: volume-split
+      mountPath: /mnt/nas
+  volumes: 
+  - name: volume-split
+    persistentVolumeClaim: 
+      claimName: pvc-proyecto-split

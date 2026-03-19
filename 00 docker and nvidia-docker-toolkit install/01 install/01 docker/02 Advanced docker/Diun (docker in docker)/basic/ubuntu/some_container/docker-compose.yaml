@@ -1,0 +1,63 @@
+x-resources-build: &resources_build
+  build:
+    context: .
+    dockerfile: docker/Dockerfile.worker.gpu
+
+# for to use the CPU of the host and restrict the use of the CPU and memory
+x-resources: &resources_cpu
+  <<: *resources_build
+  tmpfs:
+    - /tmp
+    - /run
+  restart: always
+  privileged: true
+  hostname: wisrovi
+  cgroup: host
+  environment:
+    - DOCKER_TLS_CERTDIR=/certs
+    - SSH_AUTH_SOCK=/ssh-agent
+    - TZ=Europe/Madrid
+
+x-resources-gpu: &resources_gpu
+   <<: *resources_cpu
+   deploy:
+     resources:
+       reservations:
+         devices:
+           - driver: nvidia # use the GPU of the host
+             device_ids: [ "0" ] # use the GPU 0
+             capabilities: [ gpu ] # use the GPU
+
+services:
+  dispatcher:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dispatcher_ssh
+    ports:
+      - "50422:22"
+    restart: always
+
+  worker:
+    <<: *resources_gpu
+    # ports:
+    #   - "50420:9000"  # Portainer
+    #   - "50421:9001"  # Portainer agent
+    #   - "50422:50422"  # SSH
+    #   - "50423:7681"  # Web Terminal (ttyd)
+    #   - "50424:80"  # 80
+    #   - "50425:443"  # 443
+    #   - "50426:4443" # File browser
+    volumes:
+      - worker_docker:/var/lib/docker
+      - worker_data:/data
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - ${SSH_AUTH_SOCK}:/ssh-agent # <- Permitir usar credenciales GH del host
+    
+networks:
+  default:
+    name: diun
+    external: true
+
+volumes:
+  worker_data:
+  worker_docker:
