@@ -1,0 +1,115 @@
+graph TB
+    subgraph "One Command Deployment"
+        A["docker-compose up --build"]
+    end
+    
+    subgraph "Instant Environment Ready"
+        B["wAgents Container<br/>GPU + CUDA 12.0"]
+    end
+    
+    subgraph "Complete Tool Suite Pre-Installed"
+        C[Security Stack]
+        D[Quality Stack]
+        E[Development Stack]
+        F[Productivity Stack]
+        G[AI/ML Stack]
+    end
+    
+    subgraph "Security Tools"
+        C1[Bandit<br/>Security Linter]
+        C2[Safety<br/>Dependency Scanner]
+        C3[Scapy<br/>Packet Analysis]
+        C4[Py-spy<br/>Profiler]
+    end
+    
+    subgraph "Quality Tools"
+        D1[Ruff<br/>Linter & Formatter]
+        D2[Pre-commit<br/>Git Hooks]
+        D3[Black<br/>Code Formatter]
+        D4[isort<br/>Import Sorter]
+    end
+    
+    subgraph "Development Tools"
+        E1[DVC<br/>Data Version Control]
+        E2[Pandas<br/>Data Manipulation]
+        E3[Boto3<br/>AWS SDK]
+        E4[IPython<br/>Enhanced REPL]
+        E5[Nvitop<br/>GPU Monitor]
+    end
+    
+    subgraph "Productivity Tools"
+        F1[Zsh Oh My Zsh<br/>Enhanced Shell]
+        F2[Exa Ripgrep Fd<br/>Modern Unix Tools]
+        F3[Btop Procs<br/>System Monitoring]
+        F4[Broot Zoxide<br/>Smart Navigation]
+        F5[Lazydocker<br/>Docker Management]
+    end
+    
+    subgraph "AI/ML Tools"
+        G1[Ultralytics<br/>YOLO Framework]
+        G2[PyTorch<br/>Deep Learning]
+        G3[OpenCV<br/>Computer Vision]
+        G4[Person Detection<br/>Real Dataset]
+        G5[TensorBoard<br/>ML Tracking]
+    end
+    
+    subgraph "Time Savings vs Manual Setup"
+        H["3 Hours Saved<br/>No Installation Required"]
+        I["Zero Configuration<br/>Everything Just Works"]
+        J["Production Ready<br/>Best Practices Included"]
+    end
+    
+    subgraph "What You Get Instantly"
+        K["Secure Code<br/>Automated Scanning"]
+        L["Clean Code<br/>Auto-formatting"]
+        M["GPU Acceleration<br/>ML AI Ready"]
+        N["Data Management<br/>Version Control"]
+        O["Professional Workflow<br/>Industry Standards"]
+        P["Object Detection<br/>Person Detection Ready"]
+    end
+    
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+    B --> G
+    
+    C --> C1
+    C --> C2
+    C --> C3
+    C --> C4
+    
+    D --> D1
+    D --> D2
+    D --> D3
+    D --> D4
+    
+    E --> E1
+    E --> E2
+    E --> E3
+    E --> E4
+    E --> E5
+    
+    F --> F1
+    F --> F2
+    F --> F3
+    F --> F4
+    F --> F5
+    
+    G --> G1
+    G --> G2
+    G --> G3
+    G --> G4
+    G --> G5
+    
+    B --> H
+    B --> I
+    B --> J
+    
+    H --> K
+    I --> L
+    J --> M
+    J --> N
+    J --> O
+    J --> P

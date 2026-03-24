@@ -1,0 +1,52 @@
+graph TB
+    A[Developer] --> B[Docker Compose]
+    B --> C[wAgents Container]
+    C --> D[Zsh Shell at root]
+    C --> E[GPU Support]
+    C --> F[Python Environment]
+    
+    D --> G[Welcome Script]
+    D --> H[Zsh Aliases Plugins]
+    
+    F --> I[Security Tools]
+    F --> J[Quality Tools]
+    F --> K[Development Tools]
+    F --> L[AI/ML Tools]
+    
+    I --> M[Bandit Scanner]
+    I --> N[Safety Scanner]
+    
+    J --> O[Ruff Linter]
+    J --> P[Pre-commit Hooks]
+    
+    K --> Q[DVC]
+    K --> R[AI Agents]
+    K --> S[Image Viewers]
+    
+    L --> T[Ultralytics YOLO]
+    L --> U[PyTorch]
+    L --> V[OpenCV]
+    L --> W[Person Detection Dataset]
+    
+    M --> X[Security Reports]
+    N --> X
+    O --> Y[Quality Reports]
+    P --> Y
+    Q --> Z[Data Management]
+    R --> AA[AI Assistant]
+    S --> BB[Image Processing]
+    T --> CC[Object Detection]
+    U --> CC
+    V --> CC
+    W --> CC
+    
+    X --> DD[Fixed Code]
+    Y --> DD
+    Z --> EE[Versioned Data]
+    AA --> DD
+    BB --> DD
+    CC --> FF[Trained Models]
+    
+    DD --> GG[Production Ready]
+    EE --> GG
+    FF --> GG
