@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "version": "1.0",
+  "name": "wisrovi-agent-config",
+  "description": "OpenCode configuration for wisrovi agent skills template",
+  
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  },
+  
+  "agent": {
+    "code-reviewer": {
+      "description": "Revisión automática de código Python con análisis de seguridad estilo pentest",
+      "mode": "subagent",
+      "prompt": "Actúa como un Senior Software Architect & DevSecOps Engineer. Revisa el código aplicando la skill code-review antes de presentar resultados."
+    },
+    "docs-generator": {
+      "description": "Generador de documentación profesional (README, Sphinx, LaTeX, PDF)",
+      "mode": "subagent",
+      "prompt": "Actúa como un Senior Technical Writer. Usa las skills documentation y readme-makefile para generar documentación completa."
+    },
+    "quality-auditor": {
+      "description": "Auditor de calidad de código con coverage ≥85% y reportes HTML/PDF",
+      "mode": "subagent",
+      "prompt": "Actúa como un Ingeniero de Calidad de Código. Usa la skill code-quality para auditar y generar reportes."
+    }
+  },
+  
+  "instructions": [
+    "CONTRIBUTING.md",
+    ".agents/skills/user-setup/SKILL.md"
+  ]
+}
