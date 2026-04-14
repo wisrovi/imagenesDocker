@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-kafka-broker-0
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - noserverino
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "pv-kafka-broker-0-kafka"
+    volumeAttributes:
+      source: "//192.168.20.99/kubernetes/kafka"
+      subDir: "broker-0"
+    nodeStageSecretRef:
+      name: smb-cred
+      namespace: kafka
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-kafka-broker-1
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - noserverino
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "pv-kafka-broker-1-kafka"
+    volumeAttributes:
+      source: "//192.168.20.99/kubernetes/kafka"
+      subDir: "broker-1"
+    nodeStageSecretRef:
+      name: smb-cred
+      namespace: kafka
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-kafka-broker-2
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - noserverino
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "pv-kafka-broker-2-kafka"
+    volumeAttributes:
+      source: "//192.168.20.99/kubernetes/kafka"
+      subDir: "broker-2"
+    nodeStageSecretRef:
+      name: smb-cred
+      namespace: kafka

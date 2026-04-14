@@ -1,0 +1,18 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: smb-kafka
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //192.168.20.99/kubernetes/kafka
+  csi.storage.k8s.io/provisioner-secret-name: smb-credentials
+  csi.storage.k8s.io/provisioner-secret-namespace: kafka
+  csi.storage.k8s.io/node-stage-secret-name: smb-credentials
+  csi.storage.k8s.io/node-stage-secret-namespace: kafka
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - vers=3.0
+  - noserverino
+volumeBindingMode: Immediate
+reclaimPolicy: Retain
