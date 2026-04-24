@@ -1,0 +1,28 @@
+services:
+  openssl:
+    image: 192.168.20.50:40232/arepo/openssl:latest
+    volumes:
+      - ./ssl/certs:/data
+    environment:
+      - DOMAIN_NAME=www.arepo.ecapturedtech.com
+    command: >
+      openssl req -x509 -nodes -days 825 -newkey rsa:4096  -keyout /data/privkey.pem  -out /data/fullchain.pem  -config /conf/openssl_config.cnf  -extensions v3_req
+
+  waf-ssl:
+    image: owasp/modsecurity-crs:nginx
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./ssl/certs:/etc/nginx/certs
+      - ./ssl/html:/usr/share/nginx/html
+      - ./ssl/nginx_kube.conf:/etc/nginx/conf.d/nginx_kube.conf
+    depends_on:
+      - openssl
+
+networks:
+  default:
+    name: arepo
+    external: true
+
+
+# Flujo de Tráfico: Usuario -> WAF (Puerto 8300 SSL) -> ModSecurity (Inspección) -> Ingress/Service (Puerto 80) -> Pods Extractor

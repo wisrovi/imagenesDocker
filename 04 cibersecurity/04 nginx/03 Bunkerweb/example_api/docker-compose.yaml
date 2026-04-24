@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  gpu-api:
+    image: wisrovi/gpu-api
+    ports:
+      - "9026:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
