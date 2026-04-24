@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  pypi-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wisrovi/pypi-traffic-generator:latest
+    
+    # Único volumen compartido para que el Alpine maneje contenedores Python en el host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    # Privilegios necesarios para interactuar con el socket de Docker del host
+    privileged: true
+    restart: unless-stopped
+    networks:
+      - pypi-network
+
+networks:
+  pypi-network:
+    driver: bridge
