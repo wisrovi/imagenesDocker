@@ -1,0 +1,13 @@
+[Compositing]
+Enabled=false
+
+[Desktops]
+Id_1=9c9c1da1-aa2c-4fbc-bdf9-d5b26238fc38
+Id_2=ab235ade-2747-4668-848e-f36555250d15
+Rows=2
+
+[Tiling]
+padding=4
+
+[Tiling][61a9cda2-c784-5476-9585-83eaed337290]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
