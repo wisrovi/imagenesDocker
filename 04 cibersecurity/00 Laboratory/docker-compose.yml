@@ -1,0 +1,51 @@
+---
+services:
+  kali-linux:
+    # https://hub.docker.com/r/linuxserver/kali-linux
+    # sudo wget -O /etc/apt/trusted.gpg.d/kali-archive-keyring.asc https://archive.kali.org/archive-key.asc
+    # sudo apt update
+    # sudo apt install net-tools
+    # sudo apt install iputils-ping
+    # sudo apt install metasploit-framework
+    image: lscr.io/linuxserver/kali-linux:latest
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBFOLDER=/ #optional
+      - "TITLE=Wkalilinux" #optional
+      - CUSTOM_USER=kali
+      - PASSWORD=kali #optional
+      - DOCKER_MODS=linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=libfuse2|git|gdb
+    volumes:
+      - ./config:/config
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 20022:22
+    devices:
+      - /dev/dri:/dev/dri #optional
+    privileged: true #optional
+    # network_mode: host #optional
+    shm_size: "10gb" #optional
+    restart: unless-stopped
+
+  victim:
+    # https://hub.docker.com/r/tleemcjr/metasploitable2
+    image: tleemcjr/metasploitable2:latest
+    # command: sh -c "/bin/services.sh && bash"
+    command: tail -f /dev/null
+
+  victim2:
+    # https://medium.com/@habibsemouma/setting-up-metasploitable2-and-kali-in-docker-for-pentesting-6b71a089c4a2
+    image: tleemcjr/metasploitable2
+    command: tail -f /dev/null
+
+
+# guide:
+# https://medium.com/@habibsemouma/setting-up-metasploitable2-and-kali-in-docker-for-pentesting-6b71a089c4a2
+#
