@@ -1,0 +1,31 @@
+services:
+  server1:
+    container_name: lb_server1
+    image: nginx
+    volumes:
+      - ./html/index.1.html:/usr/share/nginx/html/index.html
+
+  server2:
+    container_name: lb_server2
+    image: nginx
+    volumes:
+      - ./html/index.2.html:/usr/share/nginx/html/index.html
+
+  server3:
+    container_name: lb_server3
+    image: nginx
+    volumes:
+      - ./html/index.3.html:/usr/share/nginx/html/index.html
+
+  nginx:
+    container_name: nginx_lb
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx-custom.conf:/etc/nginx/conf.d/custom.conf:ro
+    depends_on:
+      - server1
+      - server2
+      - server3

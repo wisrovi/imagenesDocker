@@ -1,0 +1,38 @@
+services:
+  openssl:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: cimacorporate/vault_openssl:latest
+    restart: "no"
+    volumes:
+      - ./nginx/certs/www.vault.ecapturedtech.com:/data
+    environment:
+      - DOMAIN_NAME=www.vault.ecapturedtech.com
+    command: >
+      openssl req -x509 -nodes -days 825 -newkey rsa:4096
+      -keyout /data/privkey.pem
+      -out /data/fullchain.pem
+      -config /conf/openssl_wisrovi.cnf
+      -extensions v3_req
+
+  server1:
+    container_name: ssl_server1
+    image: nginx
+    volumes:
+      - ./html/index.html:/usr/share/nginx/html/index.html
+
+  nginx_ssl:
+    container_name: nginx_ssl_openssl
+    image: nginx
+    ports:
+      - "8083:80"
+      - "8444:443"
+    volumes:
+      - ./nginx/certs/www.vault.ecapturedtech.com:/etc/nginx/certs:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      openssl:
+        condition: service_completed_successfully
+      server1:
+        condition: service_started

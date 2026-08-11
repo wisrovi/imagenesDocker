@@ -1,0 +1,26 @@
+services:
+  server1:
+    container_name: le_server1
+    image: nginx
+    volumes:
+      - ./html/index.html:/usr/share/nginx/html/index.html
+
+  nginx_ssl:
+    container_name: nginx_letsencrypt
+    image: nginx
+    ports:
+      - "8082:80"
+      - "8443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - server1
+
+  certbot:
+    image: certbot/certbot
+    restart: "no"
+    entrypoint: ["/bin/sh", "-c"]
+    command: 'echo "Renueva manualmente con: docker compose run --rm certbot renew" && exit 0'
+    volumes:
+      - ./certs:/etc/letsencrypt:rw

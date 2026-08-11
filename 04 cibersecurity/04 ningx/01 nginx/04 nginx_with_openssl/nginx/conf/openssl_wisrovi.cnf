@@ -1,0 +1,24 @@
+[ req ]
+default_bits       = 4096
+prompt             = no
+default_md         = sha256
+distinguished_name = dn
+x509_extensions    = v3_req
+
+[ dn ]
+C  = ES
+ST = Badajoz
+L  = Badajoz
+O  = Wisrovi Rodriguez
+OU = Autor Independiente
+CN = www.vault.ecapturedtech.com
+emailAddress = wisrovi.rodriguez@gmail.com
+
+[ v3_req ]
+subjectAltName = @alt_names
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, keyEncipherment
+
+[ alt_names ]
+DNS.1 = www.vault.ecapturedtech.com
+DNS.2 = vault.ecapturedtech.com

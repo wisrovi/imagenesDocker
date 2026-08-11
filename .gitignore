@@ -138,3 +138,9 @@ generales/nginxproxymanager/data/mysql/aria_log_control
 02 devops/Advanced docker/Diun (docker in docker)/basic/ubuntu/some_container/docker/images/portainer.tar
 
 *.tar
+
+# Claves privadas (TLS/letsencrypt/certificados)
+*.key
+*.key.pem
+privkey*.pem
+private_key.json
