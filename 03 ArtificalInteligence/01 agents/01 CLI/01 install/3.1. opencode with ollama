@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/dolphin3:latest",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama",
+      "options": {
+        "baseURL": "http://<ip>:<port>/v1"
+      },
+      "models": {
+        "qwen2.5-coder:latest": {
+          "name": "qwen2.5-coder:latest",
+          "reasoning": true,
+          "tools": true
+        },
+        "muse-glimmer:latest": {
+          "name": "muse-glimmer:latest",
+          "reasoning": true,
+          "tools": true
+        },
+        "qwen3-coder-next:latest": {
+          "name": "qwen3-coder-next:latest",
+          "reasoning": true,
+          "tools": true
+        }
+      }
+    }
+  }
+}
+
