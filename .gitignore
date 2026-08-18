@@ -144,3 +144,11 @@ generales/nginxproxymanager/data/mysql/aria_log_control
 *.key.pem
 privkey*.pem
 private_key.json
+
+# Heavy files
+*.zip
+*.tar
+*.sql
+*.ibd
+*.frm
+*.data
