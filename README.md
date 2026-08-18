@@ -41,3 +41,18 @@
 
 - Portainer: devops/Code QA/Check _services_status/portained/
 - jenkins: devops/Pipelines/Jenkins/
+## Heavy files ignored
+
+The repository now excludes large files that are not needed for version control. The following patterns have been added to **.gitignore**:
+
+```
+# Heavy files
+*.zip
+*.tar
+*.sql
+*.ibd
+*.frm
+*.data
+```
+
+These patterns prevent files such as Docker images, database dumps, and other large binaries from being tracked. Existing heavy files have been removed from the repository history.
