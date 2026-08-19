@@ -152,3 +152,6 @@ private_key.json
 *.ibd
 *.frm
 *.data
+
+# Secrets and credentials
+*antigravity-oauth-token*
