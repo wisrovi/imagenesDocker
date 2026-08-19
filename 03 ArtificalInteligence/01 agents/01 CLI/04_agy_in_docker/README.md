@@ -65,4 +65,4 @@ make run   # starts interactive Zsh console and auto-removes on exit
 ```
 
 ---
-*Author: WILLIAM R.*, AI Leader & Solutions Architect at eCaptureDtech
+*Author: WILLIAM R.*, AI Leader & Solutions Architect
