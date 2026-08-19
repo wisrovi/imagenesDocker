@@ -1,2 +1,0 @@
-#!/bin/sh
-exec "/usr/local/bin/agy.1787042585506308074.old" agentapi "$@"
