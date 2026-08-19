@@ -1,209 +1,109 @@
-# AI Tools Installation Scripts
+# AI Agent Environments & Installation Scripts
 
 ## Overview
 
-This repository provides a collection of installation scripts and templates for setting up various AI-related tools and utilities. It is designed to simplify the deployment and configuration of popular AI development environments, including command-line interfaces for AI services and automation tools.
+This repository provides a collection of Docker environments, installation scripts, and agent templates for setting up and running various AI-related tools, agents, and development utilities. It is designed to simplify the deployment, configuration, and integration of AI services on both the host system and within containerized development environments.
 
-The project focuses on streamlining the setup process for developers and researchers working with artificial intelligence technologies, ensuring quick and reliable installation of essential tools.
-
-## Contents
-
-### Directory Structure
+## Repository Structure
 
 ```
-agents/
-├── docs/                  # Sphinx documentation
-│   ├── _build/            # Built documentation (generated)
-│   ├── _static/           # Static files for docs
-│   ├── author.rst         # Author information
-│   ├── conf.py            # Sphinx configuration
-│   ├── index.rst          # Main documentation page
-│   ├── installation.rst   # Installation guide
-│   ├── templates.rst      # Templates documentation
-│   ├── usage.rst          # Usage guide
-│   └── Makefile           # Documentation build commands
-├── install/
-│   ├── base.sh            # Installation script for Node.js via nvm
-│   ├── copilot.sh         # Installation script for GitHub Copilot CLI
-│   ├── gemini.sh          # Installation script for Google Gemini CLI
-│   └── opencode.sh        # Installation script for OpenCode
-├── Makefile               # Project build and installation commands
-├── README.md              # This file
-└── templates.yaml         # YAML file containing task templates
+.
+├── 01 install/            # Host installation scripts for AI tools
+│   ├── base.sh            # Installs Node.js v22 via nvm
+│   ├── copilot.sh         # Installs GitHub Copilot CLI
+│   ├── gemini.sh          # Installs Google Gemini CLI
+│   └── opencode.sh        # Installs OpenCode CLI
+├── 02 templates/          # Agent skills templates & custom prompt library
+│   ├── .agents/skills/    # Predefined skill templates for CLI agents
+│   └── prompts/           # Original system prompts for code reviews, testing, etc.
+├── 03 docker/             # Custom NVIDIA CUDA container for AI agent development
+│   ├── Dockerfile         # CUDA + Zsh + OpenCode + Microsoft Edit build
+│   └── docker-compose.yml # Dev environment service configuration
+├── 04_agy_in_docker/      # Containerized Google Antigravity (agy) with OAuth persistency
+│   ├── 01_base/           # Base image building & initial OAuth login
+│   ├── 02_client/         # Pre-authenticated image construction
+│   ├── 03_use/            # Simple runtime wrappers
+│   └── 04_advance/        # Optimized environment with Zsh, Compose daemon & volume mapping
+├── docs/                  # Sphinx documentation source files
+├── Makefile               # Project-wide build and task execution commands
+└── README.md              # Project root documentation
 ```
 
-### Files Description
+## Technologies & Key Libraries
 
-- **docs/**: Contains the Sphinx-generated documentation for the project, including installation guides, usage instructions, and author information.
+This project leverages and configures the following key technologies and tools:
 
-- **install/base.sh**: A shell script that installs Node Version Manager (nvm) and sets up Node.js version 22 for development environments. Includes inline comments explaining each command.
+* **Docker & Docker Compose** – For isolating and orchestrating AI development environments.
+* **NVIDIA CUDA** – GPU acceleration support within containers (using `nvidia/cuda:12.0.0-base-ubuntu22.04`).
+* **Google Antigravity (agy)** – An agentic CLI tool for advanced development workflows.
+* **OpenCode CLI** – AI-assisted coding command-line utility.
+* **GitHub Copilot & Google Gemini CLIs** – Official command-line assistants for interacting with AI models.
+* **Zsh & Oh My Zsh** – Customized interactive shell inside containers using the `aussiegeek` theme and helper plugins (`zsh-autosuggestions`, `zsh-syntax-highlighting`, `zsh-completions`).
+* **Microsoft Edit** – A simple console-based text editor compiled for Linux.
+* **Sphinx & LaTeX** – Used for generating project documentation and exporting technical PDFs/whitepapers.
+* **Node.js (v22)** – Required runtime for running Node-based CLI tools.
 
-- **install/copilot.sh**: A shell script that installs GitHub Copilot CLI globally using npm for AI-powered code assistance in the terminal. Requires Node.js and npm.
+---
 
-- **install/gemini.sh**: A shell script that installs Google Gemini CLI globally using npm for interacting with Google's Gemini AI models. Requires Node.js and npm.
+## Directory Details
 
-- **install/opencode.sh**: A shell script that installs the opencode CLI tool from the official installer for AI-assisted coding. Downloads and executes the installer script.
+### 1. Host Installation (`01 install`)
+Contains standalone shell scripts to bootstrap AI utilities on your local machine:
+* Run `make install` to run all installation scripts sequentially.
+* Individual components can be installed using specific targets like `make install-gemini` or `./01\ install/gemini.sh`.
 
-- **Makefile**: The main Makefile for the project, providing commands to install tools, build documentation, and manage the project.
+### 2. Agent Skills & Templates (`02 templates`)
+A library of modular agent instructions aligning with the `.agents/skills/` standard:
+* Features 10 pre-configured skills including automated code reviews, README/Makefile generators, code quality enforcement (Pylint targets), Sphinx/LaTeX documentation workflows, and granular git commit mapping.
 
-- **templates.yaml**: A YAML configuration file containing predefined templates for common development tasks. Currently includes a template for creating professional README documentation.
+### 3. GPU CUDA Agent Container (`03 docker`)
+Provides a ready-to-use development environment featuring CUDA integration for GPU workloads:
+* Equipped with Zsh, Oh My Zsh plugins, automatic git credentials alignment, `opencode`, and the Microsoft `edit` utility.
+* Configurable via `docker-compose.yml` for quick container spin-up.
+
+### 4. Containerized Google Antigravity (`04_agy_in_docker`)
+A multi-stage pipeline designed to solve the OAuth authentication persistence challenge when running `agy` inside Docker:
+* **Stage 1 (01_base)**: Builds a base image, launches it interactively, and runs the initial OAuth login to store the credentials token in a temporary backup path on the host.
+* **Stage 2 (02_client)**: Injects the cached credentials into a new pre-authenticated image.
+* **Stage 3 (03_use)**: Runs tasks instantly using the pre-authenticated container.
+* **Stage 4 (04_advance)**: An optimized terminal setup with Oh My Zsh, custom aliases, and daemon/Compose mappings.
+
+---
 
 ## Quick Start
 
-To quickly set up the entire project:
+To quickly build documentation and install essential tools on the host:
 
 ```bash
 make all
 ```
 
-This command will install all AI tools and build the documentation.
-
-## Installation
-
-### Prerequisites
-
-- Unix-like operating system (Linux, macOS)
-- Bash shell
-- curl (for base.sh, opencode.sh)
-- **Note**: Installing nvm and npm packages globally may require sudo privileges on some systems. Ensure you have administrative access or run the scripts with appropriate permissions.
-
-### Using Makefile Commands
-
-The project includes a Makefile for easy management:
-
-- `make install`: Install all AI tools
-- `make install-gemini`: Install only Google Gemini CLI
-- `make install-base`: Install Node.js via nvm
-- `make install-copilot`: Install GitHub Copilot CLI
-- `make install-opencode`: Install only OpenCode
-- `make docs`: Build the documentation
-- `make serve-docs`: Build and serve documentation locally
-
-### Installing Individual Tools
-
-#### Base Installation (Node.js)
-
-To install Node.js via nvm:
+To run the custom development environment:
 
 ```bash
-./install/base.sh
+cd 03\ docker/
+docker compose up -d
 ```
 
-This script downloads and installs Node Version Manager (nvm), sources the shell configuration, verifies the installation, installs Node.js version 22, and sets it as the active version. **Note**: May require sudo for global npm installations in subsequent scripts.
-
-#### GitHub Copilot CLI
-
-To install the GitHub Copilot CLI:
+For the Google Antigravity Docker workflow, follow the stage sequence:
 
 ```bash
-./install/copilot.sh
+# 1. Authenticate base image
+cd 04_agy_in_docker/01_base && make all
+
+# 2. Build pre-authenticated client
+cd ../02_client && make all
+
+# 3. Test runtime execution
+cd ../03_use && make all
+
+# 4. Spin up advanced Zsh environment
+cd ../04_advance && make run
 ```
-
-This script installs GitHub Copilot CLI globally using npm. **Note**: Requires Node.js and npm (install base.sh first). May require sudo for global npm installation.
-
-#### Google Gemini CLI
-
-To install the Google Gemini CLI:
-
-```bash
-./install/gemini.sh
-```
-
-This script installs Google Gemini CLI globally using npm for interacting with Gemini AI models. **Note**: Requires Node.js and npm (install base.sh first). May require sudo for global npm installation.
-
-#### OpenCode
-
-To install OpenCode:
-
-```bash
-./install/opencode.sh
-```
-
-This script downloads and executes the official opencode installation script from opencode.ai. **Note**: Requires curl and an internet connection. May require sudo depending on the installer.
-
-This script runs:
-```bash
-curl -fsSL https://opencode.ai/install | bash
-```
-
-### Bulk Installation
-
-You can run all installation scripts sequentially:
-
-```bash
-for script in install/*.sh; do
-    echo "Running $script..."
-    bash "$script"
-done
-```
-
-## Usage
-
-After installation, you can use the installed tools according to their respective documentation:
-
-- **GitHub Copilot CLI**: Refer to the official GitHub Copilot documentation for usage instructions.
-- **Google Gemini CLI**: Refer to the official Google Gemini documentation for usage instructions.
-- **OpenCode**: Check the OpenCode documentation at https://opencode.ai for detailed usage guides.
-
-## Documentation
-
-The project includes comprehensive documentation built with Sphinx. To build and view the documentation:
-
-```bash
-make docs
-make serve-docs
-```
-
-The documentation covers installation, usage, templates, and author information. Once served, access it at http://localhost:8000.
-
-## Templates
-
-The `templates.yaml` file contains reusable templates for common tasks. Each template includes:
-
-- **name**: A unique identifier for the template
-- **description**: A detailed description of what the template accomplishes
-
-### Current Templates
-
-1. **CREAR_README**: A template for creating professional README documentation in English. It involves analyzing the project structure, understanding the codebase, and generating comprehensive documentation.
-
-### Using Templates
-
-Templates can be used as starting points for various development tasks. To apply a template:
-
-1. Review the template description in `templates.yaml`
-2. Adapt the template to your specific needs
-3. Execute the described steps
-
-## Contributing
-
-Contributions to this repository are welcome. To contribute:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add your installation scripts or templates
-4. Test your changes thoroughly
-5. Submit a pull request with a clear description of your changes
-
-Please ensure that:
-- Installation scripts are tested on multiple platforms
-- Templates are well-documented
-- Code follows best practices for shell scripting
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Support
-
-If you encounter issues with installation or usage:
-
-1. Check the official documentation for each tool
-2. Verify system requirements
-3. Open an issue in this repository with detailed error messages and system information
 
 ## Version History
 
-- v1.2.0: Added base.sh for Node.js/nvm installation, copilot.sh for GitHub Copilot CLI, enhanced docstrings and inline comments in all scripts, updated README and Makefile accordingly.
-- v1.1.0: Added Sphinx documentation, Makefile for project management, and expanded README.
-- v1.0.0: Initial release with Gemini CLI and OpenCode installation scripts, plus basic templates.
+- **v1.3.0**: Renamed `03 agy in docker` to `04_agy_in_docker` and added `04_advance` stage containing customized Zsh environment and Docker Compose configurations. Updated main README structure and technology matrix.
+- **v1.2.0**: Added host installation scripts for Node.js/nvm and Copilot CLI, enhanced docstrings, and expanded inline code explanations.
+- **v1.1.0**: Integrated Sphinx documentation pipeline and general-purpose workspace Makefile.
+- **v1.0.0**: Initial release featuring host scripts for Gemini CLI, OpenCode, and basic development templates.
