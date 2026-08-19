@@ -1,9 +1,0 @@
-FROM wisrovi/agy-edc:v1.1.0
-
-# Copy Antigravity configuration (including OAuth token) to avoid re‑authentication
-COPY agy-config-backup/.gemini /root/.gemini
-
-# Ensure correct ownership
-RUN chown -R root:root /root/.gemini
-
-# Set entrypoint to the original one (if any). The base image already defines the entrypoint for agy.
