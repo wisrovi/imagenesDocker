@@ -1,0 +1,8 @@
+services:
+  agy:
+    build: .
+    image: wisrovi/agy-edc:v1.2.0
+    volumes:
+      # - ./.git:/root/.git
+      - ./files:/root/files
+    command: bash -c "echo 'Welcome'"
