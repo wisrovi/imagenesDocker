@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  devpi:
+    image: muccg/devpi:latest
+    container_name: pypi_local
+    ports:
+      - "3141:3141"
+    volumes:
+      - devpi_data:/data
+    environment:
+      # Cambia esta contraseña. Se usará para el usuario 'root' en la interfaz web y CLI
+      - DEVPI_PASSWORD=TuContraseñaSegura123
+    restart: unless-stopped
+
+volumes:
+  devpi_data:
